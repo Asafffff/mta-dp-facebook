@@ -1,0 +1,31 @@
+' NOT UPDATED!
+@startuml
+' Classes
+class User
+
+class Post
+class Photos
+class Albums
+class Groups
+class Pages
+class Friends
+
+class FBApi
+
+' Heirarchy
+User o-- Post
+User o-- Albums
+User o-- Groups
+User o-- Pages
+User o-- Friends
+
+Albums o-- Photos
+
+Post *-- FBApi
+Albums *-- FBApi
+Groups *-- FBApi
+Pages *-- FBApi
+Friends *-- FBApi
+
+
+@enduml
