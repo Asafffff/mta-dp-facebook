@@ -33,12 +33,10 @@
             this.tabControlForm = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.linkLabelFetchNewsfeed = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.linkLabelFetchPhotos = new System.Windows.Forms.LinkLabel();
             this.labelBirthday = new System.Windows.Forms.Label();
             this.labelLivesIn = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
-            this.labelFriends = new System.Windows.Forms.Label();
             this.linkLabelFetchPosts = new System.Windows.Forms.LinkLabel();
             this.labelNewsFeed = new System.Windows.Forms.Label();
             this.listBoxNewsFeed = new System.Windows.Forms.ListBox();
@@ -51,9 +49,11 @@
             this.tabPagePostScheduling = new System.Windows.Forms.TabPage();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
+            this.labelPostStatus = new System.Windows.Forms.Label();
+            this.textBoxPostStatus = new System.Windows.Forms.TextBox();
+            this.buttonPostStatus = new System.Windows.Forms.Button();
             this.tabControlForm.SuspendLayout();
             this.tabPageMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabPagePostScheduling.SuspendLayout();
             this.SuspendLayout();
@@ -95,13 +95,14 @@
             // 
             // tabPageMain
             // 
+            this.tabPageMain.Controls.Add(this.buttonPostStatus);
+            this.tabPageMain.Controls.Add(this.textBoxPostStatus);
+            this.tabPageMain.Controls.Add(this.labelPostStatus);
             this.tabPageMain.Controls.Add(this.linkLabelFetchNewsfeed);
-            this.tabPageMain.Controls.Add(this.pictureBox1);
             this.tabPageMain.Controls.Add(this.linkLabelFetchPhotos);
             this.tabPageMain.Controls.Add(this.labelBirthday);
             this.tabPageMain.Controls.Add(this.labelLivesIn);
             this.tabPageMain.Controls.Add(this.labelName);
-            this.tabPageMain.Controls.Add(this.labelFriends);
             this.tabPageMain.Controls.Add(this.linkLabelFetchPosts);
             this.tabPageMain.Controls.Add(this.labelNewsFeed);
             this.tabPageMain.Controls.Add(this.listBoxNewsFeed);
@@ -134,14 +135,6 @@
             this.linkLabelFetchNewsfeed.TabStop = true;
             this.linkLabelFetchNewsfeed.Text = "Fetch";
             this.linkLabelFetchNewsfeed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchNewsfeed_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(20, 465);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(85, 85);
-            this.pictureBox1.TabIndex = 72;
-            this.pictureBox1.TabStop = false;
             // 
             // linkLabelFetchPhotos
             // 
@@ -180,16 +173,6 @@
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(0, 24);
             this.labelName.TabIndex = 65;
-            // 
-            // labelFriends
-            // 
-            this.labelFriends.AutoSize = true;
-            this.labelFriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFriends.Location = new System.Drawing.Point(570, 32);
-            this.labelFriends.Name = "labelFriends";
-            this.labelFriends.Size = new System.Drawing.Size(370, 42);
-            this.labelFriends.TabIndex = 64;
-            this.labelFriends.Text = "Friends birthdays list ";
             // 
             // linkLabelFetchPosts
             // 
@@ -309,6 +292,35 @@
             this.tabPageFriendApprover.Text = "Friend Approver";
             this.tabPageFriendApprover.UseVisualStyleBackColor = true;
             // 
+            // labelPostStatus
+            // 
+            this.labelPostStatus.AutoSize = true;
+            this.labelPostStatus.Font = new System.Drawing.Font("Candara", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPostStatus.Location = new System.Drawing.Point(325, 17);
+            this.labelPostStatus.Name = "labelPostStatus";
+            this.labelPostStatus.Size = new System.Drawing.Size(274, 35);
+            this.labelPostStatus.TabIndex = 74;
+            this.labelPostStatus.Text = "What\'s on your mind?";
+            // 
+            // textBoxPostStatus
+            // 
+            this.textBoxPostStatus.Location = new System.Drawing.Point(325, 55);
+            this.textBoxPostStatus.Name = "textBoxPostStatus";
+            this.textBoxPostStatus.Size = new System.Drawing.Size(714, 28);
+            this.textBoxPostStatus.TabIndex = 75;
+            // 
+            // buttonPostStatus
+            // 
+            this.buttonPostStatus.Enabled = false;
+            this.buttonPostStatus.Font = new System.Drawing.Font("Candara", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPostStatus.Location = new System.Drawing.Point(1054, 55);
+            this.buttonPostStatus.Name = "buttonPostStatus";
+            this.buttonPostStatus.Size = new System.Drawing.Size(141, 28);
+            this.buttonPostStatus.TabIndex = 76;
+            this.buttonPostStatus.Text = "Post";
+            this.buttonPostStatus.UseVisualStyleBackColor = true;
+            this.buttonPostStatus.Click += new System.EventHandler(this.buttonPostStatus_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -325,7 +337,6 @@
             this.tabControlForm.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.tabPageMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabPagePostScheduling.ResumeLayout(false);
             this.tabPagePostScheduling.PerformLayout();
@@ -349,15 +360,16 @@
         private System.Windows.Forms.Label labelNewsFeed;
         private System.Windows.Forms.ListBox listBoxNewsFeed;
         private System.Windows.Forms.LinkLabel linkLabelFetchPosts;
-        private System.Windows.Forms.Label labelFriends;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelBirthday;
         private System.Windows.Forms.Label labelLivesIn;
         private System.Windows.Forms.Label labelPostScheduling;
         private System.Windows.Forms.TabPage tabPageFriendApprover;
         private System.Windows.Forms.LinkLabel linkLabelFetchPhotos;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabelFetchNewsfeed;
+        private System.Windows.Forms.TextBox textBoxPostStatus;
+        private System.Windows.Forms.Label labelPostStatus;
+        private System.Windows.Forms.Button buttonPostStatus;
     }
 }
 

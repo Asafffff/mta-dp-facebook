@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures
         }
 
         FacebookWrapper.LoginResult m_LoginResult;
+        User m_User;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -29,6 +30,7 @@ namespace BasicFacebookFeatures
             {
                 login();
                 enableFetchLinkLabels();
+                enableButtons();
             }
         }
 
@@ -44,6 +46,16 @@ namespace BasicFacebookFeatures
             linkLabelFetchNewsfeed.Enabled = false;
             linkLabelFetchPosts.Enabled = false;
             linkLabelFetchPhotos.Enabled = false;
+        }
+
+        private void enableButtons()
+        {
+            buttonPostStatus.Enabled = true;
+        }
+
+        private void disableButtons()
+        {
+            buttonPostStatus.Enabled = false;
         }
 
         private void login()
@@ -82,6 +94,8 @@ namespace BasicFacebookFeatures
                 labelBirthday.Text = m_LoginResult.LoggedInUser.Birthday;
                 buttonLogin.Enabled = false;
                 buttonLogout.Enabled = true;
+
+                m_User = m_LoginResult.LoggedInUser;
             }
         }
 
@@ -91,15 +105,17 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
             m_LoginResult = null;
-            disableFetchLinkLabels();
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
+
+            disableFetchLinkLabels();
+            disableButtons();
         }
 
         private void fetchNewsFeed()
         {
             listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
-            listBoxNewsFeed.DataSource = m_LoginResult.LoggedInUser.NewsFeed;
+            listBoxNewsFeed.DataSource = m_User.NewsFeed;
             listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
 
             if (listBoxNewsFeed.Items.Count == 0)
@@ -167,7 +183,7 @@ namespace BasicFacebookFeatures
 
         private void fetchPhotos()
         {
-            FacebookObjectCollection<Album> albums = m_LoginResult.LoggedInUser.Albums;
+            FacebookObjectCollection<Album> albums = m_User.Albums;
             if (albums.Count == 0 || albums[0].Photos.Count == 0)
             {
                 MessageBox.Show("There are no albums or photos");
@@ -180,7 +196,7 @@ namespace BasicFacebookFeatures
             int spaceFromLabel = 30;
 
 
-            foreach (Photo photo in m_LoginResult.LoggedInUser.Albums[0].Photos.Take(6))
+            foreach (Photo photo in m_User.Albums[0].Photos.Take(6))
             {
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.Name = photo.Name;                
@@ -201,6 +217,30 @@ namespace BasicFacebookFeatures
                     j++;
                 }
             }
+        }
+
+        private void postStatus(string i_Text)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(i_Text))
+                {
+                    MessageBox.Show("Can not post an empty status!");
+                }
+                else
+                {
+                    m_User.PostStatus(i_Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void buttonPostStatus_Click(object sender, EventArgs e)
+        {
+            postStatus(textBoxPostStatus.Text);
+            textBoxPostStatus.Text = "";
         }
     }
 }
