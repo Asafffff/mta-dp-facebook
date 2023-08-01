@@ -32,6 +32,7 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControlForm = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.linkLabelFetchNewsfeed = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.linkLabelFetchPhotos = new System.Windows.Forms.LinkLabel();
             this.labelBirthday = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.tabPagePostScheduling = new System.Windows.Forms.TabPage();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
-            this.linkLabelFetchNewsfeed = new System.Windows.Forms.LinkLabel();
             this.tabControlForm.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -120,6 +120,20 @@
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Main";
             this.tabPageMain.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelFetchNewsfeed
+            // 
+            this.linkLabelFetchNewsfeed.AutoSize = true;
+            this.linkLabelFetchNewsfeed.Enabled = false;
+            this.linkLabelFetchNewsfeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabelFetchNewsfeed.LinkColor = System.Drawing.Color.Blue;
+            this.linkLabelFetchNewsfeed.Location = new System.Drawing.Point(432, 107);
+            this.linkLabelFetchNewsfeed.Name = "linkLabelFetchNewsfeed";
+            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(40, 16);
+            this.linkLabelFetchNewsfeed.TabIndex = 73;
+            this.linkLabelFetchNewsfeed.TabStop = true;
+            this.linkLabelFetchNewsfeed.Text = "Fetch";
+            this.linkLabelFetchNewsfeed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchNewsfeed_LinkClicked);
             // 
             // pictureBox1
             // 
@@ -212,7 +226,6 @@
             // 
             // labelPhotos
             // 
-            this.labelPhotos.AutoSize = true;
             this.labelPhotos.Location = new System.Drawing.Point(16, 438);
             this.labelPhotos.Name = "labelPhotos";
             this.labelPhotos.Size = new System.Drawing.Size(68, 24);
@@ -295,20 +308,6 @@
             this.tabPageFriendApprover.TabIndex = 2;
             this.tabPageFriendApprover.Text = "Friend Approver";
             this.tabPageFriendApprover.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelFetchNewsfeed
-            // 
-            this.linkLabelFetchNewsfeed.AutoSize = true;
-            this.linkLabelFetchNewsfeed.Enabled = false;
-            this.linkLabelFetchNewsfeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabelFetchNewsfeed.LinkColor = System.Drawing.Color.Blue;
-            this.linkLabelFetchNewsfeed.Location = new System.Drawing.Point(432, 107);
-            this.linkLabelFetchNewsfeed.Name = "linkLabelFetchNewsfeed";
-            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(40, 16);
-            this.linkLabelFetchNewsfeed.TabIndex = 73;
-            this.linkLabelFetchNewsfeed.TabStop = true;
-            this.linkLabelFetchNewsfeed.Text = "Fetch";
-            this.linkLabelFetchNewsfeed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchNewsfeed_LinkClicked);
             // 
             // FormMain
             // 

@@ -173,34 +173,34 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("There are no albums or photos");
             }
 
-            int i = 0;
+            int i = 0, j = 0;
 
-            int pictureBoxWidth = 85;
-            int pictureBoxLength = 85;
-            int spaceFromLabel = 27;
-
-            Photo photo = m_LoginResult.LoggedInUser.Albums[0].Photos[0];
-
-            // TODO: Fix this shit
-            // PictureBox pictureBox = new PictureBox();
-            // this.Controls.Add(pictureBox);
-            pictureBox1.Enabled = true;
-            pictureBox1.Visible = true;
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.Width = pictureBoxWidth;
-            pictureBox1.Height = pictureBoxLength;
-            pictureBox1.Left = labelPhotos.Left;
-            pictureBox1.Top = labelPhotos.Top + spaceFromLabel;
-            pictureBox1.ImageLocation = photo.PictureNormalURL;
+            int pictureBoxWidth = 77;
+            int pictureBoxLength = 77;
+            int spaceFromLabel = 30;
 
 
-            //foreach (Photo photo in m_LoginResult.LoggedInUser.Albums[0].Photos)
-            //{
-            //    PictureBox pictureBox = new PictureBox();
-            //    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            //    pictureBox.Location = new Point(labelPhotos.Left, labelPhotos.Top);
-            //    pictureBox.ImageLocation = photo.PictureNormalURL;
-            //}
+            foreach (Photo photo in m_LoginResult.LoggedInUser.Albums[0].Photos.Take(6))
+            {
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Name = photo.Name;                
+                pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
+                pictureBox.ImageLocation = photo.PictureNormalURL;
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                // TODO: Fix Location?
+                pictureBox.Location = new Point(labelPhotos.Left + 6 + i * (pictureBoxWidth + 18), labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
+
+                this.Controls.Add(pictureBox);
+
+                pictureBox.BringToFront();
+
+                i++;
+                if (i % 3 == 0)
+                {
+                    i = 0;
+                    j++;
+                }
+            }
         }
     }
 }
