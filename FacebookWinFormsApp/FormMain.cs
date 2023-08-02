@@ -1,26 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Threading.Tasks;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        private PostScheduler m_PostScheduler = new PostScheduler();
+        private FacebookWrapper.LoginResult m_LoginResult;
+        private User m_User;
+
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-        }
 
-        FacebookWrapper.LoginResult m_LoginResult;
-        User m_User;
+            listBoxScheduledPosts.DisplayMember = "Message";
+        }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -51,11 +51,13 @@ namespace BasicFacebookFeatures
         private void enableButtons()
         {
             buttonPostStatus.Enabled = true;
+            buttonPostSchedStatus.Enabled = true;
         }
 
         private void disableButtons()
         {
             buttonPostStatus.Enabled = false;
+            buttonPostSchedStatus.Enabled = false;
         }
 
         private void login()
@@ -232,15 +234,97 @@ namespace BasicFacebookFeatures
                     m_User.PostStatus(i_Text);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error posting status. Please try again");
             }
         }
+
         private void buttonPostStatus_Click(object sender, EventArgs e)
         {
             postStatus(textBoxPostStatus.Text);
             textBoxPostStatus.Text = "";
+        }
+
+        private void buttonPostSchedStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime selectedDateTime = dateTimePickerPostSchedStatus.Value;
+                ScheduledPost post = new ScheduledPost(textBoxPostSchedStatus.Text, selectedDateTime);
+                post.ScheduleTriggered += ScheduledPostTriggered;
+                post.ScheduleTriggered += removePostFromScheduler;
+                addPostToScheduler(post);
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (TaskSchedulerException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ScheduledPostTriggered(ScheduledPost i_Post)
+        {
+            postStatus(i_Post.Message);
+        }
+
+        private void addPostToScheduler(ScheduledPost i_Post)
+        {
+            if (m_PostScheduler.Count >= m_PostScheduler.MaxPosts)
+            {
+                MessageBox.Show($"You can only create up to {m_PostScheduler.MaxPosts} scheduled posts");
+                return;
+            }
+
+            m_PostScheduler.Schedule(i_Post);
+            createScheduledPostEntry(i_Post);
+        }
+
+        private void removePostFromScheduler(ScheduledPost i_Post)
+        {
+            listBoxScheduledPosts.Items.Remove(i_Post);
+            textBoxScheduledPostDetails.Text = "";
+            buttonScheduledPostRemove.Enabled = false;
+
+            m_PostScheduler.Cancel(i_Post);
+            removeScheduledPostEntry(i_Post);
+        }
+
+        private void createScheduledPostEntry(ScheduledPost i_Post)
+        {
+            listBoxScheduledPosts.Items.Add(i_Post);
+        }
+
+        private void removeScheduledPostEntry(ScheduledPost i_Post)
+        {
+            listBoxScheduledPosts.Items.Remove(i_Post);
+        }
+
+        private void listBoxScheduledPosts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
+
+            if (post != null)
+            {
+                buttonScheduledPostRemove.Enabled = true;
+                textBoxScheduledPostDetails.Text = $"Post ID: {post.Id}\r\n" +
+                $"Scheduled At: {post.ScheduledAt}\r\n" +
+                $"Message: \"{post.Message}\"";
+            }
+        }
+
+        private void buttonScheduledPostRemove_Click(object sender, EventArgs e)
+        {
+            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
+
+            if (post != null)
+            {
+                removePostFromScheduler(post);
+            }
+            
         }
     }
 }
