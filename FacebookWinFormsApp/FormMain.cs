@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
 {
@@ -83,7 +84,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "";
+            string accessToken = "EAATnZC2xG4w8BO9GBnuPK0vcZCJ3dh7IqvRKVchgGVyedqahslAtfQk5XoP7kLBDZC64lz6qa9sp1wzZCgxlyjaDAFySYZCrQHWxPp7keldEkJ35sAmeQUFpES07UyzM9aY6auNhnCB8AZAkzkx5Qt4i4AHZAE4ARxZCDiceeZAZC3tFcj2DwcZBZA9dtwiyZCeN7PDw2AVQZD";
             m_LoginResult = FacebookService.Connect(accessToken);
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
@@ -92,12 +93,13 @@ namespace BasicFacebookFeatures
                 buttonLogin.BackColor = Color.LightGreen;
                 pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
                 labelName.Text = m_LoginResult.LoggedInUser.Name;
-                labelLivesIn.Text = m_LoginResult.LoggedInUser.Location.Name;
+                //labelLivesIn.Text = m_LoginResult.LoggedInUser.Location.Name;
                 labelBirthday.Text = m_LoginResult.LoggedInUser.Birthday;
                 buttonLogin.Enabled = false;
                 buttonLogout.Enabled = true;
 
                 m_User = m_LoginResult.LoggedInUser;
+                
             }
         }
 
@@ -326,5 +328,12 @@ namespace BasicFacebookFeatures
             }
             
         }
+
+        private void buttonGetPagesStats_Click(object sender, EventArgs e)
+        {
+            PageStatistic pageStats = new PageStatistic();
+            pageStats.GetPageStatistic(m_User.LikedPages);
+        }
+
     }
 }

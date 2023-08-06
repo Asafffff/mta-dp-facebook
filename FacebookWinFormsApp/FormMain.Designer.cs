@@ -30,8 +30,11 @@
         {
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.tabControlForm = new System.Windows.Forms.TabControl();
+            this.tabFriendApprover = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.buttonPostStatus = new System.Windows.Forms.Button();
+            this.textBoxPostStatus = new System.Windows.Forms.TextBox();
+            this.labelPostStatus = new System.Windows.Forms.Label();
             this.linkLabelFetchNewsfeed = new System.Windows.Forms.LinkLabel();
             this.linkLabelFetchPhotos = new System.Windows.Forms.LinkLabel();
             this.labelBirthday = new System.Windows.Forms.Label();
@@ -47,22 +50,21 @@
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPagePostScheduling = new System.Windows.Forms.TabPage();
-            this.labelPostScheduling = new System.Windows.Forms.Label();
-            this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
-            this.labelPostStatus = new System.Windows.Forms.Label();
-            this.textBoxPostStatus = new System.Windows.Forms.TextBox();
-            this.buttonPostStatus = new System.Windows.Forms.Button();
-            this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
+            this.buttonScheduledPostRemove = new System.Windows.Forms.Button();
+            this.textBoxScheduledPostDetails = new System.Windows.Forms.TextBox();
+            this.listBoxScheduledPosts = new System.Windows.Forms.ListBox();
+            this.labelScheduledPosts = new System.Windows.Forms.Label();
             this.buttonPostSchedStatus = new System.Windows.Forms.Button();
             this.textBoxPostSchedStatus = new System.Windows.Forms.TextBox();
-            this.labelScheduledPosts = new System.Windows.Forms.Label();
-            this.listBoxScheduledPosts = new System.Windows.Forms.ListBox();
-            this.textBoxScheduledPostDetails = new System.Windows.Forms.TextBox();
-            this.buttonScheduledPostRemove = new System.Windows.Forms.Button();
-            this.tabControlForm.SuspendLayout();
+            this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
+            this.labelPostScheduling = new System.Windows.Forms.Label();
+            this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
+            this.buttonGetPagesStats = new System.Windows.Forms.Button();
+            this.tabFriendApprover.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabPagePostScheduling.SuspendLayout();
+            this.tabPageFriendApprover.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -88,17 +90,17 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // tabControlForm
+            // tabFriendApprover
             // 
-            this.tabControlForm.Controls.Add(this.tabPageMain);
-            this.tabControlForm.Controls.Add(this.tabPagePostScheduling);
-            this.tabControlForm.Controls.Add(this.tabPageFriendApprover);
-            this.tabControlForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlForm.Location = new System.Drawing.Point(0, 0);
-            this.tabControlForm.Name = "tabControlForm";
-            this.tabControlForm.SelectedIndex = 0;
-            this.tabControlForm.Size = new System.Drawing.Size(1243, 697);
-            this.tabControlForm.TabIndex = 54;
+            this.tabFriendApprover.Controls.Add(this.tabPageMain);
+            this.tabFriendApprover.Controls.Add(this.tabPagePostScheduling);
+            this.tabFriendApprover.Controls.Add(this.tabPageFriendApprover);
+            this.tabFriendApprover.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabFriendApprover.Location = new System.Drawing.Point(0, 0);
+            this.tabFriendApprover.Name = "tabFriendApprover";
+            this.tabFriendApprover.SelectedIndex = 0;
+            this.tabFriendApprover.Size = new System.Drawing.Size(1243, 697);
+            this.tabFriendApprover.TabIndex = 54;
             // 
             // tabPageMain
             // 
@@ -121,13 +123,42 @@
             this.tabPageMain.Controls.Add(this.pictureBoxProfile);
             this.tabPageMain.Controls.Add(this.buttonLogout);
             this.tabPageMain.Controls.Add(this.buttonLogin);
-            this.tabPageMain.Location = new System.Drawing.Point(4, 31);
+            this.tabPageMain.Location = new System.Drawing.Point(4, 35);
             this.tabPageMain.Name = "tabPageMain";
             this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMain.Size = new System.Drawing.Size(1235, 662);
+            this.tabPageMain.Size = new System.Drawing.Size(1235, 658);
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Main";
             this.tabPageMain.UseVisualStyleBackColor = true;
+            // 
+            // buttonPostStatus
+            // 
+            this.buttonPostStatus.Enabled = false;
+            this.buttonPostStatus.Font = new System.Drawing.Font("Candara", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPostStatus.Location = new System.Drawing.Point(1054, 55);
+            this.buttonPostStatus.Name = "buttonPostStatus";
+            this.buttonPostStatus.Size = new System.Drawing.Size(141, 28);
+            this.buttonPostStatus.TabIndex = 76;
+            this.buttonPostStatus.Text = "Post";
+            this.buttonPostStatus.UseVisualStyleBackColor = true;
+            this.buttonPostStatus.Click += new System.EventHandler(this.buttonPostStatus_Click);
+            // 
+            // textBoxPostStatus
+            // 
+            this.textBoxPostStatus.Location = new System.Drawing.Point(325, 55);
+            this.textBoxPostStatus.Name = "textBoxPostStatus";
+            this.textBoxPostStatus.Size = new System.Drawing.Size(714, 32);
+            this.textBoxPostStatus.TabIndex = 75;
+            // 
+            // labelPostStatus
+            // 
+            this.labelPostStatus.AutoSize = true;
+            this.labelPostStatus.Font = new System.Drawing.Font("Candara", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPostStatus.Location = new System.Drawing.Point(325, 17);
+            this.labelPostStatus.Name = "labelPostStatus";
+            this.labelPostStatus.Size = new System.Drawing.Size(320, 40);
+            this.labelPostStatus.TabIndex = 74;
+            this.labelPostStatus.Text = "What\'s on your mind?";
             // 
             // linkLabelFetchNewsfeed
             // 
@@ -137,7 +168,7 @@
             this.linkLabelFetchNewsfeed.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchNewsfeed.Location = new System.Drawing.Point(432, 107);
             this.linkLabelFetchNewsfeed.Name = "linkLabelFetchNewsfeed";
-            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(40, 16);
+            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(50, 20);
             this.linkLabelFetchNewsfeed.TabIndex = 73;
             this.linkLabelFetchNewsfeed.TabStop = true;
             this.linkLabelFetchNewsfeed.Text = "Fetch";
@@ -151,7 +182,7 @@
             this.linkLabelFetchPhotos.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchPhotos.Location = new System.Drawing.Point(96, 443);
             this.linkLabelFetchPhotos.Name = "linkLabelFetchPhotos";
-            this.linkLabelFetchPhotos.Size = new System.Drawing.Size(40, 16);
+            this.linkLabelFetchPhotos.Size = new System.Drawing.Size(50, 20);
             this.linkLabelFetchPhotos.TabIndex = 68;
             this.linkLabelFetchPhotos.TabStop = true;
             this.linkLabelFetchPhotos.Text = "Fetch";
@@ -162,7 +193,7 @@
             this.labelBirthday.AutoSize = true;
             this.labelBirthday.Location = new System.Drawing.Point(104, 145);
             this.labelBirthday.Name = "labelBirthday";
-            this.labelBirthday.Size = new System.Drawing.Size(0, 24);
+            this.labelBirthday.Size = new System.Drawing.Size(0, 26);
             this.labelBirthday.TabIndex = 67;
             // 
             // labelLivesIn
@@ -170,7 +201,7 @@
             this.labelLivesIn.AutoSize = true;
             this.labelLivesIn.Location = new System.Drawing.Point(104, 121);
             this.labelLivesIn.Name = "labelLivesIn";
-            this.labelLivesIn.Size = new System.Drawing.Size(0, 24);
+            this.labelLivesIn.Size = new System.Drawing.Size(0, 26);
             this.labelLivesIn.TabIndex = 66;
             // 
             // labelName
@@ -178,7 +209,7 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(104, 97);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(0, 24);
+            this.labelName.Size = new System.Drawing.Size(0, 26);
             this.labelName.TabIndex = 65;
             // 
             // linkLabelFetchPosts
@@ -189,7 +220,7 @@
             this.linkLabelFetchPosts.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchPosts.Location = new System.Drawing.Point(77, 220);
             this.linkLabelFetchPosts.Name = "linkLabelFetchPosts";
-            this.linkLabelFetchPosts.Size = new System.Drawing.Size(40, 16);
+            this.linkLabelFetchPosts.Size = new System.Drawing.Size(50, 20);
             this.linkLabelFetchPosts.TabIndex = 63;
             this.linkLabelFetchPosts.TabStop = true;
             this.linkLabelFetchPosts.Text = "Fetch";
@@ -200,14 +231,14 @@
             this.labelNewsFeed.AutoSize = true;
             this.labelNewsFeed.Location = new System.Drawing.Point(318, 102);
             this.labelNewsFeed.Name = "labelNewsFeed";
-            this.labelNewsFeed.Size = new System.Drawing.Size(108, 24);
+            this.labelNewsFeed.Size = new System.Drawing.Size(122, 26);
             this.labelNewsFeed.TabIndex = 62;
             this.labelNewsFeed.Text = "News Feed";
             // 
             // listBoxNewsFeed
             // 
             this.listBoxNewsFeed.FormattingEnabled = true;
-            this.listBoxNewsFeed.ItemHeight = 22;
+            this.listBoxNewsFeed.ItemHeight = 26;
             this.listBoxNewsFeed.Location = new System.Drawing.Point(322, 132);
             this.listBoxNewsFeed.Name = "listBoxNewsFeed";
             this.listBoxNewsFeed.Size = new System.Drawing.Size(873, 290);
@@ -227,7 +258,7 @@
             this.labelComments.AutoSize = true;
             this.labelComments.Location = new System.Drawing.Point(318, 438);
             this.labelComments.Name = "labelComments";
-            this.labelComments.Size = new System.Drawing.Size(101, 24);
+            this.labelComments.Size = new System.Drawing.Size(119, 26);
             this.labelComments.TabIndex = 59;
             this.labelComments.Text = "Comments";
             // 
@@ -236,26 +267,26 @@
             this.labelPosts.AutoSize = true;
             this.labelPosts.Location = new System.Drawing.Point(16, 215);
             this.labelPosts.Name = "labelPosts";
-            this.labelPosts.Size = new System.Drawing.Size(55, 24);
+            this.labelPosts.Size = new System.Drawing.Size(67, 26);
             this.labelPosts.TabIndex = 58;
             this.labelPosts.Text = "Posts";
             // 
             // listBoxComments
             // 
             this.listBoxComments.FormattingEnabled = true;
-            this.listBoxComments.ItemHeight = 22;
+            this.listBoxComments.ItemHeight = 26;
             this.listBoxComments.Location = new System.Drawing.Point(322, 465);
             this.listBoxComments.Name = "listBoxComments";
-            this.listBoxComments.Size = new System.Drawing.Size(873, 180);
+            this.listBoxComments.Size = new System.Drawing.Size(873, 160);
             this.listBoxComments.TabIndex = 57;
             // 
             // listBoxPosts
             // 
             this.listBoxPosts.FormattingEnabled = true;
-            this.listBoxPosts.ItemHeight = 22;
+            this.listBoxPosts.ItemHeight = 26;
             this.listBoxPosts.Location = new System.Drawing.Point(20, 242);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(266, 180);
+            this.listBoxPosts.Size = new System.Drawing.Size(266, 160);
             this.listBoxPosts.TabIndex = 56;
             this.listBoxPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxPosts_SelectedIndexChanged);
             // 
@@ -279,71 +310,54 @@
             this.tabPagePostScheduling.Controls.Add(this.textBoxPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.dateTimePickerPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.labelPostScheduling);
-            this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 31);
+            this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 35);
             this.tabPagePostScheduling.Name = "tabPagePostScheduling";
             this.tabPagePostScheduling.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePostScheduling.Size = new System.Drawing.Size(1235, 662);
+            this.tabPagePostScheduling.Size = new System.Drawing.Size(1235, 658);
             this.tabPagePostScheduling.TabIndex = 1;
             this.tabPagePostScheduling.Text = "Post Scheduling";
             this.tabPagePostScheduling.UseVisualStyleBackColor = true;
             // 
-            // labelPostScheduling
+            // buttonScheduledPostRemove
             // 
-            this.labelPostScheduling.AutoSize = true;
-            this.labelPostScheduling.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPostScheduling.Location = new System.Drawing.Point(3, 13);
-            this.labelPostScheduling.Name = "labelPostScheduling";
-            this.labelPostScheduling.Size = new System.Drawing.Size(462, 69);
-            this.labelPostScheduling.TabIndex = 0;
-            this.labelPostScheduling.Text = "Post Scheduling";
+            this.buttonScheduledPostRemove.Enabled = false;
+            this.buttonScheduledPostRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonScheduledPostRemove.Location = new System.Drawing.Point(996, 246);
+            this.buttonScheduledPostRemove.Name = "buttonScheduledPostRemove";
+            this.buttonScheduledPostRemove.Size = new System.Drawing.Size(141, 29);
+            this.buttonScheduledPostRemove.TabIndex = 82;
+            this.buttonScheduledPostRemove.Text = "Remove";
+            this.buttonScheduledPostRemove.UseVisualStyleBackColor = true;
+            this.buttonScheduledPostRemove.Click += new System.EventHandler(this.buttonScheduledPostRemove_Click);
             // 
-            // tabPageFriendApprover
+            // textBoxScheduledPostDetails
             // 
-            this.tabPageFriendApprover.Location = new System.Drawing.Point(4, 31);
-            this.tabPageFriendApprover.Name = "tabPageFriendApprover";
-            this.tabPageFriendApprover.Size = new System.Drawing.Size(1235, 662);
-            this.tabPageFriendApprover.TabIndex = 2;
-            this.tabPageFriendApprover.Text = "Friend Approver";
-            this.tabPageFriendApprover.UseVisualStyleBackColor = true;
+            this.textBoxScheduledPostDetails.Location = new System.Drawing.Point(501, 246);
+            this.textBoxScheduledPostDetails.Multiline = true;
+            this.textBoxScheduledPostDetails.Name = "textBoxScheduledPostDetails";
+            this.textBoxScheduledPostDetails.ReadOnly = true;
+            this.textBoxScheduledPostDetails.Size = new System.Drawing.Size(480, 224);
+            this.textBoxScheduledPostDetails.TabIndex = 81;
             // 
-            // labelPostStatus
+            // listBoxScheduledPosts
             // 
-            this.labelPostStatus.AutoSize = true;
-            this.labelPostStatus.Font = new System.Drawing.Font("Candara", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPostStatus.Location = new System.Drawing.Point(325, 17);
-            this.labelPostStatus.Name = "labelPostStatus";
-            this.labelPostStatus.Size = new System.Drawing.Size(274, 35);
-            this.labelPostStatus.TabIndex = 74;
-            this.labelPostStatus.Text = "What\'s on your mind?";
+            this.listBoxScheduledPosts.FormattingEnabled = true;
+            this.listBoxScheduledPosts.ItemHeight = 26;
+            this.listBoxScheduledPosts.Location = new System.Drawing.Point(18, 246);
+            this.listBoxScheduledPosts.Name = "listBoxScheduledPosts";
+            this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 212);
+            this.listBoxScheduledPosts.TabIndex = 80;
+            this.listBoxScheduledPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxScheduledPosts_SelectedIndexChanged);
             // 
-            // textBoxPostStatus
+            // labelScheduledPosts
             // 
-            this.textBoxPostStatus.Location = new System.Drawing.Point(325, 55);
-            this.textBoxPostStatus.Name = "textBoxPostStatus";
-            this.textBoxPostStatus.Size = new System.Drawing.Size(714, 28);
-            this.textBoxPostStatus.TabIndex = 75;
-            // 
-            // buttonPostStatus
-            // 
-            this.buttonPostStatus.Enabled = false;
-            this.buttonPostStatus.Font = new System.Drawing.Font("Candara", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPostStatus.Location = new System.Drawing.Point(1054, 55);
-            this.buttonPostStatus.Name = "buttonPostStatus";
-            this.buttonPostStatus.Size = new System.Drawing.Size(141, 28);
-            this.buttonPostStatus.TabIndex = 76;
-            this.buttonPostStatus.Text = "Post";
-            this.buttonPostStatus.UseVisualStyleBackColor = true;
-            this.buttonPostStatus.Click += new System.EventHandler(this.buttonPostStatus_Click);
-            // 
-            // dateTimePickerPostSchedStatus
-            // 
-            this.dateTimePickerPostSchedStatus.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
-            this.dateTimePickerPostSchedStatus.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerPostSchedStatus.Location = new System.Drawing.Point(744, 94);
-            this.dateTimePickerPostSchedStatus.Name = "dateTimePickerPostSchedStatus";
-            this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 28);
-            this.dateTimePickerPostSchedStatus.TabIndex = 1;
-            this.dateTimePickerPostSchedStatus.Value = new System.DateTime(2023, 8, 1, 0, 0, 0, 0);
+            this.labelScheduledPosts.AutoSize = true;
+            this.labelScheduledPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelScheduledPosts.Location = new System.Drawing.Point(11, 180);
+            this.labelScheduledPosts.Name = "labelScheduledPosts";
+            this.labelScheduledPosts.Size = new System.Drawing.Size(361, 52);
+            this.labelScheduledPosts.TabIndex = 79;
+            this.labelScheduledPosts.Text = "Scheduled Posts";
             // 
             // buttonPostSchedStatus
             // 
@@ -360,56 +374,56 @@
             // 
             this.textBoxPostSchedStatus.Location = new System.Drawing.Point(15, 94);
             this.textBoxPostSchedStatus.Name = "textBoxPostSchedStatus";
-            this.textBoxPostSchedStatus.Size = new System.Drawing.Size(714, 28);
+            this.textBoxPostSchedStatus.Size = new System.Drawing.Size(714, 32);
             this.textBoxPostSchedStatus.TabIndex = 77;
             // 
-            // labelScheduledPosts
+            // dateTimePickerPostSchedStatus
             // 
-            this.labelScheduledPosts.AutoSize = true;
-            this.labelScheduledPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScheduledPosts.Location = new System.Drawing.Point(11, 180);
-            this.labelScheduledPosts.Name = "labelScheduledPosts";
-            this.labelScheduledPosts.Size = new System.Drawing.Size(300, 42);
-            this.labelScheduledPosts.TabIndex = 79;
-            this.labelScheduledPosts.Text = "Scheduled Posts";
+            this.dateTimePickerPostSchedStatus.CustomFormat = "dd/MM/yyyy hh:mm:ss tt";
+            this.dateTimePickerPostSchedStatus.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerPostSchedStatus.Location = new System.Drawing.Point(744, 94);
+            this.dateTimePickerPostSchedStatus.Name = "dateTimePickerPostSchedStatus";
+            this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 32);
+            this.dateTimePickerPostSchedStatus.TabIndex = 1;
+            this.dateTimePickerPostSchedStatus.Value = new System.DateTime(2023, 8, 1, 0, 0, 0, 0);
             // 
-            // listBoxScheduledPosts
+            // labelPostScheduling
             // 
-            this.listBoxScheduledPosts.FormattingEnabled = true;
-            this.listBoxScheduledPosts.ItemHeight = 22;
-            this.listBoxScheduledPosts.Location = new System.Drawing.Point(18, 246);
-            this.listBoxScheduledPosts.Name = "listBoxScheduledPosts";
-            this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 224);
-            this.listBoxScheduledPosts.TabIndex = 80;
-            this.listBoxScheduledPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxScheduledPosts_SelectedIndexChanged);
+            this.labelPostScheduling.AutoSize = true;
+            this.labelPostScheduling.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPostScheduling.Location = new System.Drawing.Point(3, 13);
+            this.labelPostScheduling.Name = "labelPostScheduling";
+            this.labelPostScheduling.Size = new System.Drawing.Size(556, 82);
+            this.labelPostScheduling.TabIndex = 0;
+            this.labelPostScheduling.Text = "Post Scheduling";
             // 
-            // textBoxScheduledPostDetails
+            // tabPageFriendApprover
             // 
-            this.textBoxScheduledPostDetails.Location = new System.Drawing.Point(501, 246);
-            this.textBoxScheduledPostDetails.Multiline = true;
-            this.textBoxScheduledPostDetails.Name = "textBoxScheduledPostDetails";
-            this.textBoxScheduledPostDetails.ReadOnly = true;
-            this.textBoxScheduledPostDetails.Size = new System.Drawing.Size(480, 224);
-            this.textBoxScheduledPostDetails.TabIndex = 81;
+            this.tabPageFriendApprover.Controls.Add(this.buttonGetPagesStats);
+            this.tabPageFriendApprover.Location = new System.Drawing.Point(4, 35);
+            this.tabPageFriendApprover.Name = "tabPageFriendApprover";
+            this.tabPageFriendApprover.Size = new System.Drawing.Size(1235, 658);
+            this.tabPageFriendApprover.TabIndex = 2;
+            this.tabPageFriendApprover.Text = "Friend Approver";
+            this.tabPageFriendApprover.UseVisualStyleBackColor = true;
             // 
-            // buttonScheduledPostRemove
+            // buttonGetPagesStats
             // 
-            this.buttonScheduledPostRemove.Enabled = false;
-            this.buttonScheduledPostRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonScheduledPostRemove.Location = new System.Drawing.Point(996, 246);
-            this.buttonScheduledPostRemove.Name = "buttonScheduledPostRemove";
-            this.buttonScheduledPostRemove.Size = new System.Drawing.Size(141, 29);
-            this.buttonScheduledPostRemove.TabIndex = 82;
-            this.buttonScheduledPostRemove.Text = "Remove";
-            this.buttonScheduledPostRemove.UseVisualStyleBackColor = true;
-            this.buttonScheduledPostRemove.Click += new System.EventHandler(this.buttonScheduledPostRemove_Click);
+            this.buttonGetPagesStats.Location = new System.Drawing.Point(9, 29);
+            this.buttonGetPagesStats.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGetPagesStats.Name = "buttonGetPagesStats";
+            this.buttonGetPagesStats.Size = new System.Drawing.Size(268, 32);
+            this.buttonGetPagesStats.TabIndex = 37;
+            this.buttonGetPagesStats.Text = "GetPagesStats";
+            this.buttonGetPagesStats.UseVisualStyleBackColor = true;
+            this.buttonGetPagesStats.Click += new System.EventHandler(this.buttonGetPagesStats_Click);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 697);
-            this.Controls.Add(this.tabControlForm);
+            this.Controls.Add(this.tabFriendApprover);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -417,12 +431,13 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.tabControlForm.ResumeLayout(false);
+            this.tabFriendApprover.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.tabPageMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabPagePostScheduling.ResumeLayout(false);
             this.tabPagePostScheduling.PerformLayout();
+            this.tabPageFriendApprover.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -431,7 +446,7 @@
 
 		private System.Windows.Forms.Button buttonLogin;
 		private System.Windows.Forms.Button buttonLogout;
-		private System.Windows.Forms.TabControl tabControlForm;
+		private System.Windows.Forms.TabControl tabFriendApprover;
 		private System.Windows.Forms.TabPage tabPageMain;
 		private System.Windows.Forms.TabPage tabPagePostScheduling;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
@@ -460,6 +475,7 @@
         private System.Windows.Forms.ListBox listBoxScheduledPosts;
         private System.Windows.Forms.TextBox textBoxScheduledPostDetails;
         private System.Windows.Forms.Button buttonScheduledPostRemove;
+        private System.Windows.Forms.Button buttonGetPagesStats;
     }
 }
 
