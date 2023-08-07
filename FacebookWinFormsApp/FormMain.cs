@@ -6,6 +6,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
@@ -14,7 +15,8 @@ namespace BasicFacebookFeatures
         private PostScheduler m_PostScheduler = new PostScheduler();
         private FacebookWrapper.LoginResult m_LoginResult;
         private User m_User;
-
+        private PageStatistic pageStats = new PageStatistic();
+        
         public FormMain()
         {
             InitializeComponent();
@@ -332,8 +334,47 @@ namespace BasicFacebookFeatures
         private void buttonGetPagesStats_Click(object sender, EventArgs e)
         {
             PageStatistic pageStats = new PageStatistic();
-            pageStats.GetPageStatistic(m_User.LikedPages);
+            PageStatistic a = pageStats.GetPageStatistic();
+            //pageStats.GetPageStatistic(m_User.LikedPages);
         }
 
+        private void chartCategories_Load(object sender, EventArgs e)
+        {
+            Series series = chartCategories.Series["Series1"];
+            PageStatistic a = pageStats.GetPageStatistic();
+
+            foreach (var kvp in a.Categories)
+            {
+                series.Points.AddXY(kvp.Key, kvp.Value);
+            }
+        }
+
+        private void IsPublishedTextBox_Click(object sender, EventArgs e)
+        {
+            PageStatistic a = pageStats.GetPageStatistic();
+
+            IsPublishedTextBox.Text = $@"There Are 
+{a.NumberOfPublishedPages} Published Pages 
+//change to real number
+ unPublished Pages ";
+
+        }
+
+      
+
+        private void CummunityTextBox_Click(object sender, EventArgs e)
+        {
+            PageStatistic a = pageStats.GetPageStatistic();
+
+            IsCummunityTextBox.Text = $@"There Are 
+{a.NumberOfComunityPages} Cummunity Pages 
+//change to real number
+ unCummunity Pages ";
+        }
+
+        private void listTopCheckinPages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //list.Items.Add("Hello, my name is Alice and I am 30 years old.");
+        }
     }
 }

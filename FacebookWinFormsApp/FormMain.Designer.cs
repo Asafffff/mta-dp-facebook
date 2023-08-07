@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabFriendApprover = new System.Windows.Forms.TabControl();
@@ -59,12 +62,17 @@
             this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
+            this.IsCummunityTextBox = new System.Windows.Forms.RichTextBox();
+            this.IsPublishedTextBox = new System.Windows.Forms.RichTextBox();
+            this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonGetPagesStats = new System.Windows.Forms.Button();
+            this.listTopCheckinPages = new System.Windows.Forms.ListView();
             this.tabFriendApprover.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabPagePostScheduling.SuspendLayout();
             this.tabPageFriendApprover.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCategories)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -399,13 +407,61 @@
             // 
             // tabPageFriendApprover
             // 
+            this.tabPageFriendApprover.Controls.Add(this.listTopCheckinPages);
+            this.tabPageFriendApprover.Controls.Add(this.IsCummunityTextBox);
+            this.tabPageFriendApprover.Controls.Add(this.IsPublishedTextBox);
+            this.tabPageFriendApprover.Controls.Add(this.chartCategories);
             this.tabPageFriendApprover.Controls.Add(this.buttonGetPagesStats);
             this.tabPageFriendApprover.Location = new System.Drawing.Point(4, 35);
             this.tabPageFriendApprover.Name = "tabPageFriendApprover";
             this.tabPageFriendApprover.Size = new System.Drawing.Size(1235, 658);
             this.tabPageFriendApprover.TabIndex = 2;
-            this.tabPageFriendApprover.Text = "Friend Approver";
+            this.tabPageFriendApprover.Text = "GetPagerStats";
             this.tabPageFriendApprover.UseVisualStyleBackColor = true;
+            // 
+            // IsCummunityTextBox
+            // 
+            this.IsCummunityTextBox.BackColor = System.Drawing.Color.Coral;
+            this.IsCummunityTextBox.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IsCummunityTextBox.Location = new System.Drawing.Point(819, 303);
+            this.IsCummunityTextBox.Name = "IsCummunityTextBox";
+            this.IsCummunityTextBox.Size = new System.Drawing.Size(380, 238);
+            this.IsCummunityTextBox.TabIndex = 40;
+            this.IsCummunityTextBox.Text = "";
+            this.IsCummunityTextBox.Click += new System.EventHandler(this.CummunityTextBox_Click);
+            // 
+            // IsPublishedTextBox
+            // 
+            this.IsPublishedTextBox.BackColor = System.Drawing.Color.IndianRed;
+            this.IsPublishedTextBox.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IsPublishedTextBox.Location = new System.Drawing.Point(819, 20);
+            this.IsPublishedTextBox.Name = "IsPublishedTextBox";
+            this.IsPublishedTextBox.Size = new System.Drawing.Size(380, 238);
+            this.IsPublishedTextBox.TabIndex = 39;
+            this.IsPublishedTextBox.Text = "";
+            this.IsPublishedTextBox.Click += new System.EventHandler(this.IsPublishedTextBox_Click);
+            // 
+            // chartCategories
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea1);
+            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend1.IsDockedInsideChartArea = false;
+            legend1.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend1);
+            this.chartCategories.Location = new System.Drawing.Point(486, 154);
+            this.chartCategories.Name = "chartCategories";
+            this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCategories.Series.Add(series1);
+            this.chartCategories.Size = new System.Drawing.Size(300, 300);
+            this.chartCategories.TabIndex = 38;
+            this.chartCategories.Text = "Categories";
+            this.chartCategories.Click += new System.EventHandler(this.chartCategories_Load);
             // 
             // buttonGetPagesStats
             // 
@@ -417,6 +473,17 @@
             this.buttonGetPagesStats.Text = "GetPagesStats";
             this.buttonGetPagesStats.UseVisualStyleBackColor = true;
             this.buttonGetPagesStats.Click += new System.EventHandler(this.buttonGetPagesStats_Click);
+            // 
+            // listTopCheckinPages
+            // 
+            this.listTopCheckinPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listTopCheckinPages.HideSelection = false;
+            this.listTopCheckinPages.Location = new System.Drawing.Point(0, 78);
+            this.listTopCheckinPages.Name = "listTopCheckinPages";
+            this.listTopCheckinPages.Size = new System.Drawing.Size(342, 191);
+            this.listTopCheckinPages.TabIndex = 41;
+            this.listTopCheckinPages.UseCompatibleStateImageBehavior = false;
+            this.listTopCheckinPages.SelectedIndexChanged += new System.EventHandler(this.listTopCheckinPages_SelectedIndexChanged);
             // 
             // FormMain
             // 
@@ -438,6 +505,7 @@
             this.tabPagePostScheduling.ResumeLayout(false);
             this.tabPagePostScheduling.PerformLayout();
             this.tabPageFriendApprover.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartCategories)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -476,6 +544,10 @@
         private System.Windows.Forms.TextBox textBoxScheduledPostDetails;
         private System.Windows.Forms.Button buttonScheduledPostRemove;
         private System.Windows.Forms.Button buttonGetPagesStats;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCategories;
+        private System.Windows.Forms.RichTextBox IsPublishedTextBox;
+        private System.Windows.Forms.RichTextBox IsCummunityTextBox;
+        private System.Windows.Forms.ListView listTopCheckinPages;
     }
 }
 
