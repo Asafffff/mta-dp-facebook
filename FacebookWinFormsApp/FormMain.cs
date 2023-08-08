@@ -86,7 +86,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "EAATnZC2xG4w8BO9GBnuPK0vcZCJ3dh7IqvRKVchgGVyedqahslAtfQk5XoP7kLBDZC64lz6qa9sp1wzZCgxlyjaDAFySYZCrQHWxPp7keldEkJ35sAmeQUFpES07UyzM9aY6auNhnCB8AZAkzkx5Qt4i4AHZAE4ARxZCDiceeZAZC3tFcj2DwcZBZA9dtwiyZCeN7PDw2AVQZD";
+            string accessToken = "EAATnZC2xG4w8BO4G2FKlXKvo7BZBag3wXZBBo6XJctre4d4QRA4qJTSPSU1ctdSOZBnBObQ4ZB3mlcEr9ty2YRePEGQpMFxZAtEkcjcv2pBAJt2rP4zA6TZByFyHZA8ZCZBxIIrvEgYerh2XP1DHG17ZAe69wpooxArX51sJOFFTv3TdIVDVFya8IRbRd6ZBwTIGq4tZB4SFZA1xZBq4qIv5p7eqHT0A4jkvsZBDdTTyhozhCwZDZD";
             m_LoginResult = FacebookService.Connect(accessToken);
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
@@ -372,9 +372,14 @@ namespace BasicFacebookFeatures
  unCummunity Pages ";
         }
 
-        private void listTopCheckinPages_SelectedIndexChanged(object sender, EventArgs e)
+        private void listTopCheckinPages_MouseDown(object sender, MouseEventArgs e)
         {
-            //list.Items.Add("Hello, my name is Alice and I am 30 years old.");
+            PageStatistic a = pageStats.GetPageStatistic();
+
+            foreach (var page in a.Top4MostCheckinPages)
+            {
+                listTopCheckinPages.Items.Add(page.Name);
+            }
         }
     }
 }

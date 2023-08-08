@@ -62,11 +62,11 @@
             this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
+            this.listTopCheckinPages = new System.Windows.Forms.ListView();
             this.IsCummunityTextBox = new System.Windows.Forms.RichTextBox();
             this.IsPublishedTextBox = new System.Windows.Forms.RichTextBox();
             this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonGetPagesStats = new System.Windows.Forms.Button();
-            this.listTopCheckinPages = new System.Windows.Forms.ListView();
             this.tabFriendApprover.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -419,6 +419,17 @@
             this.tabPageFriendApprover.Text = "GetPagerStats";
             this.tabPageFriendApprover.UseVisualStyleBackColor = true;
             // 
+            // listTopCheckinPages
+            // 
+            this.listTopCheckinPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listTopCheckinPages.HideSelection = false;
+            this.listTopCheckinPages.Location = new System.Drawing.Point(0, 78);
+            this.listTopCheckinPages.Name = "listTopCheckinPages";
+            this.listTopCheckinPages.Size = new System.Drawing.Size(342, 191);
+            this.listTopCheckinPages.TabIndex = 41;
+            this.listTopCheckinPages.UseCompatibleStateImageBehavior = false;
+            this.listTopCheckinPages.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listTopCheckinPages_MouseDown);
+            // 
             // IsCummunityTextBox
             // 
             this.IsCummunityTextBox.BackColor = System.Drawing.Color.Coral;
@@ -473,17 +484,6 @@
             this.buttonGetPagesStats.Text = "GetPagesStats";
             this.buttonGetPagesStats.UseVisualStyleBackColor = true;
             this.buttonGetPagesStats.Click += new System.EventHandler(this.buttonGetPagesStats_Click);
-            // 
-            // listTopCheckinPages
-            // 
-            this.listTopCheckinPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listTopCheckinPages.HideSelection = false;
-            this.listTopCheckinPages.Location = new System.Drawing.Point(0, 78);
-            this.listTopCheckinPages.Name = "listTopCheckinPages";
-            this.listTopCheckinPages.Size = new System.Drawing.Size(342, 191);
-            this.listTopCheckinPages.TabIndex = 41;
-            this.listTopCheckinPages.UseCompatibleStateImageBehavior = false;
-            this.listTopCheckinPages.SelectedIndexChanged += new System.EventHandler(this.listTopCheckinPages_SelectedIndexChanged);
             // 
             // FormMain
             // 
