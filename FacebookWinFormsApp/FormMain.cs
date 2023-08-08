@@ -333,7 +333,7 @@ namespace BasicFacebookFeatures
 
        
 
-        private void addDataTochartCategories()
+        private void addDataToChartCategories()
         {
             Series series = chartCategories.Series["Series1"];
             foreach (var kvp in m_PagesStats.Categories)
@@ -351,15 +351,15 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
         }
 
-        private void addTextToCummunityTextBox()
+        private void addTextToCommunityTextBox()
         {
    IsCummunityTextBox.Text = $@"There Are 
-{m_PagesStats.NumberOfComunityPages} Cummunity Pages 
+{m_PagesStats.NumberOfCommunityPages} Community Pages 
 and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
- unCummunity Pages ";
+ Community Pages ";
         }
 
-        private void addItemsToListTopCheckinPages()
+        private void addItemsToListTopChecknPages()
         {
             foreach (var page in m_PagesStats.Top4MostCheckInPages)
             {
@@ -396,11 +396,11 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
                 if (listTopCheckinPages.Items.Count == 0)
                 {
                     m_PagesStats = m_PagesStats.GetPageStatistic(m_User.LikedPages);
-                    addItemsToListTopCheckinPages();
+                    addItemsToListTopChecknPages();
                     addItemsToListTopLikedPages();
-                    addTextToCummunityTextBox();
+                    addTextToCommunityTextBox();
                     addTextToIsPublishedTextBox();
-                    addDataTochartCategories();
+                    addDataToChartCategories();
                 }
             }
         }

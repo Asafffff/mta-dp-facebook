@@ -22,10 +22,10 @@ namespace BasicFacebookFeatures
             Top4MostLikedPages = new FacebookObjectCollection<Page>();
             Categories = new Dictionary<string, int>();
         }
-        public PageStatistic GetPageStatistic(FacebookObjectCollection<Page> likedPages)
+        public PageStatistic GetPageStatistic(FacebookObjectCollection<Page> i_LikedPages)
         {
 
-            foreach (Page page in likedPages)
+            foreach (Page page in i_LikedPages)
             {
                 if (page.IsPublished == true)
                 {
@@ -33,13 +33,13 @@ namespace BasicFacebookFeatures
                 }
                 if (page.IsCommunityPage == true)
                 {
-                    NumberOfComunityPages++;
+                    NumberOfCommunityPages++;
                 }
                 updateCategories(page);
 
             }
-            updateTop4MostLikedPages(likedPages);
-            updateTop4MostCheckinPages(likedPages);
+            updateTop4MostLikedPages(i_LikedPages);
+            updateTop4MostCheckinPages(i_LikedPages);
             return this;
         }
 
@@ -57,12 +57,12 @@ namespace BasicFacebookFeatures
                 }
         }
 
-        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> likedPages)
+        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> i_LikedPages)
         {
-            likedPages.OrderByDescending(ob => ob.LikesCount);
-            for (int i = PagesCollectionSize-1; i >= PagesCollectionSize-4 && i < likedPages.Count; i--)
+            i_LikedPages.OrderByDescending(ob => ob.LikesCount);
+            for (int i = PagesCollectionSize-1; i >= PagesCollectionSize-4 && i < i_LikedPages.Count; i--)
             {
-                Top4MostLikedPages.Add(likedPages[i]);
+                Top4MostLikedPages.Add(i_LikedPages[i]);
             }
 
         }
