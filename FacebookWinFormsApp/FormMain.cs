@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures
         private PostScheduler m_PostScheduler = new PostScheduler();
         private FacebookWrapper.LoginResult m_LoginResult;
         private User m_User;
-        private PageStatistic pageStats = new PageStatistic();
+        private PageStatistic m_PagesStats = new PageStatistic();
         
         public FormMain()
         {
@@ -95,7 +95,7 @@ namespace BasicFacebookFeatures
                 buttonLogin.BackColor = Color.LightGreen;
                 pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
                 labelName.Text = m_LoginResult.LoggedInUser.Name;
-                //labelLivesIn.Text = m_LoginResult.LoggedInUser.Location.Name;
+                labelLivesIn.Text = m_LoginResult.LoggedInUser.Location.Name;
                 labelBirthday.Text = m_LoginResult.LoggedInUser.Birthday;
                 buttonLogin.Enabled = false;
                 buttonLogout.Enabled = true;
@@ -331,55 +331,79 @@ namespace BasicFacebookFeatures
             
         }
 
-        private void buttonGetPagesStats_Click(object sender, EventArgs e)
-        {
-            PageStatistic pageStats = new PageStatistic();
-            PageStatistic a = pageStats.GetPageStatistic();
-            //pageStats.GetPageStatistic(m_User.LikedPages);
-        }
+       
 
-        private void chartCategories_Load(object sender, EventArgs e)
+        private void addDataTochartCategories()
         {
             Series series = chartCategories.Series["Series1"];
-            PageStatistic a = pageStats.GetPageStatistic();
-
-            foreach (var kvp in a.Categories)
+            foreach (var kvp in m_PagesStats.Categories)
             {
                 series.Points.AddXY(kvp.Key, kvp.Value);
             }
         }
 
-        private void IsPublishedTextBox_Click(object sender, EventArgs e)
+        private void addTextToIsPublishedTextBox()
         {
-            PageStatistic a = pageStats.GetPageStatistic();
-
             IsPublishedTextBox.Text = $@"There Are 
-{a.NumberOfPublishedPages} Published Pages 
-//change to real number
+{m_PagesStats.NumberOfPublishedPages} Published Pages 
+and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
  unPublished Pages ";
 
         }
 
-      
-
-        private void CummunityTextBox_Click(object sender, EventArgs e)
+        private void addTextToCummunityTextBox()
         {
-            PageStatistic a = pageStats.GetPageStatistic();
-
-            IsCummunityTextBox.Text = $@"There Are 
-{a.NumberOfComunityPages} Cummunity Pages 
-//change to real number
+   IsCummunityTextBox.Text = $@"There Are 
+{m_PagesStats.NumberOfComunityPages} Cummunity Pages 
+and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
  unCummunity Pages ";
         }
 
-        private void listTopCheckinPages_MouseDown(object sender, MouseEventArgs e)
+        private void addItemsToListTopCheckinPages()
         {
-            PageStatistic a = pageStats.GetPageStatistic();
-
-            foreach (var page in a.Top4MostCheckinPages)
+            foreach (var page in m_PagesStats.Top4MostCheckinPages)
             {
                 listTopCheckinPages.Items.Add(page.Name);
             }
         }
+
+        private void addItemsToListTopLikedPages()
+        {
+            foreach (var page in m_PagesStats.Top4MostLikedPages)
+            {
+                listViewTop4LikedPages.Items.Add(page.Name);
+            }
+        }
+
+        private void tabPageStats_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tabControl.SelectedTab.Name == "tabPageStatistic")
+            {
+                try
+                {
+                    if (m_User == null)
+                    {
+                        throw new InvalidOperationException(" User must log in before . ");
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tabControl.SelectedIndex = 0;
+                    return;
+                }
+
+                if (listTopCheckinPages.Items.Count == 0)
+                {
+                    m_PagesStats = m_PagesStats.GetPageStatistic(m_User.LikedPages);
+                    addItemsToListTopCheckinPages();
+                    addItemsToListTopLikedPages();
+                    addTextToCummunityTextBox();
+                    addTextToIsPublishedTextBox();
+                    addDataTochartCategories();
+                }
+            }
+        }
+   
     }
 }

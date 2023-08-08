@@ -1,4 +1,6 @@
-﻿namespace BasicFacebookFeatures
+﻿using System.Windows.Forms;
+
+namespace BasicFacebookFeatures
 {
     partial class FormMain
     {
@@ -28,12 +30,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.tabFriendApprover = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.buttonPostStatus = new System.Windows.Forms.Button();
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
@@ -61,17 +64,20 @@
             this.textBoxPostSchedStatus = new System.Windows.Forms.TextBox();
             this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
             this.labelPostScheduling = new System.Windows.Forms.Label();
-            this.tabPageFriendApprover = new System.Windows.Forms.TabPage();
+            this.tabPageStatistic = new System.Windows.Forms.TabPage();
+            this.tabPageStatistic.Hide();
+            this.labelTop4LikedPages = new System.Windows.Forms.Label();
+            this.listViewTop4LikedPages = new System.Windows.Forms.ListView();
+            this.labelTop4CheckinsPages = new System.Windows.Forms.Label();
             this.listTopCheckinPages = new System.Windows.Forms.ListView();
             this.IsCummunityTextBox = new System.Windows.Forms.RichTextBox();
             this.IsPublishedTextBox = new System.Windows.Forms.RichTextBox();
             this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.buttonGetPagesStats = new System.Windows.Forms.Button();
-            this.tabFriendApprover.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabPagePostScheduling.SuspendLayout();
-            this.tabPageFriendApprover.SuspendLayout();
+            this.tabPageStatistic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCategories)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,17 +104,18 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // tabFriendApprover
+            // tabControl
             // 
-            this.tabFriendApprover.Controls.Add(this.tabPageMain);
-            this.tabFriendApprover.Controls.Add(this.tabPagePostScheduling);
-            this.tabFriendApprover.Controls.Add(this.tabPageFriendApprover);
-            this.tabFriendApprover.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabFriendApprover.Location = new System.Drawing.Point(0, 0);
-            this.tabFriendApprover.Name = "tabFriendApprover";
-            this.tabFriendApprover.SelectedIndex = 0;
-            this.tabFriendApprover.Size = new System.Drawing.Size(1243, 697);
-            this.tabFriendApprover.TabIndex = 54;
+            this.tabControl.Controls.Add(this.tabPageMain);
+            this.tabControl.Controls.Add(this.tabPagePostScheduling);
+            this.tabControl.Controls.Add(this.tabPageStatistic);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(1243, 697);
+            this.tabControl.TabIndex = 54;
+            this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabPageStats_Selected);
             // 
             // tabPageMain
             // 
@@ -318,6 +325,7 @@
             this.tabPagePostScheduling.Controls.Add(this.textBoxPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.dateTimePickerPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.labelPostScheduling);
+            this.tabPagePostScheduling.Enabled = false;
             this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 35);
             this.tabPagePostScheduling.Name = "tabPagePostScheduling";
             this.tabPagePostScheduling.Padding = new System.Windows.Forms.Padding(3);
@@ -405,92 +413,117 @@
             this.labelPostScheduling.TabIndex = 0;
             this.labelPostScheduling.Text = "Post Scheduling";
             // 
-            // tabPageFriendApprover
+            // tabPageStatistic
             // 
-            this.tabPageFriendApprover.Controls.Add(this.listTopCheckinPages);
-            this.tabPageFriendApprover.Controls.Add(this.IsCummunityTextBox);
-            this.tabPageFriendApprover.Controls.Add(this.IsPublishedTextBox);
-            this.tabPageFriendApprover.Controls.Add(this.chartCategories);
-            this.tabPageFriendApprover.Controls.Add(this.buttonGetPagesStats);
-            this.tabPageFriendApprover.Location = new System.Drawing.Point(4, 35);
-            this.tabPageFriendApprover.Name = "tabPageFriendApprover";
-            this.tabPageFriendApprover.Size = new System.Drawing.Size(1235, 658);
-            this.tabPageFriendApprover.TabIndex = 2;
-            this.tabPageFriendApprover.Text = "GetPagerStats";
-            this.tabPageFriendApprover.UseVisualStyleBackColor = true;
+            this.tabPageStatistic.Controls.Add(this.labelTop4LikedPages);
+            this.tabPageStatistic.Controls.Add(this.listViewTop4LikedPages);
+            this.tabPageStatistic.Controls.Add(this.labelTop4CheckinsPages);
+            this.tabPageStatistic.Controls.Add(this.listTopCheckinPages);
+            this.tabPageStatistic.Controls.Add(this.IsCummunityTextBox);
+            this.tabPageStatistic.Controls.Add(this.IsPublishedTextBox);
+            this.tabPageStatistic.Controls.Add(this.chartCategories);
+            this.tabPageStatistic.Location = new System.Drawing.Point(4, 35);
+            this.tabPageStatistic.Name = "tabPageStatistic";
+            this.tabPageStatistic.Size = new System.Drawing.Size(1235, 658);
+            this.tabPageStatistic.TabIndex = 2;
+            this.tabPageStatistic.Text = "GetPageStats";
+            this.tabPageStatistic.UseVisualStyleBackColor = true;
+            // 
+            // labelTop4LikedPages
+            // 
+            this.labelTop4LikedPages.AutoSize = true;
+            this.labelTop4LikedPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.labelTop4LikedPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTop4LikedPages.Location = new System.Drawing.Point(-6, 289);
+            this.labelTop4LikedPages.Name = "labelTop4LikedPages";
+            this.labelTop4LikedPages.Size = new System.Drawing.Size(250, 32);
+            this.labelTop4LikedPages.TabIndex = 44;
+            this.labelTop4LikedPages.Text = "Top 4 Liked Pages";
+            // 
+            // listViewTop4LikedPages
+            // 
+            this.listViewTop4LikedPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listViewTop4LikedPages.HideSelection = false;
+            this.listViewTop4LikedPages.Location = new System.Drawing.Point(0, 324);
+            this.listViewTop4LikedPages.Name = "listViewTop4LikedPages";
+            this.listViewTop4LikedPages.Size = new System.Drawing.Size(342, 191);
+            this.listViewTop4LikedPages.TabIndex = 43;
+            this.listViewTop4LikedPages.UseCompatibleStateImageBehavior = false;
+            this.listViewTop4LikedPages.View = System.Windows.Forms.View.List;
+            // 
+            // labelTop4CheckinsPages
+            // 
+            this.labelTop4CheckinsPages.AutoSize = true;
+            this.labelTop4CheckinsPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.labelTop4CheckinsPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTop4CheckinsPages.Location = new System.Drawing.Point(-6, 40);
+            this.labelTop4CheckinsPages.Name = "labelTop4CheckinsPages";
+            this.labelTop4CheckinsPages.Size = new System.Drawing.Size(307, 32);
+            this.labelTop4CheckinsPages.TabIndex = 42;
+            this.labelTop4CheckinsPages.Text = "Top 4 Check-Ins Pages";
             // 
             // listTopCheckinPages
             // 
             this.listTopCheckinPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listTopCheckinPages.HideSelection = false;
-            this.listTopCheckinPages.Location = new System.Drawing.Point(0, 78);
+            this.listTopCheckinPages.Location = new System.Drawing.Point(-4, 75);
             this.listTopCheckinPages.Name = "listTopCheckinPages";
             this.listTopCheckinPages.Size = new System.Drawing.Size(342, 191);
             this.listTopCheckinPages.TabIndex = 41;
             this.listTopCheckinPages.UseCompatibleStateImageBehavior = false;
-            this.listTopCheckinPages.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listTopCheckinPages_MouseDown);
+            this.listTopCheckinPages.View = System.Windows.Forms.View.List;
             // 
             // IsCummunityTextBox
             // 
             this.IsCummunityTextBox.BackColor = System.Drawing.Color.Coral;
             this.IsCummunityTextBox.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IsCummunityTextBox.Location = new System.Drawing.Point(819, 303);
+            this.IsCummunityTextBox.Location = new System.Drawing.Point(858, 324);
             this.IsCummunityTextBox.Name = "IsCummunityTextBox";
-            this.IsCummunityTextBox.Size = new System.Drawing.Size(380, 238);
+            this.IsCummunityTextBox.Size = new System.Drawing.Size(346, 191);
             this.IsCummunityTextBox.TabIndex = 40;
             this.IsCummunityTextBox.Text = "";
-            this.IsCummunityTextBox.Click += new System.EventHandler(this.CummunityTextBox_Click);
             // 
             // IsPublishedTextBox
             // 
             this.IsPublishedTextBox.BackColor = System.Drawing.Color.IndianRed;
             this.IsPublishedTextBox.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IsPublishedTextBox.Location = new System.Drawing.Point(819, 20);
+            this.IsPublishedTextBox.Location = new System.Drawing.Point(858, 74);
             this.IsPublishedTextBox.Name = "IsPublishedTextBox";
-            this.IsPublishedTextBox.Size = new System.Drawing.Size(380, 238);
+            this.IsPublishedTextBox.Size = new System.Drawing.Size(346, 192);
             this.IsPublishedTextBox.TabIndex = 39;
             this.IsPublishedTextBox.Text = "";
-            this.IsPublishedTextBox.Click += new System.EventHandler(this.IsPublishedTextBox_Click);
             // 
             // chartCategories
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCategories.ChartAreas.Add(chartArea1);
-            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-            legend1.IsDockedInsideChartArea = false;
-            legend1.Name = "Legend1";
-            this.chartCategories.Legends.Add(legend1);
-            this.chartCategories.Location = new System.Drawing.Point(486, 154);
+            chartArea4.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea4);
+            legend4.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend4.IsDockedInsideChartArea = false;
+            legend4.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend4);
+            this.chartCategories.Location = new System.Drawing.Point(388, 74);
             this.chartCategories.Name = "chartCategories";
             this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.IsValueShownAsLabel = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCategories.Series.Add(series1);
-            this.chartCategories.Size = new System.Drawing.Size(300, 300);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.IsValueShownAsLabel = true;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCategories.Series.Add(series4);
+            this.chartCategories.Size = new System.Drawing.Size(426, 403);
             this.chartCategories.TabIndex = 38;
             this.chartCategories.Text = "Categories";
-            this.chartCategories.Click += new System.EventHandler(this.chartCategories_Load);
-            // 
-            // buttonGetPagesStats
-            // 
-            this.buttonGetPagesStats.Location = new System.Drawing.Point(9, 29);
-            this.buttonGetPagesStats.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonGetPagesStats.Name = "buttonGetPagesStats";
-            this.buttonGetPagesStats.Size = new System.Drawing.Size(268, 32);
-            this.buttonGetPagesStats.TabIndex = 37;
-            this.buttonGetPagesStats.Text = "GetPagesStats";
-            this.buttonGetPagesStats.UseVisualStyleBackColor = true;
-            this.buttonGetPagesStats.Click += new System.EventHandler(this.buttonGetPagesStats_Click);
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            title4.Name = "Title1";
+            title4.Text = "Page\'s Categories Devision";
+            this.chartCategories.Titles.Add(title4);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 697);
-            this.Controls.Add(this.tabFriendApprover);
+            this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -498,13 +531,14 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.tabFriendApprover.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.tabPageMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabPagePostScheduling.ResumeLayout(false);
             this.tabPagePostScheduling.PerformLayout();
-            this.tabPageFriendApprover.ResumeLayout(false);
+            this.tabPageStatistic.ResumeLayout(false);
+            this.tabPageStatistic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCategories)).EndInit();
             this.ResumeLayout(false);
 
@@ -514,7 +548,7 @@
 
 		private System.Windows.Forms.Button buttonLogin;
 		private System.Windows.Forms.Button buttonLogout;
-		private System.Windows.Forms.TabControl tabFriendApprover;
+		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage tabPageMain;
 		private System.Windows.Forms.TabPage tabPagePostScheduling;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
@@ -530,7 +564,7 @@
         private System.Windows.Forms.Label labelBirthday;
         private System.Windows.Forms.Label labelLivesIn;
         private System.Windows.Forms.Label labelPostScheduling;
-        private System.Windows.Forms.TabPage tabPageFriendApprover;
+        private System.Windows.Forms.TabPage tabPageStatistic;
         private System.Windows.Forms.LinkLabel linkLabelFetchPhotos;
         private System.Windows.Forms.LinkLabel linkLabelFetchNewsfeed;
         private System.Windows.Forms.TextBox textBoxPostStatus;
@@ -543,11 +577,13 @@
         private System.Windows.Forms.ListBox listBoxScheduledPosts;
         private System.Windows.Forms.TextBox textBoxScheduledPostDetails;
         private System.Windows.Forms.Button buttonScheduledPostRemove;
-        private System.Windows.Forms.Button buttonGetPagesStats;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCategories;
         private System.Windows.Forms.RichTextBox IsPublishedTextBox;
         private System.Windows.Forms.RichTextBox IsCummunityTextBox;
         private System.Windows.Forms.ListView listTopCheckinPages;
+        private Label labelTop4CheckinsPages;
+        private Label labelTop4LikedPages;
+        private ListView listViewTop4LikedPages;
     }
 }
 

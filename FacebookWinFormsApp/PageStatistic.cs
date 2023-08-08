@@ -11,78 +11,82 @@ namespace BasicFacebookFeatures
 {
     public class PageStatistic
     {
+        public const int PagesCollectionSize = 25;
+
         public string Message { get; private set; }
         public int NumberOfCategories { get; private set; }
         public int NumberOfPublishedPages { get; private set; }
         public int NumberOfComunityPages { get; private set; }
-        public List<PageTwo> Top4MostCheckinPages { get; private set; }
-        public List<PageTwo> Top4MostLikedPages { get; private set; }
+        public FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> Top4MostCheckinPages { get; private set; }
+        public FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> Top4MostLikedPages { get; private set; }
         public Dictionary<string, int> Categories { get; private set; }
 
         public PageStatistic()
         {
-            Top4MostCheckinPages = new List<PageTwo>();
-            Top4MostLikedPages = new List<PageTwo>();
+            Top4MostCheckinPages = new FacebookObjectCollection<FacebookWrapper.ObjectModel.Page>();
+            Top4MostLikedPages = new FacebookObjectCollection<FacebookWrapper.ObjectModel.Page>();
             Categories = new Dictionary<string, int>();
         }
-        /* public PageStatistic GetPageStatistic( FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages) 
-         {
+        public PageStatistic GetPageStatistic(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        {
 
-             foreach (FacebookWrapper.ObjectModel.Page page in likedPages)
-             {
-                 if (page.IsPublished== true)
-                 {
-                     NumberOfPublishedPages++;
-                 }
-                 if (page.IsCommunityPage == true)
-                 {
-                     NumberOfComunityPages++;
-                 }
-                 updateCategories(page);
+            foreach (FacebookWrapper.ObjectModel.Page page in likedPages)
+            {
+                if (page.IsPublished == true)
+                {
+                    NumberOfPublishedPages++;
+                }
+                if (page.IsCommunityPage == true)
+                {
+                    NumberOfComunityPages++;
+                }
+                updateCategories(page);
 
-             }
-             updateTop4MostLikedPages(likedPages);
-             updateTop4MostCheckinPages(likedPages);
-             return this;
-         }
+            }
+            updateTop4MostLikedPages(likedPages);
+            updateTop4MostCheckinPages(likedPages);
+            return this;
+        }
 
-         private void updateCategories(FacebookWrapper.ObjectModel.Page page)
-         {
-             if (page.Category!= null)
-             if (!Categories.ContainsKey(page.Category))
-             {
-                 Categories.Add(page.Category, 0);
-                 NumberOfCategories++;
-             }
-             else
-             {
-                 Categories[page.Category]++;
-             }
-         }
+        private void updateCategories(FacebookWrapper.ObjectModel.Page page)
+        {
+            if (page.Category != null)
+                if (!Categories.ContainsKey(page.Category))
+                {
+                    Categories.Add(page.Category, 0);
+                    NumberOfCategories++;
+                }
+                else
+                {
+                    Categories[page.Category]++;
+                }
+        }
 
-         private void updateTop4MostLikedPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
-         {
-             likedPages.OrderByDescending(ob => ob.LikesCount);
-             for (int i=0; i < 4 && i< likedPages.Count; i++)
-             {
-                 Top4MostLikedPages.Add(likedPages[i]);
-             }
+        private void updateTop4MostLikedPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        {
+            likedPages.OrderByDescending(ob => ob.LikesCount);
+            for (int i = PagesCollectionSize-1; i >= PagesCollectionSize-4 && i < likedPages.Count; i--)
+            {
+                Top4MostLikedPages.Add(likedPages[i]);
+            }
 
-         }
+        }
 
-         private void updateTop4MostCheckinPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
-         {
-             likedPages.OrderByDescending(ob => ob.CheckinsCount);
-             for (int i = 0; i < 4 && i < likedPages.Count; i++)
-             {
-                 Top4MostLikedPages.Add(likedPages[i]);
-             }
-         }
-        */
+        private void updateTop4MostCheckinPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        {
+            likedPages.OrderByDescending(ob => ob.CheckinsCount);
+            for (int i = PagesCollectionSize - 1; i >= PagesCollectionSize - 4 && i < likedPages.Count; i--)
+            {
+                Top4MostCheckinPages.Add(likedPages[i]);
+            }
+        }
+    }
+}
 
 
 
-
+        // functions for unreal Data!!
+        /*
         public struct PageTwo
         {
             public string Name;
@@ -212,7 +216,7 @@ namespace BasicFacebookFeatures
             likedPages.OrderBy(ob => ob.LikesCount);
             //need to do from 25 to 21!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //!!!!!!!!!!!!!!!!!!!!!!!!!!
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Top4MostLikedPages.Add(likedPages[i]);
             }
@@ -223,7 +227,7 @@ namespace BasicFacebookFeatures
         {
             likedPages.OrderBy(ob => ob.CheckinsCount);
             //need to do from 25 to 21
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Top4MostCheckinPages.Add(likedPages[i]);
             }
@@ -232,3 +236,4 @@ namespace BasicFacebookFeatures
     }
 }
 
+        */
