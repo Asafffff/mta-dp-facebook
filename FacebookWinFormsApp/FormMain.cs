@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
@@ -13,7 +15,8 @@ namespace BasicFacebookFeatures
         private PostScheduler m_PostScheduler = new PostScheduler();
         private FacebookWrapper.LoginResult m_LoginResult;
         private User m_User;
-
+        private PageStatistic m_PagesStats = new PageStatistic();
+        
         public FormMain()
         {
             InitializeComponent();
@@ -83,7 +86,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "";
+            string accessToken = "EAATnZC2xG4w8BO4G2FKlXKvo7BZBag3wXZBBo6XJctre4d4QRA4qJTSPSU1ctdSOZBnBObQ4ZB3mlcEr9ty2YRePEGQpMFxZAtEkcjcv2pBAJt2rP4zA6TZByFyHZA8ZCZBxIIrvEgYerh2XP1DHG17ZAe69wpooxArX51sJOFFTv3TdIVDVFya8IRbRd6ZBwTIGq4tZB4SFZA1xZBq4qIv5p7eqHT0A4jkvsZBDdTTyhozhCwZDZD";
             m_LoginResult = FacebookService.Connect(accessToken);
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
@@ -98,6 +101,7 @@ namespace BasicFacebookFeatures
                 buttonLogout.Enabled = true;
 
                 m_User = m_LoginResult.LoggedInUser;
+                
             }
         }
 
@@ -326,5 +330,80 @@ namespace BasicFacebookFeatures
             }
             
         }
+
+       
+
+        private void addDataTochartCategories()
+        {
+            Series series = chartCategories.Series["Series1"];
+            foreach (var kvp in m_PagesStats.Categories)
+            {
+                series.Points.AddXY(kvp.Key, kvp.Value);
+            }
+        }
+
+        private void addTextToIsPublishedTextBox()
+        {
+            IsPublishedTextBox.Text = $@"There Are 
+{m_PagesStats.NumberOfPublishedPages} Published Pages 
+and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+ unPublished Pages ";
+
+        }
+
+        private void addTextToCummunityTextBox()
+        {
+   IsCummunityTextBox.Text = $@"There Are 
+{m_PagesStats.NumberOfComunityPages} Cummunity Pages 
+and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+ unCummunity Pages ";
+        }
+
+        private void addItemsToListTopCheckinPages()
+        {
+            foreach (var page in m_PagesStats.Top4MostCheckinPages)
+            {
+                listTopCheckinPages.Items.Add(page.Name);
+            }
+        }
+
+        private void addItemsToListTopLikedPages()
+        {
+            foreach (var page in m_PagesStats.Top4MostLikedPages)
+            {
+                listViewTop4LikedPages.Items.Add(page.Name);
+            }
+        }
+
+        private void tabPageStats_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tabControl.SelectedTab.Name == "tabPageStatistic")
+            {
+                try
+                {
+                    if (m_User == null)
+                    {
+                        throw new InvalidOperationException(" User must log in before . ");
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tabControl.SelectedIndex = 0;
+                    return;
+                }
+
+                if (listTopCheckinPages.Items.Count == 0)
+                {
+                    m_PagesStats = m_PagesStats.GetPageStatistic(m_User.LikedPages);
+                    addItemsToListTopCheckinPages();
+                    addItemsToListTopLikedPages();
+                    addTextToCummunityTextBox();
+                    addTextToIsPublishedTextBox();
+                    addDataTochartCategories();
+                }
+            }
+        }
+   
     }
 }
