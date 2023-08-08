@@ -1,11 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
-using System;
 using System.Collections.Generic;
-using System.Deployment.Application;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BasicFacebookFeatures
 {
@@ -16,21 +11,21 @@ namespace BasicFacebookFeatures
         public string Message { get; private set; }
         public int NumberOfCategories { get; private set; }
         public int NumberOfPublishedPages { get; private set; }
-        public int NumberOfComunityPages { get; private set; }
-        public FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> Top4MostCheckinPages { get; private set; }
-        public FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> Top4MostLikedPages { get; private set; }
+        public int NumberOfCommunityPages { get; private set; }
+        public FacebookObjectCollection<Page> Top4MostCheckInPages { get; private set; }
+        public FacebookObjectCollection<Page> Top4MostLikedPages { get; private set; }
         public Dictionary<string, int> Categories { get; private set; }
 
         public PageStatistic()
         {
-            Top4MostCheckinPages = new FacebookObjectCollection<FacebookWrapper.ObjectModel.Page>();
-            Top4MostLikedPages = new FacebookObjectCollection<FacebookWrapper.ObjectModel.Page>();
+            Top4MostCheckInPages = new FacebookObjectCollection<Page>();
+            Top4MostLikedPages = new FacebookObjectCollection<Page>();
             Categories = new Dictionary<string, int>();
         }
-        public PageStatistic GetPageStatistic(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        public PageStatistic GetPageStatistic(FacebookObjectCollection<Page> likedPages)
         {
 
-            foreach (FacebookWrapper.ObjectModel.Page page in likedPages)
+            foreach (Page page in likedPages)
             {
                 if (page.IsPublished == true)
                 {
@@ -48,7 +43,7 @@ namespace BasicFacebookFeatures
             return this;
         }
 
-        private void updateCategories(FacebookWrapper.ObjectModel.Page page)
+        private void updateCategories(Page page)
         {
             if (page.Category != null)
                 if (!Categories.ContainsKey(page.Category))
@@ -62,7 +57,7 @@ namespace BasicFacebookFeatures
                 }
         }
 
-        private void updateTop4MostLikedPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> likedPages)
         {
             likedPages.OrderByDescending(ob => ob.LikesCount);
             for (int i = PagesCollectionSize-1; i >= PagesCollectionSize-4 && i < likedPages.Count; i--)
@@ -72,20 +67,18 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void updateTop4MostCheckinPages(FacebookObjectCollection<FacebookWrapper.ObjectModel.Page> likedPages)
+        private void updateTop4MostCheckinPages(FacebookObjectCollection<Page> likedPages)
         {
             likedPages.OrderByDescending(ob => ob.CheckinsCount);
             for (int i = PagesCollectionSize - 1; i >= PagesCollectionSize - 4 && i < likedPages.Count; i--)
             {
-                Top4MostCheckinPages.Add(likedPages[i]);
+                Top4MostCheckInPages.Add(likedPages[i]);
             }
         }
     }
 }
 
-
-
-        // functions for unreal Data!!
+// functions for unreal Data!!
         /*
         public struct PageTwo
         {
@@ -235,5 +228,4 @@ namespace BasicFacebookFeatures
 
     }
 }
-
         */
