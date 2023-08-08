@@ -361,7 +361,7 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
         private void addItemsToListTopCheckinPages()
         {
-            foreach (var page in m_PagesStats.Top4MostCheckinPages)
+            foreach (var page in m_PagesStats.Top4MostCheckInPages)
             {
                 listTopCheckinPages.Items.Add(page.Name);
             }
