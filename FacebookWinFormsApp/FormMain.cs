@@ -5,15 +5,18 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private PostScheduler m_PostScheduler = new PostScheduler();
+        private PageStatistics m_PagesStats = new PageStatistics();
         private FacebookWrapper.LoginResult m_LoginResult;
         private User m_User;
-
+        
         public FormMain()
         {
             InitializeComponent();
@@ -252,7 +255,7 @@ namespace BasicFacebookFeatures
             {
                 DateTime selectedDateTime = dateTimePickerPostSchedStatus.Value;
                 ScheduledPost post = new ScheduledPost(textBoxPostSchedStatus.Text, selectedDateTime);
-                post.ScheduleTriggered += ScheduledPostTriggered;
+                post.ScheduleTriggered += scheduledPostTriggered;
                 post.ScheduleTriggered += removePostFromScheduler;
                 addPostToScheduler(post);
             }
@@ -266,7 +269,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void ScheduledPostTriggered(ScheduledPost i_Post)
+        private void scheduledPostTriggered(ScheduledPost i_Post)
         {
             postStatus(i_Post.Message);
         }
@@ -305,9 +308,7 @@ namespace BasicFacebookFeatures
 
         private void listBoxScheduledPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
-
-            if (post != null)
+            if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
             {
                 buttonScheduledPostRemove.Enabled = true;
                 textBoxScheduledPostDetails.Text = $"Post ID: {post.Id}\r\n" +
@@ -318,13 +319,85 @@ namespace BasicFacebookFeatures
 
         private void buttonScheduledPostRemove_Click(object sender, EventArgs e)
         {
-            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
-
-            if (post != null)
+            if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
             {
                 removePostFromScheduler(post);
             }
-            
         }
+
+       
+
+        private void addDataToChartCategories()
+        {
+            Series series = chartCategories.Series["Series1"];
+            foreach (var kvp in m_PagesStats.Categories)
+            {
+                series.Points.AddXY(kvp.Key, kvp.Value);
+            }
+        }
+
+        private void addTextToIsPublishedTextBox()
+        {
+            IsPublishedTextBox.Text = $@"There Are 
+{m_PagesStats.NumberOfPublishedPages} Published Pages 
+and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+ unPublished Pages ";
+
+        }
+
+        private void addTextToCommunityTextBox()
+        {
+            IsCummunityTextBox.Text = $@"There Are 
+{m_PagesStats.NumberOfCommunityPages} Community Pages 
+and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+ Community Pages ";
+        }
+
+        private void addItemsToListTopChecknPages()
+        {
+            foreach (var page in m_PagesStats.Top4MostCheckInPages)
+            {
+                listTopCheckinPages.Items.Add(page.Name);
+            }
+        }
+
+        private void addItemsToListTopLikedPages()
+        {
+            foreach (var page in m_PagesStats.Top4MostLikedPages)
+            {
+                listViewTop4LikedPages.Items.Add(page.Name);
+            }
+        }
+
+        private void tabPageStats_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tabControl.SelectedTab.Name == "tabPageStatistic")
+            {
+                try
+                {
+                    if (m_User == null)
+                    {
+                        throw new InvalidOperationException("User must be logged-in");
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tabControl.SelectedIndex = 0;
+                    return;
+                }
+
+                if (listTopCheckinPages.Items.Count == 0)
+                {
+                    m_PagesStats = m_PagesStats.GetPageStatistics(m_User.LikedPages);
+                    addItemsToListTopChecknPages();
+                    addItemsToListTopLikedPages();
+                    addTextToCommunityTextBox();
+                    addTextToIsPublishedTextBox();
+                    addDataToChartCategories();
+                }
+            }
+        }
+   
     }
 }
