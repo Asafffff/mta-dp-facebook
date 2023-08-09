@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+
+actor User
+
+package FacebookApp {
+
+    usecase "Post Status" as UC_PS
+    usecase "Fetch Newsfeed" as UC_FN
+    usecase "Fetch Posts" as UC_FPOSTS
+    usecase "Fetch Photos" as UC_FPHOTO
+
+    usecase "Schedule Status" as UC_SS
+    usecase "View Page Statistics" as  UC_VPS
+}
+
+UC_SS .. UC_PS: <<uses>>
+
+User --> UC_PS
+User --> UC_FN
+User --> UC_FPOSTS
+User --> UC_FPHOTO
+User --> UC_SS
+User --> UC_VPS
+
+
+
+@enduml
