@@ -4,11 +4,10 @@ using System.Linq;
 
 namespace BasicFacebookFeatures
 {
-    public class PageStatistic
+    public class PageStatistics
     {
-        public const int PagesCollectionSize = 25;
+        public const int k_PagesCollectionSize = 25;
 
-        public string Message { get; private set; }
         public int NumberOfCategories { get; private set; }
         public int NumberOfPublishedPages { get; private set; }
         public int NumberOfCommunityPages { get; private set; }
@@ -16,16 +15,17 @@ namespace BasicFacebookFeatures
         public FacebookObjectCollection<Page> Top4MostLikedPages { get; private set; }
         public Dictionary<string, int> Categories { get; private set; }
 
-        public PageStatistic()
+        public PageStatistics()
         {
             Top4MostCheckInPages = new FacebookObjectCollection<Page>();
             Top4MostLikedPages = new FacebookObjectCollection<Page>();
             Categories = new Dictionary<string, int>();
         }
-        public PageStatistic GetPageStatistic(FacebookObjectCollection<Page> i_LikedPages)
+
+        public PageStatistics GetPageStatistics(FacebookObjectCollection<Page> i_Pages)
         {
 
-            foreach (Page page in i_LikedPages)
+            foreach (Page page in i_Pages)
             {
                 if (page.IsPublished == true)
                 {
@@ -38,41 +38,41 @@ namespace BasicFacebookFeatures
                 updateCategories(page);
 
             }
-            updateTop4MostLikedPages(i_LikedPages);
-            updateTop4MostCheckinPages(i_LikedPages);
+            updateTop4MostLikedPages(i_Pages);
+            updateTop4MostCheckInPages(i_Pages);
             return this;
         }
 
-        private void updateCategories(Page page)
+        private void updateCategories(Page i_Page)
         {
-            if (page.Category != null)
-                if (!Categories.ContainsKey(page.Category))
+            if (i_Page.Category != null)
+                if (!Categories.ContainsKey(i_Page.Category))
                 {
-                    Categories.Add(page.Category, 0);
+                    Categories.Add(i_Page.Category, 0);
                     NumberOfCategories++;
                 }
                 else
                 {
-                    Categories[page.Category]++;
+                    Categories[i_Page.Category]++;
                 }
         }
 
-        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> i_LikedPages)
+        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> i_Pages)
         {
-            i_LikedPages.OrderByDescending(ob => ob.LikesCount);
-            for (int i = PagesCollectionSize-1; i >= PagesCollectionSize-4 && i < i_LikedPages.Count; i--)
-            {
-                Top4MostLikedPages.Add(i_LikedPages[i]);
-            }
+            i_Pages.OrderByDescending(i_Page => i_Page.LikesCount);
 
+            for (int i = k_PagesCollectionSize-1; i >= k_PagesCollectionSize-4 && i < i_Pages.Count; i--)
+            {
+                Top4MostLikedPages.Add(i_Pages[i]);
+            }
         }
 
-        private void updateTop4MostCheckinPages(FacebookObjectCollection<Page> likedPages)
+        private void updateTop4MostCheckInPages(FacebookObjectCollection<Page> i_Pages)
         {
-            likedPages.OrderByDescending(ob => ob.CheckinsCount);
-            for (int i = PagesCollectionSize - 1; i >= PagesCollectionSize - 4 && i < likedPages.Count; i--)
+            i_Pages.OrderByDescending(i_Page => i_Page.CheckinsCount);
+            for (int i = k_PagesCollectionSize - 1; i >= k_PagesCollectionSize - 4 && i < i_Pages.Count; i--)
             {
-                Top4MostCheckInPages.Add(likedPages[i]);
+                Top4MostCheckInPages.Add(i_Pages[i]);
             }
         }
     }

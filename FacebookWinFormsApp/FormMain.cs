@@ -13,9 +13,9 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private PostScheduler m_PostScheduler = new PostScheduler();
+        private PageStatistics m_PagesStats = new PageStatistics();
         private FacebookWrapper.LoginResult m_LoginResult;
         private User m_User;
-        private PageStatistic m_PagesStats = new PageStatistic();
         
         public FormMain()
         {
@@ -86,7 +86,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "EAATnZC2xG4w8BO4G2FKlXKvo7BZBag3wXZBBo6XJctre4d4QRA4qJTSPSU1ctdSOZBnBObQ4ZB3mlcEr9ty2YRePEGQpMFxZAtEkcjcv2pBAJt2rP4zA6TZByFyHZA8ZCZBxIIrvEgYerh2XP1DHG17ZAe69wpooxArX51sJOFFTv3TdIVDVFya8IRbRd6ZBwTIGq4tZB4SFZA1xZBq4qIv5p7eqHT0A4jkvsZBDdTTyhozhCwZDZD";
+            string accessToken = "";
             m_LoginResult = FacebookService.Connect(accessToken);
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
@@ -101,7 +101,6 @@ namespace BasicFacebookFeatures
                 buttonLogout.Enabled = true;
 
                 m_User = m_LoginResult.LoggedInUser;
-                
             }
         }
 
@@ -256,7 +255,7 @@ namespace BasicFacebookFeatures
             {
                 DateTime selectedDateTime = dateTimePickerPostSchedStatus.Value;
                 ScheduledPost post = new ScheduledPost(textBoxPostSchedStatus.Text, selectedDateTime);
-                post.ScheduleTriggered += ScheduledPostTriggered;
+                post.ScheduleTriggered += scheduledPostTriggered;
                 post.ScheduleTriggered += removePostFromScheduler;
                 addPostToScheduler(post);
             }
@@ -270,7 +269,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void ScheduledPostTriggered(ScheduledPost i_Post)
+        private void scheduledPostTriggered(ScheduledPost i_Post)
         {
             postStatus(i_Post.Message);
         }
@@ -309,9 +308,7 @@ namespace BasicFacebookFeatures
 
         private void listBoxScheduledPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
-
-            if (post != null)
+            if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
             {
                 buttonScheduledPostRemove.Enabled = true;
                 textBoxScheduledPostDetails.Text = $"Post ID: {post.Id}\r\n" +
@@ -322,13 +319,10 @@ namespace BasicFacebookFeatures
 
         private void buttonScheduledPostRemove_Click(object sender, EventArgs e)
         {
-            ScheduledPost post = listBoxScheduledPosts.SelectedItem as ScheduledPost;
-
-            if (post != null)
+            if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
             {
                 removePostFromScheduler(post);
             }
-            
         }
 
        
@@ -346,16 +340,16 @@ namespace BasicFacebookFeatures
         {
             IsPublishedTextBox.Text = $@"There Are 
 {m_PagesStats.NumberOfPublishedPages} Published Pages 
-and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
  unPublished Pages ";
 
         }
 
         private void addTextToCommunityTextBox()
         {
-   IsCummunityTextBox.Text = $@"There Are 
+            IsCummunityTextBox.Text = $@"There Are 
 {m_PagesStats.NumberOfCommunityPages} Community Pages 
-and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
+and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
  Community Pages ";
         }
 
@@ -383,7 +377,7 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
                 {
                     if (m_User == null)
                     {
-                        throw new InvalidOperationException(" User must log in before . ");
+                        throw new InvalidOperationException("User must be logged-in");
                     }
                 }
                 catch (InvalidOperationException ex)
@@ -395,7 +389,7 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
                 if (listTopCheckinPages.Items.Count == 0)
                 {
-                    m_PagesStats = m_PagesStats.GetPageStatistic(m_User.LikedPages);
+                    m_PagesStats = m_PagesStats.GetPageStatistics(m_User.LikedPages);
                     addItemsToListTopChecknPages();
                     addItemsToListTopLikedPages();
                     addTextToCommunityTextBox();
