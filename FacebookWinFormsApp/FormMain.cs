@@ -87,6 +87,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
+            string accessToken = "";
             try
             {
                 m_LoginResult = FacebookService.Connect(accessToken);
