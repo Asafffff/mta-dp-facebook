@@ -1,31 +1,94 @@
-' NOT UPDATED!
 @startuml
-' Classes
-class User
 
-class Post
-class Photos
-class Albums
-class Groups
-class Pages
-class Friends
+class FormUI {
+  m_User
+  
+  fetchNewsfeed()
+  fetchPosts()
+  fetchComments()
+  fetchPhotos()
+  
+  addPostsToScheduler()
+  removePostsFromScheduler()
 
-class FBApi
+  addItemsToListTopCheckInPages()
+  addItemsToListTopLikedPages()
+}
 
-' Heirarchy
+class FacebookService {
+  LoggedInUser
+}
+
+class PageStatistics {
+  <<property>> NumberOfCategories
+  <<property>> NumberOfPublishedPages
+  <<property>> Top4MostCheckInPage{s[]
+  <<property>> Top4MostLikedPages[]
+  <<property>> Categories
+  GetPageStatistics()
+}
+
+class PostScheduler {
+  Count
+  MaxPosts
+  Schedule()
+  Cancel()
+}
+
+class ScheduledPost {
+  <<property>> Id
+  <<property>> Message
+  <<property>> ScheduledAt
+  <<event>> ScheduleTriggered
+  OnScheduleTrigger()
+}
+
+class User {
+  <<property>> Newsfeed
+  <<property>> Posts
+  <<property>> LikedPages
+  <<property>> Albums
+
+  PostStatus()
+}
+
+class Page {
+  <<property>> Id
+  <<property>> Category
+  <<property>> IsPublished
+  <<property>> IsCommunityPage
+}
+
+class Post {
+  <<property>> Id
+  <<property>> Message
+}
+
+class Album {
+  <<property>> Id
+  <<property>> Name
+  <<property>> Count
+  <<property>> Photos
+}
+
+class Photo {
+  <<property>> Id
+  <<property>> Name
+  <<property>> Count
+  <<property>> PictureNormalURL
+}
+
+FormUI *-- FacebookService
+FormUI *-- PostScheduler
+FormUI *-- PageStatistics
+
+FacebookService *-- User
+
+Album *-- Photo
+
+User o-- Album
+User o-- Page
 User o-- Post
-User o-- Albums
-User o-- Groups
-User o-- Pages
-User o-- Friends
 
-Albums o-- Photos
-
-Post *-- FBApi
-Albums *-- FBApi
-Groups *-- FBApi
-Pages *-- FBApi
-Friends *-- FBApi
-
-
+PostScheduler o-- ScheduledPost
 @enduml

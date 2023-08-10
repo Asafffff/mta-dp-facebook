@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
@@ -30,10 +30,10 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -65,7 +65,6 @@ namespace BasicFacebookFeatures
             this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageStatistic = new System.Windows.Forms.TabPage();
-            this.tabPageStatistic.Hide();
             this.labelTop4LikedPages = new System.Windows.Forms.Label();
             this.listViewTop4LikedPages = new System.Windows.Forms.ListView();
             this.labelTop4CheckinsPages = new System.Windows.Forms.Label();
@@ -83,13 +82,14 @@ namespace BasicFacebookFeatures
             // 
             // buttonLogin
             // 
+            this.buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
             this.buttonLogin.Location = new System.Drawing.Point(18, 17);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(268, 32);
             this.buttonLogin.TabIndex = 36;
             this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // buttonLogout
@@ -138,10 +138,10 @@ namespace BasicFacebookFeatures
             this.tabPageMain.Controls.Add(this.pictureBoxProfile);
             this.tabPageMain.Controls.Add(this.buttonLogout);
             this.tabPageMain.Controls.Add(this.buttonLogin);
-            this.tabPageMain.Location = new System.Drawing.Point(4, 35);
+            this.tabPageMain.Location = new System.Drawing.Point(4, 31);
             this.tabPageMain.Name = "tabPageMain";
             this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMain.Size = new System.Drawing.Size(1235, 658);
+            this.tabPageMain.Size = new System.Drawing.Size(1235, 662);
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Main";
             this.tabPageMain.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@ namespace BasicFacebookFeatures
             // 
             this.textBoxPostStatus.Location = new System.Drawing.Point(325, 55);
             this.textBoxPostStatus.Name = "textBoxPostStatus";
-            this.textBoxPostStatus.Size = new System.Drawing.Size(714, 32);
+            this.textBoxPostStatus.Size = new System.Drawing.Size(714, 28);
             this.textBoxPostStatus.TabIndex = 75;
             // 
             // labelPostStatus
@@ -171,7 +171,7 @@ namespace BasicFacebookFeatures
             this.labelPostStatus.Font = new System.Drawing.Font("Candara", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPostStatus.Location = new System.Drawing.Point(325, 17);
             this.labelPostStatus.Name = "labelPostStatus";
-            this.labelPostStatus.Size = new System.Drawing.Size(320, 40);
+            this.labelPostStatus.Size = new System.Drawing.Size(274, 35);
             this.labelPostStatus.TabIndex = 74;
             this.labelPostStatus.Text = "What\'s on your mind?";
             // 
@@ -183,7 +183,7 @@ namespace BasicFacebookFeatures
             this.linkLabelFetchNewsfeed.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchNewsfeed.Location = new System.Drawing.Point(432, 107);
             this.linkLabelFetchNewsfeed.Name = "linkLabelFetchNewsfeed";
-            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(50, 20);
+            this.linkLabelFetchNewsfeed.Size = new System.Drawing.Size(40, 16);
             this.linkLabelFetchNewsfeed.TabIndex = 73;
             this.linkLabelFetchNewsfeed.TabStop = true;
             this.linkLabelFetchNewsfeed.Text = "Fetch";
@@ -197,7 +197,7 @@ namespace BasicFacebookFeatures
             this.linkLabelFetchPhotos.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchPhotos.Location = new System.Drawing.Point(96, 443);
             this.linkLabelFetchPhotos.Name = "linkLabelFetchPhotos";
-            this.linkLabelFetchPhotos.Size = new System.Drawing.Size(50, 20);
+            this.linkLabelFetchPhotos.Size = new System.Drawing.Size(40, 16);
             this.linkLabelFetchPhotos.TabIndex = 68;
             this.linkLabelFetchPhotos.TabStop = true;
             this.linkLabelFetchPhotos.Text = "Fetch";
@@ -208,7 +208,7 @@ namespace BasicFacebookFeatures
             this.labelBirthday.AutoSize = true;
             this.labelBirthday.Location = new System.Drawing.Point(104, 145);
             this.labelBirthday.Name = "labelBirthday";
-            this.labelBirthday.Size = new System.Drawing.Size(0, 26);
+            this.labelBirthday.Size = new System.Drawing.Size(0, 24);
             this.labelBirthday.TabIndex = 67;
             // 
             // labelLivesIn
@@ -216,7 +216,7 @@ namespace BasicFacebookFeatures
             this.labelLivesIn.AutoSize = true;
             this.labelLivesIn.Location = new System.Drawing.Point(104, 121);
             this.labelLivesIn.Name = "labelLivesIn";
-            this.labelLivesIn.Size = new System.Drawing.Size(0, 26);
+            this.labelLivesIn.Size = new System.Drawing.Size(0, 24);
             this.labelLivesIn.TabIndex = 66;
             // 
             // labelName
@@ -224,7 +224,7 @@ namespace BasicFacebookFeatures
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(104, 97);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(0, 26);
+            this.labelName.Size = new System.Drawing.Size(0, 24);
             this.labelName.TabIndex = 65;
             // 
             // linkLabelFetchPosts
@@ -235,7 +235,7 @@ namespace BasicFacebookFeatures
             this.linkLabelFetchPosts.LinkColor = System.Drawing.Color.Blue;
             this.linkLabelFetchPosts.Location = new System.Drawing.Point(77, 220);
             this.linkLabelFetchPosts.Name = "linkLabelFetchPosts";
-            this.linkLabelFetchPosts.Size = new System.Drawing.Size(50, 20);
+            this.linkLabelFetchPosts.Size = new System.Drawing.Size(40, 16);
             this.linkLabelFetchPosts.TabIndex = 63;
             this.linkLabelFetchPosts.TabStop = true;
             this.linkLabelFetchPosts.Text = "Fetch";
@@ -246,14 +246,14 @@ namespace BasicFacebookFeatures
             this.labelNewsFeed.AutoSize = true;
             this.labelNewsFeed.Location = new System.Drawing.Point(318, 102);
             this.labelNewsFeed.Name = "labelNewsFeed";
-            this.labelNewsFeed.Size = new System.Drawing.Size(122, 26);
+            this.labelNewsFeed.Size = new System.Drawing.Size(108, 24);
             this.labelNewsFeed.TabIndex = 62;
             this.labelNewsFeed.Text = "News Feed";
             // 
             // listBoxNewsFeed
             // 
             this.listBoxNewsFeed.FormattingEnabled = true;
-            this.listBoxNewsFeed.ItemHeight = 26;
+            this.listBoxNewsFeed.ItemHeight = 22;
             this.listBoxNewsFeed.Location = new System.Drawing.Point(322, 132);
             this.listBoxNewsFeed.Name = "listBoxNewsFeed";
             this.listBoxNewsFeed.Size = new System.Drawing.Size(873, 290);
@@ -273,7 +273,7 @@ namespace BasicFacebookFeatures
             this.labelComments.AutoSize = true;
             this.labelComments.Location = new System.Drawing.Point(318, 438);
             this.labelComments.Name = "labelComments";
-            this.labelComments.Size = new System.Drawing.Size(119, 26);
+            this.labelComments.Size = new System.Drawing.Size(101, 24);
             this.labelComments.TabIndex = 59;
             this.labelComments.Text = "Comments";
             // 
@@ -282,26 +282,26 @@ namespace BasicFacebookFeatures
             this.labelPosts.AutoSize = true;
             this.labelPosts.Location = new System.Drawing.Point(16, 215);
             this.labelPosts.Name = "labelPosts";
-            this.labelPosts.Size = new System.Drawing.Size(67, 26);
+            this.labelPosts.Size = new System.Drawing.Size(55, 24);
             this.labelPosts.TabIndex = 58;
             this.labelPosts.Text = "Posts";
             // 
             // listBoxComments
             // 
             this.listBoxComments.FormattingEnabled = true;
-            this.listBoxComments.ItemHeight = 26;
+            this.listBoxComments.ItemHeight = 22;
             this.listBoxComments.Location = new System.Drawing.Point(322, 465);
             this.listBoxComments.Name = "listBoxComments";
-            this.listBoxComments.Size = new System.Drawing.Size(873, 160);
+            this.listBoxComments.Size = new System.Drawing.Size(873, 158);
             this.listBoxComments.TabIndex = 57;
             // 
             // listBoxPosts
             // 
             this.listBoxPosts.FormattingEnabled = true;
-            this.listBoxPosts.ItemHeight = 26;
+            this.listBoxPosts.ItemHeight = 22;
             this.listBoxPosts.Location = new System.Drawing.Point(20, 242);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(266, 160);
+            this.listBoxPosts.Size = new System.Drawing.Size(266, 158);
             this.listBoxPosts.TabIndex = 56;
             this.listBoxPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxPosts_SelectedIndexChanged);
             // 
@@ -325,11 +325,11 @@ namespace BasicFacebookFeatures
             this.tabPagePostScheduling.Controls.Add(this.textBoxPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.dateTimePickerPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.labelPostScheduling);
-            this.tabPagePostScheduling.Enabled = false;
-            this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 35);
+            this.tabPagePostScheduling.Enabled = true;
+            this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 31);
             this.tabPagePostScheduling.Name = "tabPagePostScheduling";
             this.tabPagePostScheduling.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePostScheduling.Size = new System.Drawing.Size(1235, 658);
+            this.tabPagePostScheduling.Size = new System.Drawing.Size(1235, 662);
             this.tabPagePostScheduling.TabIndex = 1;
             this.tabPagePostScheduling.Text = "Post Scheduling";
             this.tabPagePostScheduling.UseVisualStyleBackColor = true;
@@ -358,10 +358,10 @@ namespace BasicFacebookFeatures
             // listBoxScheduledPosts
             // 
             this.listBoxScheduledPosts.FormattingEnabled = true;
-            this.listBoxScheduledPosts.ItemHeight = 26;
+            this.listBoxScheduledPosts.ItemHeight = 22;
             this.listBoxScheduledPosts.Location = new System.Drawing.Point(18, 246);
             this.listBoxScheduledPosts.Name = "listBoxScheduledPosts";
-            this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 212);
+            this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 202);
             this.listBoxScheduledPosts.TabIndex = 80;
             this.listBoxScheduledPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxScheduledPosts_SelectedIndexChanged);
             // 
@@ -371,7 +371,7 @@ namespace BasicFacebookFeatures
             this.labelScheduledPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelScheduledPosts.Location = new System.Drawing.Point(11, 180);
             this.labelScheduledPosts.Name = "labelScheduledPosts";
-            this.labelScheduledPosts.Size = new System.Drawing.Size(361, 52);
+            this.labelScheduledPosts.Size = new System.Drawing.Size(300, 42);
             this.labelScheduledPosts.TabIndex = 79;
             this.labelScheduledPosts.Text = "Scheduled Posts";
             // 
@@ -390,7 +390,7 @@ namespace BasicFacebookFeatures
             // 
             this.textBoxPostSchedStatus.Location = new System.Drawing.Point(15, 94);
             this.textBoxPostSchedStatus.Name = "textBoxPostSchedStatus";
-            this.textBoxPostSchedStatus.Size = new System.Drawing.Size(714, 32);
+            this.textBoxPostSchedStatus.Size = new System.Drawing.Size(714, 28);
             this.textBoxPostSchedStatus.TabIndex = 77;
             // 
             // dateTimePickerPostSchedStatus
@@ -399,7 +399,7 @@ namespace BasicFacebookFeatures
             this.dateTimePickerPostSchedStatus.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerPostSchedStatus.Location = new System.Drawing.Point(744, 94);
             this.dateTimePickerPostSchedStatus.Name = "dateTimePickerPostSchedStatus";
-            this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 32);
+            this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 28);
             this.dateTimePickerPostSchedStatus.TabIndex = 1;
             this.dateTimePickerPostSchedStatus.Value = new System.DateTime(2023, 8, 1, 0, 0, 0, 0);
             // 
@@ -409,7 +409,7 @@ namespace BasicFacebookFeatures
             this.labelPostScheduling.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPostScheduling.Location = new System.Drawing.Point(3, 13);
             this.labelPostScheduling.Name = "labelPostScheduling";
-            this.labelPostScheduling.Size = new System.Drawing.Size(556, 82);
+            this.labelPostScheduling.Size = new System.Drawing.Size(462, 69);
             this.labelPostScheduling.TabIndex = 0;
             this.labelPostScheduling.Text = "Post Scheduling";
             // 
@@ -422,9 +422,9 @@ namespace BasicFacebookFeatures
             this.tabPageStatistic.Controls.Add(this.IsCummunityTextBox);
             this.tabPageStatistic.Controls.Add(this.IsPublishedTextBox);
             this.tabPageStatistic.Controls.Add(this.chartCategories);
-            this.tabPageStatistic.Location = new System.Drawing.Point(4, 35);
+            this.tabPageStatistic.Location = new System.Drawing.Point(4, 31);
             this.tabPageStatistic.Name = "tabPageStatistic";
-            this.tabPageStatistic.Size = new System.Drawing.Size(1235, 658);
+            this.tabPageStatistic.Size = new System.Drawing.Size(1235, 662);
             this.tabPageStatistic.TabIndex = 2;
             this.tabPageStatistic.Text = "GetPageStats";
             this.tabPageStatistic.UseVisualStyleBackColor = true;
@@ -436,7 +436,7 @@ namespace BasicFacebookFeatures
             this.labelTop4LikedPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTop4LikedPages.Location = new System.Drawing.Point(-6, 289);
             this.labelTop4LikedPages.Name = "labelTop4LikedPages";
-            this.labelTop4LikedPages.Size = new System.Drawing.Size(250, 32);
+            this.labelTop4LikedPages.Size = new System.Drawing.Size(216, 29);
             this.labelTop4LikedPages.TabIndex = 44;
             this.labelTop4LikedPages.Text = "Top 4 Liked Pages";
             // 
@@ -458,7 +458,7 @@ namespace BasicFacebookFeatures
             this.labelTop4CheckinsPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTop4CheckinsPages.Location = new System.Drawing.Point(-6, 40);
             this.labelTop4CheckinsPages.Name = "labelTop4CheckinsPages";
-            this.labelTop4CheckinsPages.Size = new System.Drawing.Size(307, 32);
+            this.labelTop4CheckinsPages.Size = new System.Drawing.Size(264, 29);
             this.labelTop4CheckinsPages.TabIndex = 42;
             this.labelTop4CheckinsPages.Text = "Top 4 Check-Ins Pages";
             // 
@@ -495,32 +495,32 @@ namespace BasicFacebookFeatures
             // 
             // chartCategories
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartCategories.ChartAreas.Add(chartArea4);
-            legend4.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-            legend4.IsDockedInsideChartArea = false;
-            legend4.Name = "Legend1";
-            this.chartCategories.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea1);
+            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend1.IsDockedInsideChartArea = false;
+            legend1.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend1);
             this.chartCategories.Location = new System.Drawing.Point(388, 74);
             this.chartCategories.Name = "chartCategories";
             this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.IsValueShownAsLabel = true;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartCategories.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCategories.Series.Add(series1);
             this.chartCategories.Size = new System.Drawing.Size(426, 403);
             this.chartCategories.TabIndex = 38;
             this.chartCategories.Text = "Categories";
-            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            title4.Name = "Title1";
-            title4.Text = "Page\'s Categories Devision";
-            this.chartCategories.Titles.Add(title4);
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            title1.Name = "Title1";
+            title1.Text = "Page\'s Category Division";
+            this.chartCategories.Titles.Add(title1);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 697);
             this.Controls.Add(this.tabControl);
