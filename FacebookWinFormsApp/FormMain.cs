@@ -15,6 +15,7 @@ namespace BasicFacebookFeatures
         private PostScheduler m_PostScheduler = new PostScheduler();
         private PageStatistics m_PagesStats = new PageStatistics();
         private FacebookWrapper.LoginResult m_LoginResult;
+        private List<PictureBox> m_photosNameInControl = new List<PictureBox>();
         private User m_User;
         
         public FormMain()
@@ -86,8 +87,14 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "";
-            m_LoginResult = FacebookService.Connect(accessToken);
+            try
+            {
+                m_LoginResult = FacebookService.Connect(accessToken);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
@@ -102,25 +109,38 @@ namespace BasicFacebookFeatures
 
                 m_User = m_LoginResult.LoggedInUser;
             }
+            buttonLogout.BackColor = System.Drawing.Color.Red; ;
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            try
+            {
+                FacebookService.LogoutWithUI();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
+            
             buttonLogin.Text = "Login";
-            buttonLogin.BackColor = buttonLogout.BackColor;
+            buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
+            buttonLogout.BackColor = System.Drawing.Color.Transparent;
             m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
 
             disableFetchLinkLabels();
             disableButtons();
+            clearAllDataOfAUserFromForm();
+
         }
 
         private void fetchNewsFeed()
         {
             listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
-            listBoxNewsFeed.DataSource = m_User.NewsFeed;
+            listBoxNewsFeed.DataSource = m_LoginResult.LoggedInUser.NewsFeed;
             listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
 
             if (listBoxNewsFeed.Items.Count == 0)
@@ -129,7 +149,36 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void fetchPosts()
+        private void clearAllDataOfAUserFromForm()
+        {
+            pictureBoxProfile.ImageLocation = null;
+            labelName.Text = null;
+            labelLivesIn.Text = null;
+            labelBirthday.Text = null;
+            clearAllDataFromLists();
+        }
+        private void clearAllDataFromLists()
+        {
+            listBoxPosts.DataSource = null;
+            listBoxPosts.Items.Clear();
+            listBoxNewsFeed.DataSource = null;
+            listBoxNewsFeed.Items.Clear();
+            listBoxComments.DataSource = null;
+            listBoxComments.Items.Clear();
+            clearPhotosFromControl();
+        }
+
+        private void clearPhotosFromControl()
+        {
+            foreach(PictureBox name in m_photosNameInControl)
+            {
+
+                this.Controls.Remove(name);
+            }
+            m_photosNameInControl.Clear();
+        }
+
+private void fetchPosts()
         {
             listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
             listBoxPosts.DataSource = m_User.Posts;
@@ -188,7 +237,7 @@ namespace BasicFacebookFeatures
 
         private void fetchPhotos()
         {
-            FacebookObjectCollection<Album> albums = m_User.Albums;
+            FacebookObjectCollection<Album> albums = m_LoginResult.LoggedInUser.Albums;
             if (albums.Count == 0 || albums[0].Photos.Count == 0)
             {
                 MessageBox.Show("There are no albums or photos");
@@ -201,18 +250,17 @@ namespace BasicFacebookFeatures
             int spaceFromLabel = 30;
 
 
-            foreach (Photo photo in m_User.Albums[0].Photos.Take(6))
+            foreach (Photo photo in m_LoginResult.LoggedInUser.Albums[0].Photos.Take(6))
             {
                 PictureBox pictureBox = new PictureBox();
-                pictureBox.Name = photo.Name;                
+                pictureBox.Name = photo.Name;
                 pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
                 pictureBox.ImageLocation = photo.PictureNormalURL;
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 // TODO: Fix Location?
                 pictureBox.Location = new Point(labelPhotos.Left + 6 + i * (pictureBoxWidth + 18), labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
-
                 this.Controls.Add(pictureBox);
-
+                m_photosNameInControl.Add(pictureBox);
                 pictureBox.BringToFront();
 
                 i++;
@@ -234,7 +282,7 @@ namespace BasicFacebookFeatures
                 }
                 else
                 {
-                    m_User.PostStatus(i_Text);
+                    m_LoginResult.LoggedInUser.PostStatus(i_Text);
                 }
             }
             catch
@@ -375,7 +423,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
             {
                 try
                 {
-                    if (m_User == null)
+                    if (m_LoginResult.LoggedInUser == null)
                     {
                         throw new InvalidOperationException("User must be logged-in");
                     }
