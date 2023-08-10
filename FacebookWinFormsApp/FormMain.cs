@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures
         private PostScheduler m_PostScheduler = new PostScheduler();
         private PageStatistics m_PagesStats = new PageStatistics();
         private FacebookWrapper.LoginResult m_LoginResult;
-        private List<PictureBox> m_photosNameInControl = new List<PictureBox>();
+        private List<PictureBox> m_PhotosNameInControl = new List<PictureBox>();
         private User m_User;
         
         public FormMain()
@@ -66,28 +66,27 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            //m_LoginResult = FacebookService.Login(
-            //    /// (This is Desig Patter's App ID. replace it with your own)
-            //    "1380984126104335",
-            //    /// requested permissions:
-            //    "email",
-            //    "public_profile",
-            //    "user_age_range",
-            //    "user_birthday",
-            //    "user_events",
-            //    "user_friends",
-            //    "user_gender",
-            //    "user_hometown",
-            //    "user_likes",
-            //    "user_link",
-            //    "user_location",
-            //    "user_photos",
-            //    "user_posts",
-            //    "user_videos"
-            //    /// add any relevant permissions
-            //    );
+            m_LoginResult = FacebookService.Login(
+                /// (This is Desig Patter's App ID. replace it with your own)
+                "1380984126104335",
+                /// requested permissions:
+                "email",
+                "public_profile",
+                "user_age_range",
+                "user_birthday",
+                "user_events",
+                "user_friends",
+                "user_gender",
+                "user_hometown",
+                "user_likes",
+                "user_link",
+                "user_location",
+                "user_photos",
+                "user_posts",
+                "user_videos"
+                /// add any relevant permissions
+                );
 
-            string accessToken = "";
             try
             {
                 m_LoginResult = FacebookService.Connect(accessToken);
@@ -99,16 +98,16 @@ namespace BasicFacebookFeatures
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
-                buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
+                buttonLogin.Text = $"Logged in as {m_User.Name}";
                 buttonLogin.BackColor = Color.LightGreen;
-                pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
-                labelName.Text = m_LoginResult.LoggedInUser.Name;
-                labelLivesIn.Text = m_LoginResult.LoggedInUser.Location.Name;
-                labelBirthday.Text = m_LoginResult.LoggedInUser.Birthday;
+                pictureBoxProfile.ImageLocation = m_User.PictureNormalURL;
+                labelName.Text = m_User.Name;
+                labelLivesIn.Text = m_User.Location.Name;
+                labelBirthday.Text = m_User.Birthday;
                 buttonLogin.Enabled = false;
                 buttonLogout.Enabled = true;
 
-                m_User = m_LoginResult.LoggedInUser;
+                m_User = m_User;
             }
             buttonLogout.BackColor = System.Drawing.Color.Red; ;
         }
@@ -141,7 +140,7 @@ namespace BasicFacebookFeatures
         private void fetchNewsFeed()
         {
             listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
-            listBoxNewsFeed.DataSource = m_LoginResult.LoggedInUser.NewsFeed;
+            listBoxNewsFeed.DataSource = m_User.NewsFeed;
             listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
 
             if (listBoxNewsFeed.Items.Count == 0)
@@ -171,24 +170,32 @@ namespace BasicFacebookFeatures
 
         private void clearPhotosFromControl()
         {
-            foreach(PictureBox name in m_photosNameInControl)
+            foreach(PictureBox name in m_PhotosNameInControl)
             {
 
                 this.Controls.Remove(name);
             }
-            m_photosNameInControl.Clear();
+            m_PhotosNameInControl.Clear();
         }
 
 private void fetchPosts()
         {
-            listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
-            listBoxPosts.DataSource = m_User.Posts;
-            listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
-
-            if (listBoxPosts.Items.Count == 0)
+            try
             {
-                MessageBox.Show("No Posts to retrieve");
+                listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
+                listBoxPosts.DataSource = m_User.Posts;
+                listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
+
+                if(listBoxPosts.Items.Count == 0)
+                {
+                    MessageBox.Show("No Posts to retrieve");
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void listBoxPosts_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,13 +218,19 @@ private void fetchPosts()
 
         private void fetchComments(Post i_Post)
         {
-
-            listBoxComments.DataSource = i_Post.Comments;
-
-            if (listBoxComments.Items.Count == 0)
+            try
             {
-                listBoxComments.DataSource = null;
-                listBoxComments.Items.Add("No comments found");
+                listBoxComments.DataSource = i_Post.Comments;
+
+                if(listBoxComments.Items.Count == 0)
+                {
+                    listBoxComments.DataSource = null;
+                    listBoxComments.Items.Add("No comments found");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -238,38 +251,48 @@ private void fetchPosts()
 
         private void fetchPhotos()
         {
-            FacebookObjectCollection<Album> albums = m_LoginResult.LoggedInUser.Albums;
-            if (albums.Count == 0 || albums[0].Photos.Count == 0)
+            try
             {
-                MessageBox.Show("There are no albums or photos");
-            }
 
-            int i = 0, j = 0;
-
-            int pictureBoxWidth = 77;
-            int pictureBoxLength = 77;
-            int spaceFromLabel = 30;
-
-
-            foreach (Photo photo in m_LoginResult.LoggedInUser.Albums[0].Photos.Take(6))
-            {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.Name = photo.Name;
-                pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
-                pictureBox.ImageLocation = photo.PictureNormalURL;
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                // TODO: Fix Location?
-                pictureBox.Location = new Point(labelPhotos.Left + 6 + i * (pictureBoxWidth + 18), labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
-                this.Controls.Add(pictureBox);
-                m_photosNameInControl.Add(pictureBox);
-                pictureBox.BringToFront();
-
-                i++;
-                if (i % 3 == 0)
+                FacebookObjectCollection<Album> albums = m_User.Albums;
+                if(albums.Count == 0 || albums[0].Photos.Count == 0)
                 {
-                    i = 0;
-                    j++;
+                    MessageBox.Show("There are no albums or photos");
                 }
+
+                int i = 0, j = 0;
+
+                int pictureBoxWidth = 77;
+                int pictureBoxLength = 77;
+                int spaceFromLabel = 30;
+
+
+                foreach(Photo photo in m_User.Albums[0].Photos.Take(6))
+                {
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.Name = photo.Name;
+                    pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
+                    pictureBox.ImageLocation = photo.PictureNormalURL;
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    // TODO: Fix Location?
+                    pictureBox.Location = new Point(
+                        labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
+                        labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
+                    this.Controls.Add(pictureBox);
+                    m_PhotosNameInControl.Add(pictureBox);
+                    pictureBox.BringToFront();
+
+                    i++;
+                    if(i % 3 == 0)
+                    {
+                        i = 0;
+                        j++;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -283,7 +306,7 @@ private void fetchPosts()
                 }
                 else
                 {
-                    m_LoginResult.LoggedInUser.PostStatus(i_Text);
+                    m_User.PostStatus(i_Text);
                 }
             }
             catch
@@ -424,7 +447,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
             {
                 try
                 {
-                    if (m_LoginResult.LoggedInUser == null)
+                    if (m_User == null)
                     {
                         throw new InvalidOperationException("User must be logged-in");
                     }
