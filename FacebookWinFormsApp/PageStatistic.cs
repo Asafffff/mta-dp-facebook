@@ -43,17 +43,17 @@ namespace BasicFacebookFeatures
             return this;
         }
 
-        private void updateCategories(Page page)
+        private void updateCategories(Page i_Page)
         {
-            if (page.Category != null)
-                if (!Categories.ContainsKey(page.Category))
+            if (i_Page.Category != null)
+                if (!Categories.ContainsKey(i_Page.Category))
                 {
-                    Categories.Add(page.Category, 0);
+                    Categories.Add(i_Page.Category, 0);
                     NumberOfCategories++;
                 }
                 else
                 {
-                    Categories[page.Category]++;
+                    Categories[i_Page.Category]++;
                 }
         }
 
@@ -67,12 +67,12 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void updateTop4MostCheckinPages(FacebookObjectCollection<Page> likedPages)
+        private void updateTop4MostCheckinPages(FacebookObjectCollection<Page> i_LikedPages)
         {
-            likedPages.OrderByDescending(ob => ob.CheckinsCount);
-            for (int i = PagesCollectionSize - 1; i >= PagesCollectionSize - 4 && i < likedPages.Count; i--)
+            i_LikedPages.OrderByDescending(ob => ob.CheckinsCount);
+            for (int i = PagesCollectionSize - 1; i >= PagesCollectionSize - 4 && i < i_LikedPages.Count; i--)
             {
-                Top4MostCheckInPages.Add(likedPages[i]);
+                Top4MostCheckInPages.Add(i_LikedPages[i]);
             }
         }
     }

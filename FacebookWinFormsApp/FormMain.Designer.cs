@@ -30,10 +30,10 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -65,7 +65,6 @@ namespace BasicFacebookFeatures
             this.dateTimePickerPostSchedStatus = new System.Windows.Forms.DateTimePicker();
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageStatistic = new System.Windows.Forms.TabPage();
-            this.tabPageStatistic.Hide();
             this.labelTop4LikedPages = new System.Windows.Forms.Label();
             this.listViewTop4LikedPages = new System.Windows.Forms.ListView();
             this.labelTop4CheckinsPages = new System.Windows.Forms.Label();
@@ -83,13 +82,14 @@ namespace BasicFacebookFeatures
             // 
             // buttonLogin
             // 
+            this.buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
             this.buttonLogin.Location = new System.Drawing.Point(18, 17);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(268, 32);
             this.buttonLogin.TabIndex = 36;
             this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // buttonLogout
@@ -495,28 +495,28 @@ namespace BasicFacebookFeatures
             // 
             // chartCategories
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartCategories.ChartAreas.Add(chartArea4);
-            legend4.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-            legend4.IsDockedInsideChartArea = false;
-            legend4.Name = "Legend1";
-            this.chartCategories.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea1);
+            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend1.IsDockedInsideChartArea = false;
+            legend1.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend1);
             this.chartCategories.Location = new System.Drawing.Point(388, 74);
             this.chartCategories.Name = "chartCategories";
             this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.IsValueShownAsLabel = true;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartCategories.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCategories.Series.Add(series1);
             this.chartCategories.Size = new System.Drawing.Size(426, 403);
             this.chartCategories.TabIndex = 38;
             this.chartCategories.Text = "Categories";
-            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            title4.Name = "Title1";
-            title4.Text = "Page\'s Categories Devision";
-            this.chartCategories.Titles.Add(title4);
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            title1.Name = "Title1";
+            title1.Text = "Page\'s Categories Devision";
+            this.chartCategories.Titles.Add(title1);
             // 
             // FormMain
             // 
