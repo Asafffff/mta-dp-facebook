@@ -86,7 +86,7 @@ namespace BasicFacebookFeatures
             //    /// add any relevant permissions
             //    );
 
-            string accessToken = "EAATnZC2xG4w8BO4G2FKlXKvo7BZBag3wXZBBo6XJctre4d4QRA4qJTSPSU1ctdSOZBnBObQ4ZB3mlcEr9ty2YRePEGQpMFxZAtEkcjcv2pBAJt2rP4zA6TZByFyHZA8ZCZBxIIrvEgYerh2XP1DHG17ZAe69wpooxArX51sJOFFTv3TdIVDVFya8IRbRd6ZBwTIGq4tZB4SFZA1xZBq4qIv5p7eqHT0A4jkvsZBDdTTyhozhCwZDZD";
+            string accessToken = "";
             try
             {
                 m_LoginResult = FacebookService.Connect(accessToken);
