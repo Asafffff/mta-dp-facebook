@@ -132,7 +132,7 @@ namespace BasicFacebookFeatures
         private void fetchPosts()
         {
             listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
-            listBoxPosts.DataSource = m_LoginResult.LoggedInUser.Posts;
+            listBoxPosts.DataSource = m_User.Posts;
             listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
 
             if (listBoxPosts.Items.Count == 0)
@@ -353,7 +353,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
  Community Pages ";
         }
 
-        private void addItemsToListTopChecknPages()
+        private void addItemsToListTopCheckInPages()
         {
             foreach (var page in m_PagesStats.Top4MostCheckInPages)
             {
@@ -390,7 +390,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
                 if (listTopCheckinPages.Items.Count == 0)
                 {
                     m_PagesStats = m_PagesStats.GetPageStatistics(m_User.LikedPages);
-                    addItemsToListTopChecknPages();
+                    addItemsToListTopCheckInPages();
                     addItemsToListTopLikedPages();
                     addTextToCommunityTextBox();
                     addTextToIsPublishedTextBox();
