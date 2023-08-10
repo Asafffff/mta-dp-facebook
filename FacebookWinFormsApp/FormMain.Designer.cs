@@ -325,7 +325,7 @@ namespace BasicFacebookFeatures
             this.tabPagePostScheduling.Controls.Add(this.textBoxPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.dateTimePickerPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.labelPostScheduling);
-            this.tabPagePostScheduling.Enabled = false;
+            this.tabPagePostScheduling.Enabled = true;
             this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 31);
             this.tabPagePostScheduling.Name = "tabPagePostScheduling";
             this.tabPagePostScheduling.Padding = new System.Windows.Forms.Padding(3);

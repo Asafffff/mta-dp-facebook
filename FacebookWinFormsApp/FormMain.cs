@@ -66,30 +66,31 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            m_LoginResult = FacebookService.Login(
-                /// (This is Desig Patter's App ID. replace it with your own)
-                "1380984126104335",
-                /// requested permissions:
-                "email",
-                "public_profile",
-                "user_age_range",
-                "user_birthday",
-                "user_events",
-                "user_friends",
-                "user_gender",
-                "user_hometown",
-                "user_likes",
-                "user_link",
-                "user_location",
-                "user_photos",
-                "user_posts",
-                "user_videos"
+            try
+            {
+                m_LoginResult = FacebookService.Login(
+                    /// (This is Desig Patter's App ID. replace it with your own)
+                    "1380984126104335",
+                    /// requested permissions:
+                    "email",
+                    "public_profile",
+                    "user_age_range",
+                    "user_birthday",
+                    "user_events",
+                    "user_friends",
+                    "user_gender",
+                    "user_hometown",
+                    "user_likes",
+                    "user_link",
+                    "user_location",
+                    "user_photos",
+                    "user_posts",
+                    "user_videos"
                 /// add any relevant permissions
                 );
 
-            try
-            {
-                m_LoginResult = FacebookService.Connect(accessToken);
+                //string accessToken = "";
+                //m_LoginResult = FacebookService.Connect(accessToken);
             }
             catch (Exception ex)
             {
@@ -98,6 +99,7 @@ namespace BasicFacebookFeatures
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
+                m_User = m_LoginResult.LoggedInUser;
                 buttonLogin.Text = $"Logged in as {m_User.Name}";
                 buttonLogin.BackColor = Color.LightGreen;
                 pictureBoxProfile.ImageLocation = m_User.PictureNormalURL;
@@ -128,13 +130,13 @@ namespace BasicFacebookFeatures
             buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
             buttonLogout.BackColor = System.Drawing.Color.Transparent;
             m_LoginResult = null;
+            m_User = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
 
             disableFetchLinkLabels();
             disableButtons();
             clearAllDataOfAUserFromForm();
-
         }
 
         private void fetchNewsFeed()
@@ -278,7 +280,7 @@ private void fetchPosts()
                     pictureBox.Location = new Point(
                         labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
                         labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
-                    this.Controls.Add(pictureBox);
+                    tabPageMain.Controls.Add(pictureBox);
                     m_PhotosNameInControl.Add(pictureBox);
                     pictureBox.BringToFront();
 
