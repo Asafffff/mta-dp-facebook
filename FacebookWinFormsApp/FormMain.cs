@@ -174,8 +174,7 @@ namespace BasicFacebookFeatures
         {
             foreach(PictureBox name in m_PhotosNameInControl)
             {
-
-                this.Controls.Remove(name);
+                tabPageMain.Controls.Remove(name);
             }
             m_PhotosNameInControl.Clear();
         }
@@ -276,7 +275,6 @@ private void fetchPosts()
                     pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
                     pictureBox.ImageLocation = photo.PictureNormalURL;
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    // TODO: Fix Location?
                     pictureBox.Location = new Point(
                         labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
                         labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
@@ -398,8 +396,6 @@ private void fetchPosts()
                 removePostFromScheduler(post);
             }
         }
-
-       
 
         private void addDataToChartCategories()
         {
