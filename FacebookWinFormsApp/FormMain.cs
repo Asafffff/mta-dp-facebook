@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -131,16 +132,42 @@ namespace BasicFacebookFeatures
             }
             m_PhotosNameInControl.Clear();
         }
+        private void linkLabelFetchNewsfeed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchNewsFeed).Start();
+        }
+
+        private void linkLabelFetchPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchPosts).Start();
+        }
+
+        private void linkLabelFetchPhotos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchPhotos).Start();
+        }
 
         private void fetchNewsFeed()
         {
-            listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
-            listBoxNewsFeed.Invoke(new Action(() => listBoxNewsFeed.DataSource = FBService.User.NewsFeed));
-            listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
-
-            if (listBoxNewsFeed.Items.Count == 0)
+            try
             {
-                MessageBox.Show("Newsfeed is empty");
+                FacebookObjectCollection<Post> newsFeed = FBService.User.NewsFeed;
+
+                listBoxNewsFeed.Invoke(new Action(() =>
+                {
+                    listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
+                    listBoxNewsFeed.DataSource = newsFeed;
+                    listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
+
+                    if (listBoxNewsFeed.Items.Count == 0)
+                    {
+                        MessageBox.Show("Newsfeed is empty");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -148,14 +175,19 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
-                listBoxPosts.Invoke(new Action(() => listBoxPosts.DataSource = FBService.User.Posts));
-                listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
+                FacebookObjectCollection<Post> posts = FBService.User.Posts;
 
-                if(listBoxPosts.Items.Count == 0)
+                listBoxPosts.Invoke(new Action(() =>
                 {
-                    MessageBox.Show("No Posts to retrieve");
-                }
+                    listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
+                    listBoxPosts.DataSource = posts;
+                    listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
+
+                    if (listBoxPosts.Items.Count == 0)
+                    {
+                        MessageBox.Show("No Posts to retrieve");
+                    }
+                }));
             }
             catch(Exception ex)
             {
@@ -167,13 +199,71 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                listBoxComments.Invoke(new Action(() => listBoxComments.DataSource = i_Post.Comments));
+                FacebookObjectCollection<Comment> comments = i_Post.Comments;
 
-                if (listBoxComments.Items.Count == 0)
+                listBoxComments.Invoke(new Action(() =>
                 {
-                    listBoxComments.Invoke(new Action(() => listBoxComments.DataSource = null));
-                    listBoxComments.Items.Add("No comments found");
-                }
+                    listBoxComments.DataSource = comments;
+
+                    if (listBoxComments.Items.Count == 0)
+                    {
+                        listBoxComments.DataSource = null;
+                        listBoxComments.Items.Add("No comments found");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void fetchPhotos()
+        {
+            try
+            {
+                int i = 0, j = 0;
+
+                int pictureBoxWidth = 77;
+                int pictureBoxLength = 77;
+                int spaceFromLabel = 30;
+
+                FacebookObjectCollection<Album> albums = FBService.User.Albums;
+
+                tabPageMain.Invoke(new Action(() =>
+                {
+                    if (albums.Count == 0 || albums[0].Photos.Count == 0)
+                    {
+                        MessageBox.Show("There are no albums or photos");
+                    }
+
+                    FacebookObjectCollection<Photo> photos = (FacebookObjectCollection<Photo>)albums[0].Photos;
+
+                    tabPageMain.Invoke(new Action(() =>
+                    {
+                        foreach (Photo photo in photos.Take(6))
+                        {
+                            PictureBox pictureBox = new PictureBox();
+                            pictureBox.Name = photo.Name;
+                            pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
+                            pictureBox.ImageLocation = photo.PictureNormalURL;
+                            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                            pictureBox.Location = new Point(
+                                labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
+                                labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
+                            tabPageMain.Controls.Add(pictureBox);
+                            m_PhotosNameInControl.Add(pictureBox);
+                            pictureBox.BringToFront();
+
+                            i++;
+                            if (i % 3 == 0)
+                            {
+                                i = 0;
+                                j++;
+                            }
+                        }
+                    }));
+                }));
             }
             catch (Exception ex)
             {
@@ -186,7 +276,7 @@ namespace BasicFacebookFeatures
             if (listBoxPosts.SelectedIndex != -1)
             {
                 Post post = listBoxPosts.SelectedItem as Post;
-                fetchComments(post);
+                new Thread(() => fetchComments(post));
             }
         }
 
@@ -195,66 +285,7 @@ namespace BasicFacebookFeatures
             if (listBoxNewsFeed.SelectedIndex != -1)
             {
                 Post post = listBoxNewsFeed.SelectedItem as Post;
-                fetchComments(post);
-            }
-        }
-
-        private void linkLabelFetchNewsfeed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchNewsFeed();
-        }
-
-        private void linkLabelFetchPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchPosts();
-        }
-
-        private void linkLabelFetchPhotos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchPhotos();
-        }
-
-        private void fetchPhotos()
-        {
-            try
-            {
-                FacebookObjectCollection <Album> albums = FBService.User.Albums;
-                if(albums.Count == 0 || albums[0].Photos.Count == 0)
-                {
-                    MessageBox.Show("There are no albums or photos");
-                }
-
-                int i = 0, j = 0;
-
-                int pictureBoxWidth = 77;
-                int pictureBoxLength = 77;
-                int spaceFromLabel = 30;
-
-                foreach(Photo photo in albums[0].Photos.Take(6))
-                {
-                    PictureBox pictureBox = new PictureBox();
-                    pictureBox.Name = photo.Name;
-                    pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
-                    pictureBox.ImageLocation = photo.PictureNormalURL;
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox.Location = new Point(
-                        labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
-                        labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
-                    tabPageMain.Controls.Add(pictureBox);
-                    m_PhotosNameInControl.Add(pictureBox);
-                    pictureBox.BringToFront();
-
-                    i++;
-                    if(i % 3 == 0)
-                    {
-                        i = 0;
-                        j++;
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                new Thread(() => fetchComments(post));
             }
         }
 
