@@ -426,7 +426,7 @@ namespace BasicFacebookFeatures
             this.tabPageStatistic.Name = "tabPageStatistic";
             this.tabPageStatistic.Size = new System.Drawing.Size(1235, 662);
             this.tabPageStatistic.TabIndex = 2;
-            this.tabPageStatistic.Text = "GetPageStats";
+            this.tabPageStatistic.Text = "Page Statistics";
             this.tabPageStatistic.UseVisualStyleBackColor = true;
             // 
             // labelTop4LikedPages
