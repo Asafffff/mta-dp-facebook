@@ -400,7 +400,7 @@ namespace BasicFacebookFeatures
             this.dateTimePickerPostSchedStatus.Name = "dateTimePickerPostSchedStatus";
             this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 24);
             this.dateTimePickerPostSchedStatus.TabIndex = 1;
-            this.dateTimePickerPostSchedStatus.Value = new System.DateTime(2023, 8, 1, 0, 0, 0, 0);
+            this.dateTimePickerPostSchedStatus.Value = System.DateTime.Now;
             // 
             // labelPostScheduling
             // 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BasicFacebookFeatures
 {
-    public class ScheduledPost
+    public class ScheduledPost: IScheduledItem
     {
         private static int s_Id = 0;
         public int Id { get; set; }

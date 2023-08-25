@@ -7,14 +7,13 @@ using FacebookWrapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Threading;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private PostScheduler m_PostScheduler = new PostScheduler();
+        private IScheduler m_PostScheduler = new PostSchedulerAdapter(new PostScheduler());
         private PageStatistics m_PagesStats = new PageStatistics();
         private List<PictureBox> m_PhotosNameInControl = new List<PictureBox>();
         
