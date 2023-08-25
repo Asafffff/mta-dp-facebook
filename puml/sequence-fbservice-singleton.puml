@@ -1,0 +1,19 @@
+@startuml
+<style>
+footer {
+  HorizontalAlignment left
+}
+</style>
+FormUI -> FBService: Get User
+
+alt User == null
+  FBService -> FacebookService: Connect
+  FacebookService --> FBService
+  FBService -> FBService: Set User 
+end
+
+FBService --> FormUI
+
+footer * User is a property of FBService
+
+@enduml

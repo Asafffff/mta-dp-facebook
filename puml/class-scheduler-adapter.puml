@@ -1,0 +1,28 @@
+@startuml
+class "FormUI (Client)" as client {}
+
+class "IScheduler (Target)" as interface {
+  +<<property>> Count
+  +<<property>> MaxPosts
+  +Schedule(IScheduledItem item)
+  +Cancel(IScheduledItem item)
+}
+
+class "PostSchedulerAdapter (Adapter)" as adapter {
+  +<<property>> Count
+  +<<property>> MaxPosts
+  +Schedule(IScheduledItem item)
+  +Cancel(IScheduledItem item)
+}
+
+class "PostScheduler (Adaptee)" as adaptee {
+  +<<property>> Count
+  +<<property>> MaxPosts
+  +Schedule(ScheduledPost post)
+  +Cancel(ScheduledPost post)
+}
+
+client -> interface
+interface <|-- adapter
+adapter *- adaptee
+@enduml
