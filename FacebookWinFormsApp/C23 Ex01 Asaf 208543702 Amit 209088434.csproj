@@ -68,10 +68,10 @@
       <HintPath>..\packages\CefSharp.WinForms.87.1.132\lib\net452\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Facebook">
-      <HintPath>..\Facebook.dll</HintPath>
+      <HintPath>..\FBApi\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
@@ -90,17 +90,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Schedulers\IScheduler.cs" />
+    <Compile Include="FBService\FBService.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="PageStatistics.cs" />
-    <Compile Include="PostScheduler.cs" />
+    <Compile Include="Schedulers\IScheduledItem.cs" />
+    <Compile Include="PageStatisticsGenerator\PageStatistics.cs" />
+    <Compile Include="Schedulers\PostScheduler\PostScheduler.cs" />
+    <Compile Include="Schedulers\PostScheduler\PostSchedulerAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScheduledPost.cs" />
+    <Compile Include="Schedulers\PostScheduler\ScheduledPost.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,7 +118,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

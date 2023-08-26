@@ -26,8 +26,6 @@ namespace BasicFacebookFeatures
 
             await Task.Delay(timeToWait);
 
-            // TODO: Execute the event trigger. Can't have UI in this layer...
-            // Maybe just make Post Status public?
             if (m_ScheduledPosts.Contains(i_Post))
             {
                 i_Post.OnScheduleTrigger();

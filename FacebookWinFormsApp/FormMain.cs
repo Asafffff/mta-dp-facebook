@@ -7,21 +7,19 @@ using FacebookWrapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private PostScheduler m_PostScheduler = new PostScheduler();
+        private IScheduler m_PostScheduler = new PostSchedulerAdapter(new PostScheduler());
         private PageStatistics m_PagesStats = new PageStatistics();
-        private FacebookWrapper.LoginResult m_LoginResult;
         private List<PictureBox> m_PhotosNameInControl = new List<PictureBox>();
-        private User m_User;
         
         public FormMain()
         {
             InitializeComponent();
-            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
 
             listBoxScheduledPosts.DisplayMember = "Message";
         }
@@ -30,12 +28,28 @@ namespace BasicFacebookFeatures
         {
             Clipboard.SetText("design.patterns");
 
-            if (m_LoginResult == null)
+            User user = FBService.User;
+
+            if (user == null)
             {
-                login();
-                enableFetchLinkLabels();
-                enableButtons();
+                return;
             }
+
+            buttonLogin.Text = $"Logged in as {user.Name}";
+            buttonLogin.BackColor = Color.LightGreen;
+            buttonLogin.Enabled = false;
+            buttonLogout.Enabled = true;
+            buttonLogout.BackColor = System.Drawing.Color.Red;
+
+            pictureBoxProfile.ImageLocation = user.PictureNormalURL;
+
+            labelName.Text = user.Name;
+            labelLivesIn.Text = user.Location.Name;
+            labelBirthday.Text = user.Birthday;
+
+            enableFetchLinkLabels();
+            enableButtons();
+
         }
 
         private void enableFetchLinkLabels()
@@ -64,91 +78,29 @@ namespace BasicFacebookFeatures
             buttonPostSchedStatus.Enabled = false;
         }
 
-        private void login()
-        {
-            try
-            {
-                m_LoginResult = FacebookService.Login(
-                    /// (This is Desig Patter's App ID. replace it with your own)
-                    "1380984126104335",
-                    /// requested permissions:
-                    "email",
-                    "public_profile",
-                    "user_age_range",
-                    "user_birthday",
-                    "user_events",
-                    "user_friends",
-                    "user_gender",
-                    "user_hometown",
-                    "user_likes",
-                    "user_link",
-                    "user_location",
-                    "user_photos",
-                    "user_posts",
-                    "user_videos"
-                /// add any relevant permissions
-                );
-
-                //string accessToken = "";
-                //m_LoginResult = FacebookService.Connect(accessToken);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}");
-            }
-
-            if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
-            {
-                m_User = m_LoginResult.LoggedInUser;
-                buttonLogin.Text = $"Logged in as {m_User.Name}";
-                buttonLogin.BackColor = Color.LightGreen;
-                pictureBoxProfile.ImageLocation = m_User.PictureNormalURL;
-                labelName.Text = m_User.Name;
-                labelLivesIn.Text = m_User.Location.Name;
-                labelBirthday.Text = m_User.Birthday;
-                buttonLogin.Enabled = false;
-                buttonLogout.Enabled = true;
-
-                m_User = m_User;
-            }
-            buttonLogout.BackColor = System.Drawing.Color.Red; ;
-        }
-
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             try
             {
                 FacebookService.LogoutWithUI();
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}");
             }
-            
+
+            FBService.Logout();
+
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
             buttonLogout.BackColor = System.Drawing.Color.Transparent;
-            m_LoginResult = null;
-            m_User = null;
+            
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
 
             disableFetchLinkLabels();
             disableButtons();
             clearAllDataOfAUserFromForm();
-        }
-
-        private void fetchNewsFeed()
-        {
-            listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
-            listBoxNewsFeed.DataSource = m_User.NewsFeed;
-            listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
-
-            if (listBoxNewsFeed.Items.Count == 0)
-            {
-                MessageBox.Show("Newsfeed is empty");
-            }
         }
 
         private void clearAllDataOfAUserFromForm()
@@ -159,6 +111,7 @@ namespace BasicFacebookFeatures
             labelBirthday.Text = null;
             clearAllDataFromLists();
         }
+
         private void clearAllDataFromLists()
         {
             listBoxPosts.DataSource = null;
@@ -174,30 +127,147 @@ namespace BasicFacebookFeatures
         {
             foreach(PictureBox name in m_PhotosNameInControl)
             {
-
-                this.Controls.Remove(name);
+                tabPageMain.Controls.Remove(name);
             }
             m_PhotosNameInControl.Clear();
         }
+        private void linkLabelFetchNewsfeed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchNewsFeed).Start();
+        }
 
-private void fetchPosts()
+        private void linkLabelFetchPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchPosts).Start();
+        }
+
+        private void linkLabelFetchPhotos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new Thread(fetchPhotos).Start();
+        }
+
+        private void fetchNewsFeed()
         {
             try
             {
-                listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
-                listBoxPosts.DataSource = m_User.Posts;
-                listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
+                FacebookObjectCollection<Post> newsFeed = FBService.User.NewsFeed;
 
-                if(listBoxPosts.Items.Count == 0)
+                listBoxNewsFeed.Invoke(new Action(() =>
                 {
-                    MessageBox.Show("No Posts to retrieve");
-                }
+                    listBoxNewsFeed.SelectedIndexChanged -= listBoxNewsFeed_SelectedIndexChanged;
+                    listBoxNewsFeed.DataSource = newsFeed;
+                    listBoxNewsFeed.SelectedIndexChanged += listBoxNewsFeed_SelectedIndexChanged;
+
+                    if (listBoxNewsFeed.Items.Count == 0)
+                    {
+                        MessageBox.Show("Newsfeed is empty");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void fetchPosts()
+        {
+            try
+            {
+                FacebookObjectCollection<Post> posts = FBService.User.Posts;
+
+                listBoxPosts.Invoke(new Action(() =>
+                {
+                    listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
+                    listBoxPosts.DataSource = posts;
+                    listBoxPosts.SelectedIndexChanged += listBoxPosts_SelectedIndexChanged;
+
+                    if (listBoxPosts.Items.Count == 0)
+                    {
+                        MessageBox.Show("No Posts to retrieve");
+                    }
+                }));
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            
+        }
+
+        private void fetchComments(Post i_Post)
+        {
+            try
+            {
+                FacebookObjectCollection<Comment> comments = i_Post.Comments;
+
+                listBoxComments.Invoke(new Action(() =>
+                {
+                    listBoxComments.DataSource = comments;
+
+                    if (listBoxComments.Items.Count == 0)
+                    {
+                        listBoxComments.DataSource = null;
+                        listBoxComments.Items.Add("No comments found");
+                    }
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void fetchPhotos()
+        {
+            try
+            {
+                int i = 0, j = 0;
+
+                int pictureBoxWidth = 77;
+                int pictureBoxLength = 77;
+                int spaceFromLabel = 30;
+
+                FacebookObjectCollection<Album> albums = FBService.User.Albums;
+
+                tabPageMain.Invoke(new Action(() =>
+                {
+                    if (albums.Count == 0 || albums[0].Photos.Count == 0)
+                    {
+                        MessageBox.Show("There are no albums or photos");
+                    }
+
+                    FacebookObjectCollection<Photo> photos = (FacebookObjectCollection<Photo>)albums[0].Photos;
+
+                    tabPageMain.Invoke(new Action(() =>
+                    {
+                        foreach (Photo photo in photos.Take(6))
+                        {
+                            PictureBox pictureBox = new PictureBox();
+                            pictureBox.Name = photo.Name;
+                            pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
+                            pictureBox.ImageLocation = photo.PictureNormalURL;
+                            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                            pictureBox.Location = new Point(
+                                labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
+                                labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
+                            tabPageMain.Controls.Add(pictureBox);
+                            m_PhotosNameInControl.Add(pictureBox);
+                            pictureBox.BringToFront();
+
+                            i++;
+                            if (i % 3 == 0)
+                            {
+                                i = 0;
+                                j++;
+                            }
+                        }
+                    }));
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void listBoxPosts_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,7 +275,7 @@ private void fetchPosts()
             if (listBoxPosts.SelectedIndex != -1)
             {
                 Post post = listBoxPosts.SelectedItem as Post;
-                fetchComments(post);
+                new Thread(() => fetchComments(post));
             }
         }
 
@@ -214,87 +284,7 @@ private void fetchPosts()
             if (listBoxNewsFeed.SelectedIndex != -1)
             {
                 Post post = listBoxNewsFeed.SelectedItem as Post;
-                fetchComments(post);
-            }
-        }
-
-        private void fetchComments(Post i_Post)
-        {
-            try
-            {
-                listBoxComments.DataSource = i_Post.Comments;
-
-                if(listBoxComments.Items.Count == 0)
-                {
-                    listBoxComments.DataSource = null;
-                    listBoxComments.Items.Add("No comments found");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void linkLabelFetchNewsfeed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchNewsFeed();
-        }
-
-        private void linkLabelFetchPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchPosts();
-        }
-
-        private void linkLabelFetchPhotos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchPhotos();
-        }
-
-        private void fetchPhotos()
-        {
-            try
-            {
-
-                FacebookObjectCollection<Album> albums = m_User.Albums;
-                if(albums.Count == 0 || albums[0].Photos.Count == 0)
-                {
-                    MessageBox.Show("There are no albums or photos");
-                }
-
-                int i = 0, j = 0;
-
-                int pictureBoxWidth = 77;
-                int pictureBoxLength = 77;
-                int spaceFromLabel = 30;
-
-
-                foreach(Photo photo in m_User.Albums[0].Photos.Take(6))
-                {
-                    PictureBox pictureBox = new PictureBox();
-                    pictureBox.Name = photo.Name;
-                    pictureBox.Size = new Size(pictureBoxWidth, pictureBoxLength);
-                    pictureBox.ImageLocation = photo.PictureNormalURL;
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    // TODO: Fix Location?
-                    pictureBox.Location = new Point(
-                        labelPhotos.Left + 6 + i * (pictureBoxWidth + 18),
-                        labelPhotos.Top + labelPhotos.Height + spaceFromLabel + j * (pictureBoxLength + 12));
-                    tabPageMain.Controls.Add(pictureBox);
-                    m_PhotosNameInControl.Add(pictureBox);
-                    pictureBox.BringToFront();
-
-                    i++;
-                    if(i % 3 == 0)
-                    {
-                        i = 0;
-                        j++;
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                new Thread(() => fetchComments(post));
             }
         }
 
@@ -308,7 +298,7 @@ private void fetchPosts()
                 }
                 else
                 {
-                    m_User.PostStatus(i_Text);
+                    FBService.User.PostStatus(i_Text);
                 }
             }
             catch
@@ -399,8 +389,6 @@ private void fetchPosts()
             }
         }
 
-       
-
         private void addDataToChartCategories()
         {
             Series series = chartCategories.Series["Series1"];
@@ -449,7 +437,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
             {
                 try
                 {
-                    if (m_User == null)
+                    if (buttonLogin.Enabled == true)
                     {
                         throw new InvalidOperationException("User must be logged-in");
                     }
@@ -463,7 +451,7 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
                 if (listTopCheckinPages.Items.Count == 0)
                 {
-                    m_PagesStats = m_PagesStats.GetPageStatistics(m_User.LikedPages);
+                    m_PagesStats = m_PagesStats.GetPageStatistics(FBService.User.LikedPages);
                     addItemsToListTopCheckInPages();
                     addItemsToListTopLikedPages();
                     addTextToCommunityTextBox();
