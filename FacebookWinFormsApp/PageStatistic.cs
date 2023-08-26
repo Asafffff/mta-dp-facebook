@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace BasicFacebookFeatures
 {
+    // good
     public class PageStatistic
     {
         public const int PagesCollectionSize = 25;
