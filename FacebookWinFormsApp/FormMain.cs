@@ -7,12 +7,17 @@ using FacebookWrapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private PostScheduler m_PostScheduler = new PostScheduler();
+<<<<<<< Updated upstream
+=======
+        private PageStatistics m_PagesStats;
+>>>>>>> Stashed changes
         private FacebookWrapper.LoginResult m_LoginResult;
         private PageStatistic m_PagesStats = new PageStatistic();
         private List<PictureBox> m_photosNameInControl = new List<PictureBox>();
@@ -165,6 +170,7 @@ namespace BasicFacebookFeatures
             listBoxComments.DataSource = null;
             listBoxComments.Items.Clear();
             clearPhotosFromControl();
+            clearPageStats();
         }
 
         private void clearPhotosFromControl()
@@ -177,7 +183,17 @@ namespace BasicFacebookFeatures
             m_photosNameInControl.Clear();
         }
 
-private void fetchPosts()
+        private void clearPageStats()
+        {
+            listTopCheckinPages.Items.Clear();
+            listViewTopLikedPages.Items.Clear();
+            IsCummunityTextBox.Clear();
+            addTextToIsPublishedTextBox();
+            IsPublishedTextBox.Clear();
+            addDataToChartCategories();
+        }
+
+        private void fetchPosts()
         {
             listBoxPosts.SelectedIndexChanged -= listBoxPosts_SelectedIndexChanged;
             listBoxPosts.DataSource = m_LoginResult.LoggedInUser.Posts;
@@ -407,7 +423,7 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
         private void addItemsToListTopChecknPages()
         {
-            foreach (var page in m_PagesStats.Top4MostCheckInPages)
+            foreach (var page in m_PagesStats.TopMostCheckInPages)
             {
                 listTopCheckinPages.Items.Add(page.Name);
             }
@@ -415,9 +431,9 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
         private void addItemsToListTopLikedPages()
         {
-            foreach (var page in m_PagesStats.Top4MostLikedPages)
+            foreach (var page in m_PagesStats.TopMostLikedPages)
             {
-                listViewTop4LikedPages.Items.Add(page.Name);
+                listViewTopLikedPages.Items.Add(page.Name);
             }
         }
 
@@ -441,8 +457,13 @@ and {PageStatistic.PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
 
                 if (listTopCheckinPages.Items.Count == 0)
                 {
+<<<<<<< Updated upstream
                     m_PagesStats = m_PagesStats.GetPageStatistic(m_LoginResult.LoggedInUser.LikedPages);
                     addItemsToListTopChecknPages();
+=======
+                    m_PagesStats = new PageStatistics().GetPageStatistics(m_User.LikedPages);
+                    addItemsToListTopCheckInPages();
+>>>>>>> Stashed changes
                     addItemsToListTopLikedPages();
                     addTextToCommunityTextBox();
                     addTextToIsPublishedTextBox();

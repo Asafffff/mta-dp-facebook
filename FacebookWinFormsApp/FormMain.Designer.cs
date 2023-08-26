@@ -30,10 +30,10 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -66,7 +66,7 @@ namespace BasicFacebookFeatures
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageStatistic = new System.Windows.Forms.TabPage();
             this.labelTop4LikedPages = new System.Windows.Forms.Label();
-            this.listViewTop4LikedPages = new System.Windows.Forms.ListView();
+            this.listViewTopLikedPages = new System.Windows.Forms.ListView();
             this.labelTop4CheckinsPages = new System.Windows.Forms.Label();
             this.listTopCheckinPages = new System.Windows.Forms.ListView();
             this.IsCummunityTextBox = new System.Windows.Forms.RichTextBox();
@@ -292,7 +292,11 @@ namespace BasicFacebookFeatures
             this.listBoxComments.ItemHeight = 26;
             this.listBoxComments.Location = new System.Drawing.Point(322, 465);
             this.listBoxComments.Name = "listBoxComments";
+<<<<<<< Updated upstream
             this.listBoxComments.Size = new System.Drawing.Size(873, 160);
+=======
+            this.listBoxComments.Size = new System.Drawing.Size(873, 134);
+>>>>>>> Stashed changes
             this.listBoxComments.TabIndex = 57;
             // 
             // listBoxPosts
@@ -301,7 +305,11 @@ namespace BasicFacebookFeatures
             this.listBoxPosts.ItemHeight = 26;
             this.listBoxPosts.Location = new System.Drawing.Point(20, 242);
             this.listBoxPosts.Name = "listBoxPosts";
+<<<<<<< Updated upstream
             this.listBoxPosts.Size = new System.Drawing.Size(266, 160);
+=======
+            this.listBoxPosts.Size = new System.Drawing.Size(266, 134);
+>>>>>>> Stashed changes
             this.listBoxPosts.TabIndex = 56;
             this.listBoxPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxPosts_SelectedIndexChanged);
             // 
@@ -325,7 +333,10 @@ namespace BasicFacebookFeatures
             this.tabPagePostScheduling.Controls.Add(this.textBoxPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.dateTimePickerPostSchedStatus);
             this.tabPagePostScheduling.Controls.Add(this.labelPostScheduling);
+<<<<<<< Updated upstream
             this.tabPagePostScheduling.Enabled = false;
+=======
+>>>>>>> Stashed changes
             this.tabPagePostScheduling.Location = new System.Drawing.Point(4, 35);
             this.tabPagePostScheduling.Name = "tabPagePostScheduling";
             this.tabPagePostScheduling.Padding = new System.Windows.Forms.Padding(3);
@@ -361,7 +372,11 @@ namespace BasicFacebookFeatures
             this.listBoxScheduledPosts.ItemHeight = 26;
             this.listBoxScheduledPosts.Location = new System.Drawing.Point(18, 246);
             this.listBoxScheduledPosts.Name = "listBoxScheduledPosts";
+<<<<<<< Updated upstream
             this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 212);
+=======
+            this.listBoxScheduledPosts.Size = new System.Drawing.Size(447, 186);
+>>>>>>> Stashed changes
             this.listBoxScheduledPosts.TabIndex = 80;
             this.listBoxScheduledPosts.SelectedIndexChanged += new System.EventHandler(this.listBoxScheduledPosts_SelectedIndexChanged);
             // 
@@ -378,6 +393,7 @@ namespace BasicFacebookFeatures
             // buttonPostSchedStatus
             // 
             this.buttonPostSchedStatus.Font = new System.Drawing.Font("Candara", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPostSchedStatus.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonPostSchedStatus.Location = new System.Drawing.Point(996, 94);
             this.buttonPostSchedStatus.Name = "buttonPostSchedStatus";
             this.buttonPostSchedStatus.Size = new System.Drawing.Size(141, 28);
@@ -416,7 +432,7 @@ namespace BasicFacebookFeatures
             // tabPageStatistic
             // 
             this.tabPageStatistic.Controls.Add(this.labelTop4LikedPages);
-            this.tabPageStatistic.Controls.Add(this.listViewTop4LikedPages);
+            this.tabPageStatistic.Controls.Add(this.listViewTopLikedPages);
             this.tabPageStatistic.Controls.Add(this.labelTop4CheckinsPages);
             this.tabPageStatistic.Controls.Add(this.listTopCheckinPages);
             this.tabPageStatistic.Controls.Add(this.IsCummunityTextBox);
@@ -442,14 +458,14 @@ namespace BasicFacebookFeatures
             // 
             // listViewTop4LikedPages
             // 
-            this.listViewTop4LikedPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listViewTop4LikedPages.HideSelection = false;
-            this.listViewTop4LikedPages.Location = new System.Drawing.Point(0, 324);
-            this.listViewTop4LikedPages.Name = "listViewTop4LikedPages";
-            this.listViewTop4LikedPages.Size = new System.Drawing.Size(342, 191);
-            this.listViewTop4LikedPages.TabIndex = 43;
-            this.listViewTop4LikedPages.UseCompatibleStateImageBehavior = false;
-            this.listViewTop4LikedPages.View = System.Windows.Forms.View.List;
+            this.listViewTopLikedPages.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listViewTopLikedPages.HideSelection = false;
+            this.listViewTopLikedPages.Location = new System.Drawing.Point(0, 324);
+            this.listViewTopLikedPages.Name = "listViewTop4LikedPages";
+            this.listViewTopLikedPages.Size = new System.Drawing.Size(342, 191);
+            this.listViewTopLikedPages.TabIndex = 43;
+            this.listViewTopLikedPages.UseCompatibleStateImageBehavior = false;
+            this.listViewTopLikedPages.View = System.Windows.Forms.View.List;
             // 
             // labelTop4CheckinsPages
             // 
@@ -495,28 +511,35 @@ namespace BasicFacebookFeatures
             // 
             // chartCategories
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCategories.ChartAreas.Add(chartArea1);
-            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-            legend1.IsDockedInsideChartArea = false;
-            legend1.Name = "Legend1";
-            this.chartCategories.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea2);
+            legend2.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend2.IsDockedInsideChartArea = false;
+            legend2.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend2);
             this.chartCategories.Location = new System.Drawing.Point(388, 74);
             this.chartCategories.Name = "chartCategories";
             this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.IsValueShownAsLabel = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCategories.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.IsValueShownAsLabel = true;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartCategories.Series.Add(series2);
             this.chartCategories.Size = new System.Drawing.Size(426, 403);
             this.chartCategories.TabIndex = 38;
             this.chartCategories.Text = "Categories";
+<<<<<<< Updated upstream
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             title1.Name = "Title1";
             title1.Text = "Page\'s Categories Devision";
             this.chartCategories.Titles.Add(title1);
+=======
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            title2.Name = "Title1";
+            title2.Text = "Page\'s Category Division";
+            this.chartCategories.Titles.Add(title2);
+>>>>>>> Stashed changes
             // 
             // FormMain
             // 
@@ -583,7 +606,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.ListView listTopCheckinPages;
         private Label labelTop4CheckinsPages;
         private Label labelTop4LikedPages;
-        private ListView listViewTop4LikedPages;
+        private ListView listViewTopLikedPages;
     }
 }
 
