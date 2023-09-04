@@ -1,13 +1,15 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using BasicFacebookFeatures.PageStatisticsGenerator;
+using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
-    public class PageStatistics
+    public class PageStatistics:IStatisticHandler
     {
         public const int k_PagesCollectionSize = 25;
-
         public int NumberOfCategories { get; private set; }
         public int NumberOfPublishedPages { get; private set; }
         public int NumberOfCommunityPages { get; private set; }
@@ -21,28 +23,6 @@ namespace BasicFacebookFeatures
             Top4MostLikedPages = new FacebookObjectCollection<Page>();
             Categories = new Dictionary<string, int>();
         }
-
-        public PageStatistics GetPageStatistics(FacebookObjectCollection<Page> i_Pages)
-        {
-
-            foreach (Page page in i_Pages)
-            {
-                if (page.IsPublished == true)
-                {
-                    NumberOfPublishedPages++;
-                }
-                if (page.IsCommunityPage == true)
-                {
-                    NumberOfCommunityPages++;
-                }
-                updateCategories(page);
-
-            }
-            updateTop4MostLikedPages(i_Pages);
-            updateTop4MostCheckInPages(i_Pages);
-            return this;
-        }
-
         private void updateCategories(Page i_Page)
         {
             if (i_Page.Category != null)
@@ -56,7 +36,6 @@ namespace BasicFacebookFeatures
                     Categories[i_Page.Category]++;
                 }
         }
-
         private void updateTop4MostLikedPages(FacebookObjectCollection<Page> i_Pages)
         {
             i_Pages.OrderByDescending(i_Page => i_Page.LikesCount);
@@ -66,7 +45,6 @@ namespace BasicFacebookFeatures
                 Top4MostLikedPages.Add(i_Pages[i]);
             }
         }
-
         private void updateTop4MostCheckInPages(FacebookObjectCollection<Page> i_Pages)
         {
             i_Pages.OrderByDescending(i_Page => i_Page.CheckinsCount);
@@ -75,6 +53,60 @@ namespace BasicFacebookFeatures
                 Top4MostCheckInPages.Add(i_Pages[i]);
             }
         }
+        public void ProcessStatistic()
+        {
+            FacebookObjectCollection<Page> likedPages = FBService.User.LikedPages;
+
+            foreach (Page page in likedPages)
+            {
+                if (page.IsPublished == true)
+                {
+                    NumberOfPublishedPages++;
+                }
+                if (page.IsCommunityPage == true)
+                {
+                    NumberOfCommunityPages++;
+                }
+                updateCategories(page);
+            }
+            updateTop4MostLikedPages(likedPages);
+            updateTop4MostCheckInPages(likedPages);
+        }
+        public void AddDataToPieChart(Series i_Series)
+        {
+            foreach (var kvp in Categories)
+            {
+                i_Series.Points.AddXY(kvp.Key, kvp.Value);
+            };
+        }
+        public void AddTextToFirstTextBox(System.Windows.Forms.RichTextBox i_TextBox)
+        {
+            i_TextBox.Text = $@"There Are 
+{NumberOfPublishedPages} Published Pages 
+and {PageStatistics.k_PagesCollectionSize -NumberOfPublishedPages}
+ unPublished Pages ";
+        }
+        public void AddTextToSecondTextBox(RichTextBox i_TextBox)
+        {
+            i_TextBox.Text = $@"There Are 
+{NumberOfCommunityPages} Community Pages 
+and {k_PagesCollectionSize - NumberOfPublishedPages}
+ Community Pages ";
+        }
+        public void AddDataToSecondListView(ListView i_ListView)
+        {
+            foreach (var page in Top4MostCheckInPages)
+            {
+                i_ListView.Items.Add(page.Name);
+            }
+        }
+        public void AddDataToFirstListView(ListView i_ListView)
+        {
+            foreach (var page in Top4MostLikedPages)
+            {
+                i_ListView.Items.Add(page.Name);
+            }
+        }      
     }
 }
 

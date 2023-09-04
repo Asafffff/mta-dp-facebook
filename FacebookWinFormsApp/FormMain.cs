@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
+using BasicFacebookFeatures.PageStatisticsGenerator;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private IScheduler m_PostScheduler = new PostSchedulerAdapter(new PostScheduler());
-        private PageStatistics m_PagesStats = new PageStatistics();
+        private ProxyStatisticHandler m_Stats;
         private List<PictureBox> m_PhotosNameInControl = new List<PictureBox>();
         
         public FormMain()
@@ -23,7 +24,6 @@ namespace BasicFacebookFeatures
 
             listBoxScheduledPosts.DisplayMember = "Message";
         }
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
@@ -51,33 +51,28 @@ namespace BasicFacebookFeatures
             enableButtons();
 
         }
-
         private void enableFetchLinkLabels()
         {
             linkLabelFetchNewsfeed.Enabled = true;
             linkLabelFetchPosts.Enabled = true;
             linkLabelFetchPhotos.Enabled = true;
         }
-
         private void disableFetchLinkLabels()
         {
             linkLabelFetchNewsfeed.Enabled = false;
             linkLabelFetchPosts.Enabled = false;
             linkLabelFetchPhotos.Enabled = false;
         }
-
         private void enableButtons()
         {
             buttonPostStatus.Enabled = true;
             buttonPostSchedStatus.Enabled = true;
         }
-
         private void disableButtons()
         {
             buttonPostStatus.Enabled = false;
             buttonPostSchedStatus.Enabled = false;
         }
-
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             try
@@ -102,7 +97,6 @@ namespace BasicFacebookFeatures
             disableButtons();
             clearAllDataOfAUserFromForm();
         }
-
         private void clearAllDataOfAUserFromForm()
         {
             pictureBoxProfile.ImageLocation = null;
@@ -111,7 +105,6 @@ namespace BasicFacebookFeatures
             labelBirthday.Text = null;
             clearAllDataFromLists();
         }
-
         private void clearAllDataFromLists()
         {
             listBoxPosts.DataSource = null;
@@ -122,7 +115,6 @@ namespace BasicFacebookFeatures
             listBoxComments.Items.Clear();
             clearPhotosFromControl();
         }
-
         private void clearPhotosFromControl()
         {
             foreach(PictureBox name in m_PhotosNameInControl)
@@ -135,17 +127,14 @@ namespace BasicFacebookFeatures
         {
             new Thread(fetchNewsFeed).Start();
         }
-
         private void linkLabelFetchPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new Thread(fetchPosts).Start();
         }
-
         private void linkLabelFetchPhotos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new Thread(fetchPhotos).Start();
         }
-
         private void fetchNewsFeed()
         {
             try
@@ -169,7 +158,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void fetchPosts()
         {
             try
@@ -193,7 +181,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void fetchComments(Post i_Post)
         {
             try
@@ -216,7 +203,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void fetchPhotos()
         {
             try
@@ -269,7 +255,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void listBoxPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxPosts.SelectedIndex != -1)
@@ -278,7 +263,6 @@ namespace BasicFacebookFeatures
                 new Thread(() => fetchComments(post));
             }
         }
-
         private void listBoxNewsFeed_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxNewsFeed.SelectedIndex != -1)
@@ -287,7 +271,6 @@ namespace BasicFacebookFeatures
                 new Thread(() => fetchComments(post));
             }
         }
-
         private void postStatus(string i_Text)
         {
             try
@@ -306,13 +289,11 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("Error posting status. Please try again");
             }
         }
-
         private void buttonPostStatus_Click(object sender, EventArgs e)
         {
             postStatus(textBoxPostStatus.Text);
             textBoxPostStatus.Text = "";
         }
-
         private void buttonPostSchedStatus_Click(object sender, EventArgs e)
         {
             try
@@ -332,12 +313,10 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void scheduledPostTriggered(ScheduledPost i_Post)
         {
             postStatus(i_Post.Message);
         }
-
         private void addPostToScheduler(ScheduledPost i_Post)
         {
             if (m_PostScheduler.Count >= m_PostScheduler.MaxPosts)
@@ -349,7 +328,6 @@ namespace BasicFacebookFeatures
             m_PostScheduler.Schedule(i_Post);
             createScheduledPostEntry(i_Post);
         }
-
         private void removePostFromScheduler(ScheduledPost i_Post)
         {
             listBoxScheduledPosts.Items.Remove(i_Post);
@@ -359,17 +337,14 @@ namespace BasicFacebookFeatures
             m_PostScheduler.Cancel(i_Post);
             removeScheduledPostEntry(i_Post);
         }
-
         private void createScheduledPostEntry(ScheduledPost i_Post)
         {
             listBoxScheduledPosts.Items.Add(i_Post);
         }
-
         private void removeScheduledPostEntry(ScheduledPost i_Post)
         {
             listBoxScheduledPosts.Items.Remove(i_Post);
         }
-
         private void listBoxScheduledPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
@@ -380,7 +355,6 @@ namespace BasicFacebookFeatures
                 $"Message: \"{post.Message}\"";
             }
         }
-
         private void buttonScheduledPostRemove_Click(object sender, EventArgs e)
         {
             if (listBoxScheduledPosts.SelectedItem is ScheduledPost post)
@@ -388,49 +362,27 @@ namespace BasicFacebookFeatures
                 removePostFromScheduler(post);
             }
         }
-
         private void addDataToChartCategories()
         {
             Series series = chartCategories.Series["Series1"];
-            foreach (var kvp in m_PagesStats.Categories)
-            {
-                series.Points.AddXY(kvp.Key, kvp.Value);
-            }
+            m_Stats.AddDataToPieChart(series);
         }
-
-        private void addTextToIsPublishedTextBox()
+        private void addTextToILowerTextBox()
         {
-            IsPublishedTextBox.Text = $@"There Are 
-{m_PagesStats.NumberOfPublishedPages} Published Pages 
-and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
- unPublished Pages ";
-
+            m_Stats.AddTextToSecondTextBox(TextBoxUpper);
         }
-
-        private void addTextToCommunityTextBox()
+        private void addTextToUpperTextBox()
         {
-            IsCummunityTextBox.Text = $@"There Are 
-{m_PagesStats.NumberOfCommunityPages} Community Pages 
-and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
- Community Pages ";
+            m_Stats.AddTextToFirstTextBox(TextBoxBottum);
         }
-
-        private void addItemsToListTopCheckInPages()
+        private void addItemsToUpperListView()
         {
-            foreach (var page in m_PagesStats.Top4MostCheckInPages)
-            {
-                listTopCheckinPages.Items.Add(page.Name);
-            }
+            m_Stats.AddDataToFirstListView(lisViewTop);
         }
-
-        private void addItemsToListTopLikedPages()
+        private void addItemsToLowerListView()
         {
-            foreach (var page in m_PagesStats.Top4MostLikedPages)
-            {
-                listViewTop4LikedPages.Items.Add(page.Name);
-            }
+            m_Stats.AddDataToSecondListView(listViewBottum);
         }
-
         private void tabPageStats_Selected(object sender, TabControlEventArgs e)
         {
             if (tabControl.SelectedTab.Name == "tabPageStatistic")
@@ -449,17 +401,17 @@ and {PageStatistics.k_PagesCollectionSize - m_PagesStats.NumberOfPublishedPages}
                     return;
                 }
 
-                if (listTopCheckinPages.Items.Count == 0)
+                if (m_Stats == null)
                 {
-                    m_PagesStats = m_PagesStats.GetPageStatistics(FBService.User.LikedPages);
-                    addItemsToListTopCheckInPages();
-                    addItemsToListTopLikedPages();
-                    addTextToCommunityTextBox();
-                    addTextToIsPublishedTextBox();
+                    m_Stats = new ProxyStatisticHandler("tabPageStatistic");
+                    m_Stats.ProcessStatistic();
+                    addItemsToUpperListView();
+                    addItemsToLowerListView();
+                    addTextToUpperTextBox();
+                    addTextToILowerTextBox();
                     addDataToChartCategories();
                 }
             }
         }
-   
     }
 }
