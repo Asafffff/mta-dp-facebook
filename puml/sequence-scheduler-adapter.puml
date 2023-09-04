@@ -1,20 +1,20 @@
 @startuml
-participant FormUI
-participant Post
-participant PostSchedulerAdapter
-participant PostScheduler
-participant FBService
+participant ":FormUI"
+participant ":Post"
+participant ":PostSchedulerAdapter"
+participant ":PostScheduler"
+participant ":FBService"
 
-FormUI -> Post: Create a new Post object
-Post --> FormUI: Return Post object
-FormUI -> PostSchedulerAdapter: Schedule Post for dispatch
-PostSchedulerAdapter -\\ PostScheduler: Delegate Schedule
+":FormUI" -> ":Post": Create a new Post object
+":Post" --> ":FormUI": Return Post object
+":FormUI" -> ":PostSchedulerAdapter": Schedule Post for dispatch
+":PostSchedulerAdapter" -\\ ":PostScheduler": Delegate Schedule
 
 group Task.Delay (ms)
-    PostScheduler -> PostScheduler: ScheduleAt
+    ":PostScheduler" -> ":PostScheduler": ScheduleAt
 end
 
-PostScheduler -> Post: Trigger dispatch event
-Post -> FBService: Post Status
+":PostScheduler" -> ":Post": Trigger dispatch event
+":Post" -> ":FBService": Post Status
 
 @enduml

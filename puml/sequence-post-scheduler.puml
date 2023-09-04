@@ -13,7 +13,7 @@ group Task.Delay (ms)
     PostScheduler -> PostScheduler: ScheduleAt
 end
 
-PostScheduler -> Post: Trigger dispatch event
+PostScheduler --> Post: Trigger dispatch event
 Post -> FacebookService: Post Status
 
 @enduml
