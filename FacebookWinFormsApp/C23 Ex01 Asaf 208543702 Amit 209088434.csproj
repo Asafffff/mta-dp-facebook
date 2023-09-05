@@ -90,6 +90,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PageStatisticsGenerator\IStatisticHandler.cs" />
+    <Compile Include="PageStatisticsGenerator\ProxyStatisticHandler.cs" />
     <Compile Include="Schedulers\IScheduler.cs" />
     <Compile Include="FBService\FBService.cs" />
     <Compile Include="FormMain.cs">
