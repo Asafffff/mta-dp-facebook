@@ -1,19 +1,27 @@
 @startuml
 participant FormUI order 10
 participant FacebookService order 30
+skinparam style strictuml
+skinparam sequenceParticipant underline
  
-FormUI -> FacebookService : Get liked pages
+FormUI ->(15) FacebookService : Get liked pages
 activate FacebookService 
 return <<FacebookObjectCollection<Page>>>
 
-create PageStatistic order 20 
+create ProxyStatisticHandler order 20 
 
-FormUI -> PageStatistic : Get Pages Statistic ( FacebookObjectCollection<Page>)
-activate PageStatistic 
-PageStatistic -> PageStatistic : Calculate Statistic 
+FormUI -> ProxyStatisticHandler: Get Pages Statistic ( FacebookObjectCollection<Page>)
+activate ProxyStatisticHandler
 
+opt Case: Create Page Statistic
+create PageStatistics order 24
+ProxyStatisticHandler-> PageStatistics: <<create>>
+activate PageStatistics
+PageStatistics-> PageStatistics: Calculate Statistic
 return <<PageStatistic >> 
+end
 
+return <<IStatisticHandler>>
 
 FormUI -> FormUI : Update FormUI
 @enduml
