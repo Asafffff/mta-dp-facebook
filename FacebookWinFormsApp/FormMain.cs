@@ -367,21 +367,21 @@ namespace BasicFacebookFeatures
             Series series = chartCategories.Series["Series1"];
             m_Stats.AddDataToPieChart(series);
         }
-        private void addTextToILowerTextBox()
+        private void addTextToLowerTextBox()
         {
             m_Stats.AddTextToSecondTextBox(TextBoxUpper);
         }
         private void addTextToUpperTextBox()
         {
-            m_Stats.AddTextToFirstTextBox(TextBoxBottum);
+            m_Stats.AddTextToFirstTextBox(TextBoxBottom);
         }
         private void addItemsToUpperListView()
         {
-            m_Stats.AddDataToFirstListView(lisViewTop);
+            m_Stats.AddDataToFirstListView(listViewTop);
         }
         private void addItemsToLowerListView()
         {
-            m_Stats.AddDataToSecondListView(listViewBottum);
+            m_Stats.AddDataToSecondListView(listViewBottom);
         }
         private void tabPageStats_Selected(object sender, TabControlEventArgs e)
         {
@@ -408,7 +408,7 @@ namespace BasicFacebookFeatures
                     addItemsToUpperListView();
                     addItemsToLowerListView();
                     addTextToUpperTextBox();
-                    addTextToILowerTextBox();
+                    addTextToLowerTextBox();
                     addDataToChartCategories();
                 }
             }

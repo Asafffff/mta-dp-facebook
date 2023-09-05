@@ -27,8 +27,6 @@ namespace BasicFacebookFeatures.PageStatisticsGenerator
                 case eStatisticTypesStr.tabPageStatistic:
                     m_RealHandler = new PageStatistics();
                     break;
-                //case StatisticTypeStr.tabTeamsStatistic:
-                // m_RealHandler= new TeamsStatistic();
                 default:
                     throw new NotImplementedException();
             }

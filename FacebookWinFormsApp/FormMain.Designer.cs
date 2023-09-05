@@ -66,10 +66,10 @@ namespace BasicFacebookFeatures
             this.labelPostScheduling = new System.Windows.Forms.Label();
             this.tabPageStatistic = new System.Windows.Forms.TabPage();
             this.labelTop4LikedPages = new System.Windows.Forms.Label();
-            this.listViewBottum = new System.Windows.Forms.ListView();
+            this.listViewBottom = new System.Windows.Forms.ListView();
             this.labelTop4CheckinsPages = new System.Windows.Forms.Label();
-            this.lisViewTop = new System.Windows.Forms.ListView();
-            this.TextBoxBottum = new System.Windows.Forms.RichTextBox();
+            this.listViewTop = new System.Windows.Forms.ListView();
+            this.TextBoxBottom = new System.Windows.Forms.RichTextBox();
             this.TextBoxUpper = new System.Windows.Forms.RichTextBox();
             this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl.SuspendLayout();
@@ -415,10 +415,10 @@ namespace BasicFacebookFeatures
             // tabPageStatistic
             // 
             this.tabPageStatistic.Controls.Add(this.labelTop4LikedPages);
-            this.tabPageStatistic.Controls.Add(this.listViewBottum);
+            this.tabPageStatistic.Controls.Add(this.listViewBottom);
             this.tabPageStatistic.Controls.Add(this.labelTop4CheckinsPages);
-            this.tabPageStatistic.Controls.Add(this.lisViewTop);
-            this.tabPageStatistic.Controls.Add(this.TextBoxBottum);
+            this.tabPageStatistic.Controls.Add(this.listViewTop);
+            this.tabPageStatistic.Controls.Add(this.TextBoxBottom);
             this.tabPageStatistic.Controls.Add(this.TextBoxUpper);
             this.tabPageStatistic.Controls.Add(this.chartCategories);
             this.tabPageStatistic.Location = new System.Drawing.Point(4, 35);
@@ -441,14 +441,14 @@ namespace BasicFacebookFeatures
             // 
             // listViewBottum
             // 
-            this.listViewBottum.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.listViewBottum.HideSelection = false;
-            this.listViewBottum.Location = new System.Drawing.Point(0, 324);
-            this.listViewBottum.Name = "listViewBottum";
-            this.listViewBottum.Size = new System.Drawing.Size(342, 191);
-            this.listViewBottum.TabIndex = 43;
-            this.listViewBottum.UseCompatibleStateImageBehavior = false;
-            this.listViewBottum.View = System.Windows.Forms.View.List;
+            this.listViewBottom.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listViewBottom.HideSelection = false;
+            this.listViewBottom.Location = new System.Drawing.Point(0, 324);
+            this.listViewBottom.Name = "listViewBottum";
+            this.listViewBottom.Size = new System.Drawing.Size(342, 191);
+            this.listViewBottom.TabIndex = 43;
+            this.listViewBottom.UseCompatibleStateImageBehavior = false;
+            this.listViewBottom.View = System.Windows.Forms.View.List;
             // 
             // labelTop4CheckinsPages
             // 
@@ -463,24 +463,24 @@ namespace BasicFacebookFeatures
             // 
             // lisViewTop
             // 
-            this.lisViewTop.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lisViewTop.HideSelection = false;
-            this.lisViewTop.Location = new System.Drawing.Point(-4, 75);
-            this.lisViewTop.Name = "lisViewTop";
-            this.lisViewTop.Size = new System.Drawing.Size(342, 191);
-            this.lisViewTop.TabIndex = 41;
-            this.lisViewTop.UseCompatibleStateImageBehavior = false;
-            this.lisViewTop.View = System.Windows.Forms.View.List;
+            this.listViewTop.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.listViewTop.HideSelection = false;
+            this.listViewTop.Location = new System.Drawing.Point(-4, 75);
+            this.listViewTop.Name = "lisViewTop";
+            this.listViewTop.Size = new System.Drawing.Size(342, 191);
+            this.listViewTop.TabIndex = 41;
+            this.listViewTop.UseCompatibleStateImageBehavior = false;
+            this.listViewTop.View = System.Windows.Forms.View.List;
             // 
             // TextBoxBottum
             // 
-            this.TextBoxBottum.BackColor = System.Drawing.Color.Coral;
-            this.TextBoxBottum.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBoxBottum.Location = new System.Drawing.Point(858, 324);
-            this.TextBoxBottum.Name = "TextBoxBottum";
-            this.TextBoxBottum.Size = new System.Drawing.Size(346, 191);
-            this.TextBoxBottum.TabIndex = 40;
-            this.TextBoxBottum.Text = "";
+            this.TextBoxBottom.BackColor = System.Drawing.Color.Coral;
+            this.TextBoxBottom.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxBottom.Location = new System.Drawing.Point(858, 324);
+            this.TextBoxBottom.Name = "TextBoxBottum";
+            this.TextBoxBottom.Size = new System.Drawing.Size(346, 191);
+            this.TextBoxBottom.TabIndex = 40;
+            this.TextBoxBottom.Text = "";
             // 
             // TextBoxUpper
             // 
@@ -578,11 +578,11 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Button buttonScheduledPostRemove;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCategories;
         private System.Windows.Forms.RichTextBox TextBoxUpper;
-        private System.Windows.Forms.RichTextBox TextBoxBottum;
-        private System.Windows.Forms.ListView lisViewTop;
+        private System.Windows.Forms.RichTextBox TextBoxBottom;
+        private System.Windows.Forms.ListView listViewTop;
         private Label labelTop4CheckinsPages;
         private Label labelTop4LikedPages;
-        private ListView listViewBottum;
+        private ListView listViewBottom;
     }
 }
 
