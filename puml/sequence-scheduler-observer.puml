@@ -1,0 +1,18 @@
+@startuml
+participant ":FormUI"
+participant ":ScheduledPost"
+participant ":PostScheduler"
+participant ":FBService"
+
+":FormUI" -> ":ScheduledPost": Create a new Post object
+":ScheduledPost" --> ":FormUI": Return Post object
+":FormUI" -> ":PostScheduler": Schedule Post for dispatch
+
+group Task.Delay (ms)
+    ":PostScheduler" -> ":PostScheduler": ScheduleAt
+end
+
+":PostScheduler" -> ":ScheduledPost": Trigger dispatch event
+":ScheduledPost" -> ":FBService": Post Status
+
+@enduml

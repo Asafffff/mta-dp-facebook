@@ -1,0 +1,33 @@
+@startuml
+class "FormUI (Client)" as FormUI {
++  +Stats:ProxyStatisticHandler
++ -Page Statistic Selected()
+}
+
+interface "IStatisticHandler" as IStatisticHandler{
++  +Process Data()
++  +Update Controls()
+}
+
+class "ProxyStatisticHandler" as ProxyStatisticHandler{
++  +<<IStatisticHandler>> RealHandler 
+
+}
+
+class "PageStatistics"  {
++  + NumberOfCategories 
++  +NumberOfCommunityPages 
++  +<<FacebookObjectCollection<Page>>>Top4MostCheckInPages 
++  +<<FacebookObjectCollection<Page>>>Top4MostLikedPages
++  +<<Dictionary>> Categories 
+}
+
+
+
+FormUI o-- "0..1" ProxyStatisticHandler
+ProxyStatisticHandler*-- "0..1" IStatisticHandler
+ProxyStatisticHandler<|.. IStatisticHandler
+PageStatistics<|.. IStatisticHandler
+
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+class "FormUI (Client)" as client {
+  - scheduledPostTriggered
+}
+
+class "FBService" as fbService{
+  + PostStatus()
+}
+
+class "PostScheduler (Observer)" as observer {
+  - m_ScheduledPosts
+  +<<property>> Count
+  +<<property>> MaxPosts
+  +Schedule(ScheduledPost post)
+  +Cancel(ScheduledPost post)
+}
+
+class "ScheduledPost (Observable)" as observable {
+  +<<property>> Id
+  +<<property>> Message
+  +<<property>> ScheduledAt
+  +<<event>> ScheduleTriggered
+  +OnScheduleTrigger()
+}
+
+
+
+client ----> observable: "Subscribe FBService\nPostStatus using\nScheduleTriggered event"
+client -> observer : Add Post to Scheduler
+client o----- fbService
+observer -----> observable: Triggers
+observer *-- observable
+
+@enduml
