@@ -1,0 +1,24 @@
+@startuml
+class "IListsUpdater" as IListsUpdater{
++ #SortPages()  
++ +AddTopPages()
+}
+
+class MostLikedPagesUpdater {
++ #SortPages()  
+}
+
+class MostCheckInUpdater {
++  #SortPages()   
+
+}
+
+class "PageStatistics"  {
++  +<<FacebookObjectCollection<Page>>>Top4MostCheckInPages 
++  +<<FacebookObjectCollection<Page>>>Top4MostLikedPages
+}
+
+IListsUpdater <|-- MostCheckInUpdater 
+IListsUpdater <|-- MostLikedPagesUpdater 
+PageStatistics --> IListsUpdater
+@enduml
