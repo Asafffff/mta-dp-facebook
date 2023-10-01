@@ -13,5 +13,5 @@ namespace BasicFacebookFeatures.PageStatisticsGenerator
         {
             i_Pages.OrderBy(page => page.LikesCount);
         }
-        }
     }
+}
