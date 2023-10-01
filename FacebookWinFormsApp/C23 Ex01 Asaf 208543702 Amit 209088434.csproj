@@ -91,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PageStatisticsGenerator\IStatisticHandler.cs" />
+    <Compile Include="PageStatisticsGenerator\MostCheckInUpdater.cs" />
+    <Compile Include="PageStatisticsGenerator\MostLikedPagesUpdater.cs" />
+    <Compile Include="PageStatisticsGenerator\ListsUpdater.cs" />
     <Compile Include="PageStatisticsGenerator\ProxyStatisticHandler.cs" />
     <Compile Include="Schedulers\IScheduler.cs" />
     <Compile Include="FBService\FBService.cs" />
