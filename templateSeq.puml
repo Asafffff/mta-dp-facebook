@@ -1,0 +1,28 @@
+@startuml
+participant FormUI order 10
+skinparam style strictuml
+skinparam sequenceParticipant underline
+ 
+
+create PageStatistic order 20 
+
+FormUI -> PageStatistic : Get Pages Statistic ( FacebookObjectCollection<Page>)
+
+create MostLikedPagesUpdater order 20 
+PageStatistic -> MostLikedPagesUpdater: <<create>>
+
+activate MostLikedPagesUpdater
+MostLikedPagesUpdater-> ListsUpdater: update
+ListsUpdater-> MostLikedPagesUpdater : Sort By Most Liked Pages
+return
+
+create MostCheckInUpdaterorder 20 
+PageStatistic -> MostCheckInUpdater: <<create>>
+
+activate MostCheckInUpdater
+MostCheckInUpdater-> ListsUpdater: update
+ListsUpdater-> MostCheckInUpdater: Sort By Most CheckIn Pages
+return
+
+
+@enduml
