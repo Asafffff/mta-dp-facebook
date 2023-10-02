@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Schedulers\IScheduledItem.cs" />
     <Compile Include="PageStatisticsGenerator\PageStatistics.cs" />
+    <Compile Include="Schedulers\PostScheduler\DatePostIterator.cs" />
     <Compile Include="Schedulers\PostScheduler\PostScheduler.cs" />
     <Compile Include="Schedulers\PostScheduler\PostSchedulerAdapter.cs" />
     <Compile Include="Program.cs" />

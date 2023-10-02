@@ -56,6 +56,7 @@ namespace BasicFacebookFeatures
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPagePostScheduling = new System.Windows.Forms.TabPage();
+            this.DateIteratorLabel = new System.Windows.Forms.Label();
             this.buttonScheduledPostRemove = new System.Windows.Forms.Button();
             this.textBoxScheduledPostDetails = new System.Windows.Forms.TextBox();
             this.listBoxScheduledPosts = new System.Windows.Forms.ListBox();
@@ -72,6 +73,7 @@ namespace BasicFacebookFeatures
             this.TextBoxBottom = new System.Windows.Forms.RichTextBox();
             this.TextBoxUpper = new System.Windows.Forms.RichTextBox();
             this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -317,6 +319,8 @@ namespace BasicFacebookFeatures
             // 
             // tabPagePostScheduling
             // 
+            this.tabPagePostScheduling.Controls.Add(this.button1);
+            this.tabPagePostScheduling.Controls.Add(this.DateIteratorLabel);
             this.tabPagePostScheduling.Controls.Add(this.buttonScheduledPostRemove);
             this.tabPagePostScheduling.Controls.Add(this.textBoxScheduledPostDetails);
             this.tabPagePostScheduling.Controls.Add(this.listBoxScheduledPosts);
@@ -332,6 +336,15 @@ namespace BasicFacebookFeatures
             this.tabPagePostScheduling.TabIndex = 1;
             this.tabPagePostScheduling.Text = "Post Scheduling";
             this.tabPagePostScheduling.UseVisualStyleBackColor = true;
+            // 
+            // DateIteratorLabel
+            // 
+            this.DateIteratorLabel.AutoSize = true;
+            this.DateIteratorLabel.Location = new System.Drawing.Point(101, 214);
+            this.DateIteratorLabel.Name = "DateIteratorLabel";
+            this.DateIteratorLabel.Size = new System.Drawing.Size(168, 26);
+            this.DateIteratorLabel.TabIndex = 84;
+            this.DateIteratorLabel.Text = "Filtered By Date";
             // 
             // buttonScheduledPostRemove
             // 
@@ -368,7 +381,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelScheduledPosts.AutoSize = true;
             this.labelScheduledPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScheduledPosts.Location = new System.Drawing.Point(11, 180);
+            this.labelScheduledPosts.Location = new System.Drawing.Point(9, 139);
             this.labelScheduledPosts.Name = "labelScheduledPosts";
             this.labelScheduledPosts.Size = new System.Drawing.Size(361, 52);
             this.labelScheduledPosts.TabIndex = 79;
@@ -517,6 +530,16 @@ namespace BasicFacebookFeatures
             title1.Text = "Page\'s Category Division";
             this.chartCategories.Titles.Add(title1);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(393, 214);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 85;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
@@ -530,7 +553,6 @@ namespace BasicFacebookFeatures
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-           
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.tabPageMain.PerformLayout();
@@ -584,6 +606,8 @@ namespace BasicFacebookFeatures
         private Label labelTop4CheckinsPages;
         private Label labelTop4LikedPages;
         private ListView listViewBottom;
+        private Label DateIteratorLabel;
+        private Button button1;
     }
 }
 
