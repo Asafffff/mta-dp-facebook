@@ -30,10 +30,10 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -56,6 +56,7 @@ namespace BasicFacebookFeatures
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPagePostScheduling = new System.Windows.Forms.TabPage();
+            this.DateIteratorLabel = new System.Windows.Forms.Label();
             this.buttonScheduledPostRemove = new System.Windows.Forms.Button();
             this.textBoxScheduledPostDetails = new System.Windows.Forms.TextBox();
             this.listBoxScheduledPosts = new System.Windows.Forms.ListBox();
@@ -72,6 +73,7 @@ namespace BasicFacebookFeatures
             this.TextBoxBottom = new System.Windows.Forms.RichTextBox();
             this.TextBoxUpper = new System.Windows.Forms.RichTextBox();
             this.chartCategories = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -317,6 +319,8 @@ namespace BasicFacebookFeatures
             // 
             // tabPagePostScheduling
             // 
+            this.tabPagePostScheduling.Controls.Add(this.button1);
+            this.tabPagePostScheduling.Controls.Add(this.DateIteratorLabel);
             this.tabPagePostScheduling.Controls.Add(this.buttonScheduledPostRemove);
             this.tabPagePostScheduling.Controls.Add(this.textBoxScheduledPostDetails);
             this.tabPagePostScheduling.Controls.Add(this.listBoxScheduledPosts);
@@ -332,6 +336,15 @@ namespace BasicFacebookFeatures
             this.tabPagePostScheduling.TabIndex = 1;
             this.tabPagePostScheduling.Text = "Post Scheduling";
             this.tabPagePostScheduling.UseVisualStyleBackColor = true;
+            // 
+            // DateIteratorLabel
+            // 
+            this.DateIteratorLabel.AutoSize = true;
+            this.DateIteratorLabel.Location = new System.Drawing.Point(101, 214);
+            this.DateIteratorLabel.Name = "DateIteratorLabel";
+            this.DateIteratorLabel.Size = new System.Drawing.Size(168, 26);
+            this.DateIteratorLabel.TabIndex = 84;
+            this.DateIteratorLabel.Text = "Filtered By Date";
             // 
             // buttonScheduledPostRemove
             // 
@@ -368,7 +381,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelScheduledPosts.AutoSize = true;
             this.labelScheduledPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScheduledPosts.Location = new System.Drawing.Point(11, 180);
+            this.labelScheduledPosts.Location = new System.Drawing.Point(9, 139);
             this.labelScheduledPosts.Name = "labelScheduledPosts";
             this.labelScheduledPosts.Size = new System.Drawing.Size(361, 52);
             this.labelScheduledPosts.TabIndex = 79;
@@ -400,7 +413,7 @@ namespace BasicFacebookFeatures
             this.dateTimePickerPostSchedStatus.Name = "dateTimePickerPostSchedStatus";
             this.dateTimePickerPostSchedStatus.Size = new System.Drawing.Size(237, 32);
             this.dateTimePickerPostSchedStatus.TabIndex = 1;
-            this.dateTimePickerPostSchedStatus.Value = System.DateTime.Now;
+            this.dateTimePickerPostSchedStatus.Value = new System.DateTime(2023, 10, 1, 12, 4, 9, 458);
             // 
             // labelPostScheduling
             // 
@@ -439,12 +452,12 @@ namespace BasicFacebookFeatures
             this.labelTop4LikedPages.TabIndex = 44;
             this.labelTop4LikedPages.Text = "Top 4 Liked Pages";
             // 
-            // listViewBottum
+            // listViewBottom
             // 
             this.listViewBottom.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listViewBottom.HideSelection = false;
             this.listViewBottom.Location = new System.Drawing.Point(0, 324);
-            this.listViewBottom.Name = "listViewBottum";
+            this.listViewBottom.Name = "listViewBottom";
             this.listViewBottom.Size = new System.Drawing.Size(342, 191);
             this.listViewBottom.TabIndex = 43;
             this.listViewBottom.UseCompatibleStateImageBehavior = false;
@@ -461,23 +474,23 @@ namespace BasicFacebookFeatures
             this.labelTop4CheckinsPages.TabIndex = 42;
             this.labelTop4CheckinsPages.Text = "Top 4 Check-Ins Pages";
             // 
-            // lisViewTop
+            // listViewTop
             // 
             this.listViewTop.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listViewTop.HideSelection = false;
             this.listViewTop.Location = new System.Drawing.Point(-4, 75);
-            this.listViewTop.Name = "lisViewTop";
+            this.listViewTop.Name = "listViewTop";
             this.listViewTop.Size = new System.Drawing.Size(342, 191);
             this.listViewTop.TabIndex = 41;
             this.listViewTop.UseCompatibleStateImageBehavior = false;
             this.listViewTop.View = System.Windows.Forms.View.List;
             // 
-            // TextBoxBottum
+            // TextBoxBottom
             // 
             this.TextBoxBottom.BackColor = System.Drawing.Color.Coral;
             this.TextBoxBottom.Font = new System.Drawing.Font("Microsoft YaHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxBottom.Location = new System.Drawing.Point(858, 324);
-            this.TextBoxBottom.Name = "TextBoxBottum";
+            this.TextBoxBottom.Name = "TextBoxBottom";
             this.TextBoxBottom.Size = new System.Drawing.Size(346, 191);
             this.TextBoxBottom.TabIndex = 40;
             this.TextBoxBottom.Text = "";
@@ -494,28 +507,38 @@ namespace BasicFacebookFeatures
             // 
             // chartCategories
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCategories.ChartAreas.Add(chartArea2);
-            legend2.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-            legend2.IsDockedInsideChartArea = false;
-            legend2.Name = "Legend1";
-            this.chartCategories.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chartCategories.ChartAreas.Add(chartArea1);
+            legend1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            legend1.IsDockedInsideChartArea = false;
+            legend1.Name = "Legend1";
+            this.chartCategories.Legends.Add(legend1);
             this.chartCategories.Location = new System.Drawing.Point(388, 74);
             this.chartCategories.Name = "chartCategories";
             this.chartCategories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.IsValueShownAsLabel = true;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCategories.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCategories.Series.Add(series1);
             this.chartCategories.Size = new System.Drawing.Size(426, 403);
             this.chartCategories.TabIndex = 38;
             this.chartCategories.Text = "Categories";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            title2.Name = "Title1";
-            title2.Text = "Page\'s Category Division";
-            this.chartCategories.Titles.Add(title2);
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            title1.Name = "Title1";
+            title1.Text = "Page\'s Category Division";
+            this.chartCategories.Titles.Add(title1);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(393, 214);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 85;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormMain
             // 
@@ -583,6 +606,8 @@ namespace BasicFacebookFeatures
         private Label labelTop4CheckinsPages;
         private Label labelTop4LikedPages;
         private ListView listViewBottom;
+        private Label DateIteratorLabel;
+        private Button button1;
     }
 }
 

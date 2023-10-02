@@ -10,6 +10,7 @@ namespace BasicFacebookFeatures
     public class PageStatistics:IStatisticHandler
     {
         public const int k_PagesCollectionSize = 25;
+        
         public int NumberOfCategories { get; private set; }
         public int NumberOfPublishedPages { get; private set; }
         public int NumberOfCommunityPages { get; private set; }
@@ -36,22 +37,17 @@ namespace BasicFacebookFeatures
                     Categories[i_Page.Category]++;
                 }
         }
-        private void updateTop4MostLikedPages(FacebookObjectCollection<Page> i_Pages)
+        private void updateTopMostLikedPages(FacebookObjectCollection<Page> i_Pages)
         {
-            i_Pages.OrderByDescending(i_Page => i_Page.LikesCount);
-
-            for (int i = k_PagesCollectionSize-1; i >= k_PagesCollectionSize-4 && i < i_Pages.Count; i--)
-            {
-                Top4MostLikedPages.Add(i_Pages[i]);
-            }
+            MostLikedPagesUpdater likedPageUpdater = new MostLikedPagesUpdater();
+            likedPageUpdater.AddTopPages(i_Pages, Top4MostLikedPages);
+            
         }
-        private void updateTop4MostCheckInPages(FacebookObjectCollection<Page> i_Pages)
+        private void updateTopMostCheckInPages(FacebookObjectCollection<Page> i_Pages)
         {
-            i_Pages.OrderByDescending(i_Page => i_Page.CheckinsCount);
-            for (int i = k_PagesCollectionSize - 1; i >= k_PagesCollectionSize - 4 && i < i_Pages.Count; i--)
-            {
-                Top4MostCheckInPages.Add(i_Pages[i]);
-            }
+            MostCheckInUpdater likedPageUpdater = new MostCheckInUpdater();
+            likedPageUpdater.AddTopPages(i_Pages, Top4MostCheckInPages);
+            
         }
         public void ProcessStatistic()
         {
@@ -69,8 +65,8 @@ namespace BasicFacebookFeatures
                 }
                 updateCategories(page);
             }
-            updateTop4MostLikedPages(likedPages);
-            updateTop4MostCheckInPages(likedPages);
+            updateTopMostLikedPages(likedPages);
+            updateTopMostCheckInPages(likedPages);
         }
         public void AddDataToPieChart(Series i_Series)
         {

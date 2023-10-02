@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
 using BasicFacebookFeatures.PageStatisticsGenerator;
+using BasicFacebookFeatures.Schedulers.PostScheduler;
 
 namespace BasicFacebookFeatures
 {
@@ -17,7 +18,8 @@ namespace BasicFacebookFeatures
         private IScheduler m_PostScheduler = new PostSchedulerAdapter(new PostScheduler());
         private ProxyStatisticHandler m_Stats;
         private List<PictureBox> m_PhotosNameInControl = new List<PictureBox>();
-        
+        private List<ScheduledPost> SchedulededPosts = new List<ScheduledPost> ();
+
         public FormMain()
         {
             InitializeComponent();
@@ -89,7 +91,7 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = System.Drawing.Color.LightSkyBlue;
             buttonLogout.BackColor = System.Drawing.Color.Transparent;
-            
+
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
 
@@ -117,7 +119,7 @@ namespace BasicFacebookFeatures
         }
         private void clearPhotosFromControl()
         {
-            foreach(PictureBox name in m_PhotosNameInControl)
+            foreach (PictureBox name in m_PhotosNameInControl)
             {
                 tabPageMain.Controls.Remove(name);
             }
@@ -176,7 +178,7 @@ namespace BasicFacebookFeatures
                     }
                 }));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -303,6 +305,7 @@ namespace BasicFacebookFeatures
                 post.ScheduleTriggered += scheduledPostTriggered;
                 post.ScheduleTriggered += removePostFromScheduler;
                 addPostToScheduler(post);
+                SchedulededPosts.Add(post);
             }
             catch (ArgumentNullException ex)
             {
@@ -412,6 +415,32 @@ namespace BasicFacebookFeatures
                     addDataToChartCategories();
                 }
             }
+        }
+
+
+        
+        private void DisplayPostsForSpecificDay(DateTime targetDate)
+        {
+            listBoxScheduledPosts.Items.Clear();
+
+            if (FBService.User != null && FBService.User.Posts != null)
+            {
+                DatePostIterator postIterator = new DatePostIterator(SchedulededPosts, targetDate);
+
+                foreach (var post in postIterator)
+                {
+                    listBoxScheduledPosts.Items.Add(post);                }
+            } 
+        }
+
+        //private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        //{
+          //  DisplayPostsForSpecificDay(dateTimePicker1.Value.Date);
+        //}
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DisplayPostsForSpecificDay(DateTime.Now.Date);
         }
     }
 }
